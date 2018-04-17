@@ -74,11 +74,20 @@ function leaveQuestion(){
 </div>
 <div>
 
-<table class='w3-table w3-bordered' style="border:black;">
-<tr><td width="10%" class="w3-black">이름</td><td>${study.studyName }</td></tr>
+
+
+
+<table class='w3-table w3-bordered' style="border:black; max-width: 90%;" align="center">
+
+<tr><td class="w3-black">이름</td><td>${study.studyName }</td>
+<td rowspan="3" width="30%">
+<div class="w3-display-container">
+<img src="<%=request.getContextPath() %>/fileSave/${study.study_pro}" width="100%" class="w3-card-4 w3-border" >
+<div class="w3-small w3-white w3-border w3-tag w3-display-bottomright">대표 사진</div>
+</div></td></tr>
 <tr><td class="w3-black">개설일</td><td>${study.openDate }</td></tr>
 <tr><td class="w3-black">소개</td><td>${study.study_intro}</td></tr>
-<tr><td class="w3-black">회원 목록 (총 ${memberCount}명)</td>
+<tr><td class="w3-black">회원 목록<br><span class="w3-small">(총 ${memberCount}명)</span></td>
 <td><ul class="w3-ul">
 	
 	<c:forEach var="member" items="${members }">
@@ -86,12 +95,10 @@ function leaveQuestion(){
 	<c:if test="${(member.photo!=null)&&(member.photo!='')}"><img src="<%=request.getContextPath()%>/fileSave/${member.photo}" width="30px"></c:if>
 	<c:if test="${(member.photo==null)||(member.photo=='')}"><img src="<%=request.getContextPath()%>/imgs/profile.png" width="30px"></c:if>
 	${member.nickName } (${member.memberId }) 
-	<c:if test="${member.position =='방장'}">
-	<span class="w3-tag w3-teal w3-border">${member.position }</span>
+	<c:if test="${member.memberId ==member.leader}">
+	<span class="w3-tag w3-teal w3-border w3-small">방장</span>
 	</c:if>
-	<c:if test="${member.position !='방장'}">
-	<span class="w3-tag w3-white w3-border">${member.position }</span>
-	</c:if>
+
 	</li>
 	
 	</c:forEach>

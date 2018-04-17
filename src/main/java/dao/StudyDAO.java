@@ -158,5 +158,13 @@ public int deleteStudy(String studyName) {
 	return chk;
 	
 }
+
+public void updateStudy(StudyVO study) {
+	sqlSession=sqlSession();
+	
+	sqlSession.update(namespace+".updateStudy",study);
+	sqlSession.commit();
+	sqlSession.close();
+}
 	
 }

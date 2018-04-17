@@ -73,6 +73,9 @@
 		 select nvl(max(id),0) from groupposition where studynum=#{studynum}
 	</select>
 	
+	<update id="updateStudy" parameterType="Study">
+	update studygroup set peoplecount=#{peopleCount}, leader=#{leader} where num=#{num}
+	</update>
 	
 	
 </mapper>

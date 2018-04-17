@@ -2,6 +2,7 @@ package controller;
 
 import java.io.FileOutputStream;
 import java.net.URLEncoder;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -523,6 +524,61 @@ public class PageController {
 		return "redirect:/page/study_info?studynum="+member.getStudynum();
 	}
 	
+	
+	@RequestMapping("/leaveQuestion")
+	public String leaveQuestion(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		autoComplete(mv);
+		HeaderInfo(req, mv);
+		String memberid=req.getParameter("name");
+		String group=req.getParameter("group");
+		
+		StudyVO study=studyDB.getOneStudy(group);
+		RelationVO memberInfo=relationDB.getMemberInfo(study.getStudyName(), memberid);
+		List memberlist=relationDB.getJoinMemberList(study.getStudyName());
+		
+		Iterator it=memberlist.iterator();
+		
+		while(it.hasNext()) {
+			RelationVO tmp=(RelationVO)it.next();
+			if(tmp.getMemberId()==memberid) {
+				memberlist.remove(tmp);
+			}
+			
+		}
+		
+		int membercount=memberlist.size();
+		mv.addAttribute("membercount",membercount);
+		mv.addAttribute("memberlist",memberlist);
+		mv.addAttribute("memberInfo",memberInfo);
+		
+		return "study/leaveQuestion";
+	}
+	
+	@RequestMapping("/leaveConfirm")
+	public String leaveConfirm(HttpServletRequest req, HttpServletResponse res,Model mv, String studynum, String memberId) throws Throwable {
+		autoComplete(mv);
+		HeaderInfo(req, mv);
+		
+		StudyVO study=studyDB.getOneStudy(studynum);
+		String leader=req.getParameter("leader");
+		
+		if(leader!=null) {
+			relationDB.changeLeader(studynum, req.getParameter("leader"));
+			study.setLeader(leader);
+			
+			
+		}else {
+	
+		relationDB.leaveStudy(studynum, memberId);
+		
+		}
+		
+		study.setPeopleCount(study.getPeopleCount()-1);
+		studyDB.updateStudy(study);
+		System.out.println("탈퇴시키기 성공");
+		
+		return "redirect:/page/study_info?studynum="+studynum;
+	}
 	
 	
 

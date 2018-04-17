@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+	<select id="login" resultType="String" parameterType="hashmap">
+		select passwd from member where memberid=#{memberid}
+	</select>
+	
+
+<select id="getMember" parameterType="hashmap" resultType="member">
+      select * from member WHERE memberid = #{memberid} 
+   </select>	
+   
+<insert id="logOuttime" parameterType="member"  >
+       update member set 
+      lastdate= sysdate  where memberid=#{memberid} 
+   </insert>      
+   	   
+   
+   
+ <update id="updateMember" parameterType="member">
+      update member set 
+		nickname=#{nickname},passwd=#{passwd},passwdq=#{passwdq},passwdkey=#{passwdkey} where memberid=#{memberid}
+   </update>  
+   
+   
+  <update id="deleteMember" parameterType="map">
+      delete from member where memberid=#{memberid} 
+				 and passwd =#{passwd}
+	
+  
+  </update>
+  
+  <select id="findPasswd" parameterType="hashmap" resultType="String">
+  
+  select passwdkey from member where memberid=#{memberid} and passwdq=#{passwdq}
+  
+  </select>
+  
+  
+  <!-- -for memberlist output -->
+  
+ 	<select id="getMembers" resultType="member" parameterType="hashmap">
+	select * from (select rownum rnum, a.* from (select num,passwd,memberid, nickname, joindate,lastdate
+ from member)a) where rnum between #{startRow} and #{endRow} order by joindate
+	</select> 
+  
+  
+  
+   
+   
+  <select id="getMemberCount" resultType="int">
+      SELECT nvl(count(*),0) FROM member
+   </select>
+  
+  
+ 
+  <select id="checkMember" resultType="String" parameterType="hashmap">
+		select passwd from member where memberid=#{memberid}
+	</select>
+	
+	<insert id="insertMember" parameterType="member">
+      insert into member(num, memberid, nickname, passwd, passwdq, passwdkey, joindate, lastdate) values(#{num},#{memberid},#{nickname},#{passwd},#{passwdq},#{passwdkey}, sysdate, sysdate )
+   </insert>
+
+<select id="getNextNumber" resultType="int"  parameterType="hashmap">
+	
+	select memberser.nextval from dual
+	
+	</select>
+	
+
+</mapper>

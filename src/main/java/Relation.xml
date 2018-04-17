@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="relation">
+	<insert id="requestJoin" parameterType="hashmap">
+		insert into studyrelation(memberId,studynum,studyName,joinPoint,nickName,
+		joinDate, lastDate, position, leader, status, photo)
+		values(#{memberid},#{studynum}, #{studyName},0,#{nickname},
+		sysdate,sysdate,'회원',#{leader},1,null)
+
+	</insert>
+
+	<select id="requestCount" resultType="int" parameterType="hashmap">
+		select nvl(count(*),0) from studyrelation where memberid=#{memberid} and status=1
+	</select>
+	<select id="responseCount" resultType="int" parameterType="hashmap">
+		select nvl(count(*),0) from studyrelation where leader=#{memberid} and status=1
+	</select>
+
+	<delete id="cancelJoin" parameterType="hashmap">
+		delete from studyrelation
+		where memberId=#{memberid}
+		and studyName=#{studyName}
+	</delete>
+	
+	<update id="peopleCountUp" parameterType="hashmap">
+		update studygroup set peoplecount=peoplecount+1 
+		where studyName=#{studyName} 
+	</update>
+	
+	<select id="requestList" resultType="Relation" parameterType="hashmap">
+	select * from (select rownum rnum ,a.* from 
+	(SELECT * FROM studyrelation WHERE memberid=#{memberid} and leader !=#{memberid} and status=1)
+					a ) where rnum  between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="responseList" resultType="Relation" parameterType="hashmap">
+		select * from (select rownum rnum ,a.* from 
+	(SELECT * FROM studyrelation WHERE leader=#{memberid} and status=1 )
+					a ) where rnum  between #{startRow} and #{endRow}
+	</select>
+
+	<update id="answerYes" parameterType="hashmap">
+		update studyrelation set status=2 
+		where memberid=#{memberid} and leader=#{leader}
+		and studyName=#{studyName}
+	</update>
+	
+	<update id="answerNo" parameterType="hashmap">
+		update studyrelation set status=0 
+		where memberid=#{memberid} and leader=#{leader}
+		and studyName=#{studyName}
+	</update>
+	
+	<select id="getMemberList" resultType="Relation" parameterType="hashmap">
+	select * from (select rownum rnum ,a.* from 
+	(SELECT * FROM studyrelation WHERE studyName=#{studyName} and status=2 )
+					a ) where rnum  between #{startRow} and #{endRow}
+	</select>				
+					
+					
+	<select id="getJoinMemberList" resultType="Relation" parameterType="hashmap">
+	SELECT * FROM studyrelation WHERE studyName=#{studyName} and status=2
+	</select>
+	
+	<select id="getMemberInfo" resultType="Relation" parameterType="hashmap">
+	SELECT * FROM studyrelation WHERE studyName=#{studyName} and memberid=#{memberid} and status=2
+	</select>
+	
+	<update id="updateMemberInfo" parameterType="Relation">
+		update studyrelation set photo=#{photo}, nickName=#{nickName}
+		where memberId=#{memberId} and studynum=#{studynum}
+	</update>
+	
+	<update id="leaveStudy" parameterType="hashmap">
+		update studyrelation set status=3 where memberid=#{memberid} and studynum=#{studynum}
+	</update>
+	
+	<update id="changeLeader" parameterType="hashmap">
+		update studyrelation set leader=#{leader} where studynum=#{studynum}
+	</update>
+	
+	<select id="getJoinMemberListForChat" resultType="Relation" parameterType="hashmap">
+	SELECT * FROM studyrelation WHERE studyName=#{studyName} and (status=2 or status=3 or status=4 )
+	</select>
+	
+</mapper>

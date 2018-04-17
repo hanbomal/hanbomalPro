@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study">
+	<select id="getNextNum" resultType="int">
+		select groupSer.nextval from dual
+	</select>
+
+	<insert id="makingStudy" parameterType="Room">
+		insert into studygroup
+		values(#{num},#{studyName},#{peopleCount},#{leader},sysdate,#{study_pro},#{study_back},
+		#{study_intro},#{proSize},#{backSize})
+	</insert>
+	
+	<insert id="addPosition" parameterType="Position">
+		insert into groupposition
+		values(#{studynum},#{groupposition},#{id})
+	</insert>
+	
+     <!--방장이 그룹만들때 relation 테이블에도 추가-->
+	<insert id="addRelation" parameterType="hashmap">
+		insert into studyrelation(memberid, studynum, studyname, joinpoint, nickname,
+		joindate, lastdate,position, leader,status,photo ) 
+		values(#{memberid},#{studynum},#{studyname},0,#{nickname},
+		sysdate,sysdate,'방장',#{leader},2,null)
+	</insert>
+
+	<select id="resultList" resultType="Room" parameterType="hashmap">
+		select * from studygroup where studyName like '%'||#{studyName}||'%'
+	</select>
+	<select id="resultListByDate" resultType="Room" parameterType="hashmap">
+		select * from studygroup where studyName like '%'||#{studyName}||'%' ORDER BY openDate DESC
+	</select>
+	
+	<select id="getGroupList" resultType="Room" parameterType="hashmap">
+   select * from studygroup where num in (select studynum from studyrelation where (memberid=#{memberid} and status=2))
+	</select>
+	
+ <select id="getRelation" parameterType="hashmap" resultType="Relation">
+		select memberId,r.studyName, joinPoint, r.nickName,
+		joinDate, lastDate, position, r.leader, status
+		 from studygroup g, studyrelation r where 
+		g.studyName=r.studyName and memberId=#{memberid} 
+		and g.studyName =#{studyName}
+	</select> 
+
+	<select id="getAllStudy" resultType="Room">
+		select * from studygroup
+	</select>
+	<select id="getAllPosition" resultType="Position">
+		select * from groupposition where studynum=#{studynum}
+	</select>
+	
+		<select id="getOneStudy" resultType="Room">
+		select * from studygroup where num=#{num}
+	</select>
+	
+		<select id="getStudyList" resultType="Study" parameterType="hashmap">
+	select * from (select rownum rnum, a.* from (select num,study_intro,leader,studyName, openDate
+ from studygroup)a) where rnum between #{startRow} and #{endRow} order by openDate
+	</select> 
+	
+	  <select id="getStudyCount" resultType="int">
+      SELECT nvl(count(*),0) FROM studygroup
+   </select>
+   
+    <update id="deleteStudy" parameterType="map">
+      delete from studygroup where studyName=#{studyName} 
+	 </update>
+	
+	<select id="getNextID" resultType="int">
+		 select nvl(max(id),0) from groupposition where studynum=#{studynum}
+	</select>
+	
+	
+	
+</mapper>

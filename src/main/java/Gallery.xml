@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="gall.mybatis">
+
+	<select id="galleryList" resultType="Gallery" parameterType="hashmap">
+		select * from gallery where studynum=#{studynum} and filesize!=0
+	</select>
+	
+	 <update id="updateGallery" parameterType="Gallery">	
+		update gallery set title=#{title}, content=#{content}, filename=#{filename},
+		filesize=#{filesize} where num=#{num}
+	</update> 
+	
+	<insert id="addGallery" parameterType="Gallery">
+		insert into gallery values(sysdate,#{studynum},#{num},#{name},#{title},#{content},#{filename},#{filesize})
+	</insert>
+	
+	<select id="getNextNumber" resultType="int" >
+		select gallSer.nextval from dual
+	</select>
+	
+	<!-- <delete id="deleteCalendar" parameterType="hashmap">
+	delete from calendar where num=#{num}
+	</delete> -->
+	
+	
+	<select id="getImage" resultType="Gallery" parameterType="hashmap">
+	select * from gallery where num=#{num}
+	</select>
+	 
+
+
+<select id="getGalleryCount" resultType="int" parameterType="hashmap">
+		select nvl(count(*),0) from (select * from gallery where studynum=#{studynum}) where filesize!=0
+		
+	</select>
+	
+	<select id="getImages" resultType="Gallery" parameterType="hashmap">
+		select * from (select rownum rnum ,a.* from (select regdate,num,name,title,content,filename
+		 from gallery where studynum=#{studynum} and filesize!=0 order by regdate desc ) 
+					a ) where rnum  between #{startRow} and #{endRow}
+	</select>
+	
+	
+
+</mapper>

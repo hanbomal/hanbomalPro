@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<select id="getArticleCount" resultType="int" parameterType="hashmap">
+		select nvl(count(*),0) from studyboard 	WHERE studynum = #{num}
+		and boardid=#{boardid}
+	</select>
+	
+	<select id="getArticles" resultType="Board" parameterType="hashmap">
+		select * from (select rownum rnum ,a.* from (select *
+		 from studyboard where boardid = #{boardid} and studynum=#{group} order by reg_date desc) 
+					a ) where rnum  between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getNextNumber" resultType="int">
+		 select nvl(max(num),0) from studyboard where boardid=#{boardid} and studynum=#{studynum}
+	</select>
+	
+	<select id="getNextBoardid" resultType="int">
+		select boardidser.nextval from dual
+	</select>
+	
+	<insert id="addBoard" parameterType="Type">
+      insert into boardtype(studynum, boardid, boardname, createdate)
+      values(#{studynum},#{boardid},#{boardname},sysdate)
+   </insert>
+	
+	<insert id="insertBoard" parameterType="Board">
+      insert into studyboard(num, boardid, studynum, writer, subject, reg_date, 
+      readcount, content, filename, filesize)
+      values(#{num}, #{boardid},#{studynum},#{writer},#{subject},sysdate, 0, #{content},
+      #{filename},#{filesize})
+   </insert>
+	
+	<update id="addReadCount" parameterType="hashmap">
+		update studyboard set readcount = readcount +1 where num=#{num} and boardid =#{boardid}
+	</update>
+   
+	<select id="getArticle" resultType="Board" parameterType="hashmap">
+		select * from studyboard where num =#{num} and boardid =#{boardid} and studynum=#{group}
+	</select>
+					
+	<select id="getBoardType" resultType="Type" parameterType="hashmap">
+		select * from boardtype where studynum =#{group} and boardid =#{boardid}
+	</select>			
+					
+	<update id="updateArticle" parameterType="Board">
+		update studyboard set writer=#{writer}, email=#{email},subject=#{subject},
+		content=#{content} where num=#{num} 
+	</update>
+	
+	<update id="updateBoardType" parameterType="Type">
+		update boardtype set boardname=#{boardname} where studynum=#{studynum} and boardid=#{boardid} 
+	</update>
+	
+	<update id="updatePosition" parameterType="hashmap">
+		update groupposition set groupposition=#{groupposition} where studynum=#{studynum} and id=#{id}
+	</update>
+	
+   
+   <delete id="deleteArticle" parameterType="hashmap" >
+ 	  delete from studyboard where num=#{num} and passwd=#{passwd} 
+   </delete> 	
+   
+	<delete id="deleteBoard" parameterType="hashmap" >
+ 	  delete from boardtype where studynum=#{studynum} and boardid=#{boardid} 
+   </delete> 	
+		
+	<delete id="deletePosition" parameterType="hashmap" >
+ 	  delete from groupposition where studynum=#{studynum} and id=#{id}
+   </delete> 	
+		
+		
+	<select id="getTypeList" resultType="Type" parameterType="hashmap">	
+	select * from boardtype where studynum = #{group} order by createdate desc
+	</select> 
+					
+		
+</mapper>

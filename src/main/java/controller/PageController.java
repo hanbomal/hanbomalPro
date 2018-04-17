@@ -479,10 +479,12 @@ public class PageController {
 		String memberid=req.getParameter("memberid");
 		String groupposition=req.getParameter("groupposition");
 		String studynum=req.getParameter("studynum");
+		String nickName=req.getParameter("nickName");
 		List<PositionVO> AllPosition=studyDB.getAllPosition(studynum);
 		
 		mv.addAttribute("AllPosition",AllPosition);
 		mv.addAttribute("leader",leader);
+		mv.addAttribute("nickName",nickName);
 		mv.addAttribute("memberid",memberid);
 		mv.addAttribute("groupposition",groupposition);
 		mv.addAttribute("studynum",studynum);
@@ -579,7 +581,34 @@ public class PageController {
 		
 		return "redirect:/page/study_info?studynum="+studynum;
 	}
+   	//써야되는 메소드명 grantPosition changeLeader banishMember 
+	//쓸수있는 매개변수 positionSelect studynum memberid leader
 	
-	
+	@RequestMapping("/grantPosition")
+	public String grantPosition(String memberid,String positionSelect,String studynum,
+			String leader,Model mv) throws Throwable {
+		studyDB.grantPostion(memberid,positionSelect,studynum);
+		return "redirect:/page/study_admin";
+	}
+	@RequestMapping("/changeLeader")
+	public String changeLeader(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		/*String id=req.getParameter("positionid");
+		String groupposition=req.getParameter("groupposition");
+		String studynum=req.getParameter("studynum");
+		mv.addAttribute("id",id);
+		mv.addAttribute("groupposition",groupposition);
+		mv.addAttribute("studynum",studynum);*/
+		return "study/viewPositionInfo";
+	}
+	@RequestMapping("/banishMember")
+	public String banishMember(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		/*String id=req.getParameter("positionid");
+		String groupposition=req.getParameter("groupposition");
+		String studynum=req.getParameter("studynum");
+		mv.addAttribute("id",id);
+		mv.addAttribute("groupposition",groupposition);
+		mv.addAttribute("studynum",studynum);*/
+		return "study/viewPositionInfo";
+	}
 
 }

@@ -76,6 +76,10 @@
 	<update id="updateStudy" parameterType="Study">
 	update studygroup set peoplecount=#{peopleCount}, leader=#{leader} where num=#{num}
 	</update>
-	
+
+	 <update id="grantPostion" parameterType="hashmap">
+	update studyrelation set position=#{positionSelect} where memberid=#{memberid} 
+	and studynum=#{studynum}
+	</update> 
 	
 </mapper>

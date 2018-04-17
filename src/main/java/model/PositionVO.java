@@ -3,13 +3,6 @@ package model;
 public class PositionVO {
 	private int studynum;
 	private String groupposition;
-	private String memberid;
-	public String getMemberid() {
-		return memberid;
-	}
-	public void setMemberid(String memberid) {
-		this.memberid = memberid;
-	}
 	private int id;
 	public int getId() {
 		return id;

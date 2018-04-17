@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- 쓸수있는 el들 leader groupposition studynum memberid AllPosition-->
+<!-- 쓸수있는 el들 leader groupposition studynum memberid AllPosition nickName-->
 </head>
 <body>
     <div class="w3-modal-content w3-card-4" style="max-width: 400px;">
@@ -17,25 +17,27 @@
       <form id="memberForm" method="post">
    <input type="hidden" name="studynum" value="${studynum }" > 
    <input type="hidden" name="memberid" value="${memberid }" > 
+   <input type="hidden" name="leader" value="${leader }" > 
       <div class="w3-container">
       <div style="margin-top:10px">
+      <font size=3>[${nickName} 님]</font><br>
       <font size=3>⦁ 역할부여</font>
-      
+   
       <!--  리스트를 가지고와야함-->
- 	  <select class="w3-select w3-center" style="width:200px">
- 	  	<option>방장</option>
+ 	  <select class="w3-select w3-center" name="positionSelect" style="width:220px">
+ 	  	<option value="${groupposition}" selected="selected">${groupposition}</option>
+ 	  	<c:forEach items="${AllPosition}" var="List">
+ 	  	 	<option value="${List.groupposition}">${List.groupposition}</option>
+ 	  	</c:forEach>
  	  </select>
- 	  
- 	  
- 	  
- 	  <button class="w3-button" type="submit"><i class="fa fa-save" style="font-size:26px"></i></button>
+ 	  <button class="w3-button" type="submit" onclick="grantPosition()"><i class="fa fa-save" style="font-size:26px"></i></button>
       </div>
     <%--     <input id="clearName" class="w3-input" type="text" name="groupposition" value="${groupposition }"> --%>
       </div>
       <div class="w3-container">
-       	<input type="submit" onclick="updateposition()" 
+       	<input type="submit" onclick="changeLeader()" 
         class="w3-input w3-teal w3-center w3-section w3-half w3-padding w3-button" value="방장위임">
-       	<input type="submit" onclick="deletemember()" 
+       	<input type="submit" onclick="banishMember()" 
         class="w3-input w3-red w3-center w3-section w3-half w3-padding w3-button" value="추방하기">
         </div>
         </form>
@@ -43,14 +45,33 @@
   
     
  <script type="text/javascript">
-		function updateposition(){
+ 			function grantPosition(){
 			event.preventDefault();
 			
-			var form=$('#positionForm')[0];
+			var form=$('#memberForm')[0];
+			var formData= new FormData(form);
+			 $.ajax({
+	                  type: 'POST',
+	       			 url: '../page/grantPosition',
+	       		     data: formData,
+	       		     processData: false,
+	                  contentType: false,
+	                  success: function(data){
+	                     $('#content').html(data);
+	                  }
+	          });
+			 document.getElementById('clearName').value=""; 
+			 document.getElementById('clickMember').style.display='none';
+			 
+		}
+		function changeLeader(){
+			event.preventDefault();
+		
+			var form=$('#memberForm')[0];
 			var formData= new FormData(form);
 			 $.ajax({
                          type: 'POST',
-              			 url: '../page/updatePosition',
+              			 url: '../page/changeLeader',
               		     data: formData,
               		     processData: false,
                          contentType: false,
@@ -59,18 +80,18 @@
                          }
                  });
 			 document.getElementById('clearName').value=""; 
-			 document.getElementById('addPosition').style.display='none';
+			 document.getElementById('clickMember').style.display='none';
 			 
 		}
 		
-		function deletemember(){
+		function banishMember(){
 			event.preventDefault();
 			
 			var form=$('#memberForm')[0];
 			var formData= new FormData(form);
 			 $.ajax({
                          type: 'POST',
-              			 url: '../page/deleteMember',
+              			 url: '../page/banishMember',
               		     data: formData,
               		     processData: false,
                          contentType: false,
@@ -79,7 +100,7 @@
                          }
                  });
 			 document.getElementById('clearName').value=""; 
-			 document.getElementById('addPosition').style.display='none';
+			 document.getElementById('clickMember').style.display='none';
 			 
 		}
 </script>

@@ -118,8 +118,16 @@ public class StudyDAO extends MybatisConnector{
 		sqlSession.commit();
 		sqlSession.close();
 	}
-	
-	
+	public void grantPostion(String memberid,String positionSelect, String studynum) {
+		sqlSession=sqlSession();
+		Map map=new HashMap();
+		map.put("memberid", memberid);
+		map.put("positionSelect", positionSelect);
+		map.put("studynum", studynum);
+		sqlSession.update(namespace+".grantPostion",map);
+		sqlSession.commit();
+		sqlSession.close();
+	}
 
 public List getStudyList(int startRow, int endRow) {
 	// TODO Auto-generated method stub

@@ -24,7 +24,7 @@
 		</c:forEach>
       -->
   <c:forEach var="member" items="${members }">
- 	<tr class="w3-hover-white" onclick="memberInfo(${member.studynum},'${member.position }','${member.leader}','${member.memberId }')">
+ 	<tr class="w3-hover-white" onclick="memberInfo(${member.studynum},'${member.position }','${member.leader}','${member.memberId }','${member.nickName }')">
  	  <td class="w3-center" width="25%">${member.nickName }</td>
  	  <td class="w3-center" width="25%">${member.position }</td>
  	  <td class="w3-center" width="25%">${member.joinDate }</td>
@@ -61,11 +61,12 @@
 
 
 <script>
-function memberInfo(num,position,groupleader, mid){
+function memberInfo(num,position,groupleader, mid,nick){
 	var studynum=num;
 	var groupposition=position;
 	var leader=groupleader; 
 	var memberid=mid; 
+	var nickName=nick;
 	document.getElementById('clickMember').style.display='block';
 	/* o(${member.studynum},'${member.position }','${member.leader}')"> */
 	 $.ajax({
@@ -76,7 +77,8 @@ function memberInfo(num,position,groupleader, mid){
 				"studynum":studynum,
 				"groupposition":groupposition, 
 				"leader":groupleader,
-				"memberid":memberid
+				"memberid":memberid,
+				"nickName":nickName
 				
         },
 		contentType:"application/x-www-form-urlencoded; charset=UTF-8",

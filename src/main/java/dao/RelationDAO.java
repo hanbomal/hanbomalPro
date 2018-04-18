@@ -107,10 +107,10 @@ public class RelationDAO extends MybatisConnector{
 		sqlSession.close();
 	}
 	
-	public List getJoinMemberList(String studyName) {
+	public List getJoinMemberList(String studynum) {
 		sqlSession=sqlSession();
 		Map map=new HashMap();
-		map.put("studyName", studyName);
+		map.put("studynum", studynum);
 		
 		List li=null;
 		
@@ -120,10 +120,10 @@ public class RelationDAO extends MybatisConnector{
 		return li;
 	}
 	
-	public List getJoinMemberListForChat(String studyName) {
+	public List getJoinMemberListForChat(String studynum) {
 		sqlSession=sqlSession();
 		Map map=new HashMap();
-		map.put("studyName", studyName);
+		map.put("studynum", studynum);
 		
 		List li=null;
 		
@@ -152,10 +152,10 @@ public class RelationDAO extends MybatisConnector{
 	
 	
 	
-	public RelationVO getMemberInfo(String studyName,String memberid) {
+	public RelationVO getMemberInfo(String studynum,String memberid) {
 		sqlSession=sqlSession();
 		Map map=new HashMap();
-		map.put("studyName", studyName);
+		map.put("studynum", studynum);
 		map.put("memberid", memberid);
 		
 		RelationVO memberInfo=sqlSession.selectOne(namespace+".getMemberInfo",map);

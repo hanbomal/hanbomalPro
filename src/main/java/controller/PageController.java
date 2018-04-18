@@ -2,6 +2,7 @@ package controller;
 
 import java.io.FileOutputStream;
 import java.net.URLEncoder;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +54,6 @@ public class PageController {
 		mv.addAttribute("reqcount",reqcount);
 		mv.addAttribute("rescount",rescount);
 	}
-	
 	
 	// autoComplete Method
 	public void autoComplete(Model mv) throws Throwable {
@@ -284,13 +284,13 @@ public class PageController {
 		autoComplete(mv);
 		HeaderInfo(req, mv);
 		String memberid=getSessionId(req);
+		System.out.println("group_test="+group);
 		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
+		mv.addAttribute("typeList", typeList);
 		mv.addAttribute("memberid",memberid);
 		StudyVO study= studyDB.getOneStudy(group);
 		mv.addAttribute("study", study);
-		mv.addAttribute("typeList", typeList);
 		mv.addAttribute("group",group);
-
 		return "page/study_test";
 	}
 	
@@ -311,7 +311,7 @@ public class PageController {
 		
 		StudyVO study=studyDB.getOneStudy(studynum);
 		
-		List members=relationDB.getJoinMemberList(study.getStudyName());
+		List members=relationDB.getJoinMemberList(study.getNum()+"");
 		
 		
 		mv.addAttribute("members",members);
@@ -332,19 +332,15 @@ public class PageController {
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/addBoardType")
-	public String addBoardType(BoardTypeVO board,Model mv,HttpServletRequest req) throws Throwable {
-		group=board.getStudynum()+"";
-		boardid=boardDB.getNextBoardid(group)+"";
-		board.setBoardid(boardid);
-		board.setStudynum(Integer.parseInt(group));
-		boardDB.addBoard(board);
-		//typeList 
-		HttpSession session = req.getSession();
-		List<BoardTypeVO> typeList=(List)session.getAttribute("typeList");
-		typeList=boardDB.getTypeList(group);
-		session.setAttribute("typeList", typeList);
-		mv.addAttribute("boardid",boardid);
-		mv.addAttribute("group",group);
+	public String addBoardType(BoardTypeVO type, Model mv,HttpServletRequest req) throws Throwable {
+		System.out.println("addBoardType[studynum]="+type.getStudynum());
+		System.out.println("addBoardType[boardname]="+type.getBoardname());
+		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
+		mv.addAttribute("typeList", typeList);
+		boardDB.addBoard(type);
+		BoardTypeVO newBoardType = boardDB.getnewBoardType(group);
+		mv.addAttribute("newBoardType",newBoardType);
+		
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/updateBoardType")
@@ -410,12 +406,16 @@ public class PageController {
 		StudyVO study=studyDB.getOneStudy(group);
 		List members=relationDB.getJoinMemberList(study.getStudyName());
 		String memberid = getSessionId(req);
+		
 		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
+		mv.addAttribute("typeList",typeList);
+		
+		BoardTypeVO newBoardType = boardDB.getnewBoardType(group);
+		mv.addAttribute("newBoardType",newBoardType);
 		
 		List<PositionVO> position = studyDB.getAllPosition(group);
 		mv.addAttribute("positionList",position);
 	
-		mv.addAttribute("typeList",typeList);
 		mv.addAttribute("study",study);
 		mv.addAttribute("memberCount",members.size());
 		mv.addAttribute("memberid",memberid);
@@ -438,7 +438,7 @@ public class PageController {
 		String memberid=req.getParameter("name");
 		String group=req.getParameter("group");
 		StudyVO study=studyDB.getOneStudy(group);
-		RelationVO memberInfo=relationDB.getMemberInfo(study.getStudyName(), memberid);
+		RelationVO memberInfo=relationDB.getMemberInfo(group, memberid);
 		mv.addAttribute("memberInfo",memberInfo);
 		return "study/viewMyInfo";
 	}
@@ -478,10 +478,12 @@ public class PageController {
 		String memberid=req.getParameter("memberid");
 		String groupposition=req.getParameter("groupposition");
 		String studynum=req.getParameter("studynum");
+		String nickName=req.getParameter("nickName");
 		List<PositionVO> AllPosition=studyDB.getAllPosition(studynum);
 		
 		mv.addAttribute("AllPosition",AllPosition);
 		mv.addAttribute("leader",leader);
+		mv.addAttribute("nickName",nickName);
 		mv.addAttribute("memberid",memberid);
 		mv.addAttribute("groupposition",groupposition);
 		mv.addAttribute("studynum",studynum);
@@ -524,6 +526,88 @@ public class PageController {
 	}
 	
 	
+	@RequestMapping("/leaveQuestion")
+	public String leaveQuestion(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		autoComplete(mv);
+		HeaderInfo(req, mv);
+		String memberid=req.getParameter("name");
+		String group=req.getParameter("group");
+		
+		StudyVO study=studyDB.getOneStudy(group);
+		RelationVO memberInfo=relationDB.getMemberInfo(group, memberid);
+		List memberlist=relationDB.getJoinMemberList(group);
+		
+		Iterator it=memberlist.iterator();
+		
+		while(it.hasNext()) {
+			RelationVO tmp=(RelationVO)it.next();
+			if(tmp.getMemberId()==memberid) {
+				memberlist.remove(tmp);
+			}
+			
+		}
+		
+		int membercount=memberlist.size();
+		mv.addAttribute("membercount",membercount);
+		mv.addAttribute("memberlist",memberlist);
+		mv.addAttribute("memberInfo",memberInfo);
+		
+		return "study/leaveQuestion";
+	}
 	
+	@RequestMapping("/leaveConfirm")
+	public String leaveConfirm(HttpServletRequest req, HttpServletResponse res,Model mv, String studynum, String memberId) throws Throwable {
+		autoComplete(mv);
+		HeaderInfo(req, mv);
+		
+		StudyVO study=studyDB.getOneStudy(studynum);
+		String leader=req.getParameter("leader");
+		
+		if(leader!=null) {
+			relationDB.changeLeader(studynum, req.getParameter("leader"));
+			study.setLeader(leader);
+			
+			
+		}else {
+	
+		relationDB.leaveStudy(studynum, memberId);
+		
+		}
+		
+		study.setPeopleCount(study.getPeopleCount()-1);
+		studyDB.updateStudy(study);
+		System.out.println("탈퇴시키기 성공");
+		
+		return "redirect:/page/study_info?studynum="+studynum;
+	}
+   	//써야되는 메소드명 grantPosition changeLeader banishMember 
+	//쓸수있는 매개변수 positionSelect studynum memberid leader
+	
+	@RequestMapping("/grantPosition")
+	public String grantPosition(String memberid,String positionSelect,String studynum,
+			String leader,Model mv) throws Throwable {
+		studyDB.grantPostion(memberid,positionSelect,studynum);
+		return "redirect:/page/study_admin";
+	}
+	@RequestMapping("/changeLeader")
+	public String changeLeader(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		/*String id=req.getParameter("positionid");
+		String groupposition=req.getParameter("groupposition");
+		String studynum=req.getParameter("studynum");
+		mv.addAttribute("id",id);
+		mv.addAttribute("groupposition",groupposition);
+		mv.addAttribute("studynum",studynum);*/
+		return "study/viewPositionInfo";
+	}
+	@RequestMapping("/banishMember")
+	public String banishMember(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		/*String id=req.getParameter("positionid");
+		String groupposition=req.getParameter("groupposition");
+		String studynum=req.getParameter("studynum");
+		mv.addAttribute("id",id);
+		mv.addAttribute("groupposition",groupposition);
+		mv.addAttribute("studynum",studynum);*/
+		return "study/viewPositionInfo";
+	}
 
 }

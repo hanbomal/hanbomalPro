@@ -12,19 +12,11 @@
 <!-- content -->
 
 <div class="w3-container " style="height:600px; overflow:auto; ">
-	<div class="w3-container " style="width: 100%;">
-  		<!-- <div class="w3-card-2" style="margin-top:10px" > -->
   		 	 <div  id="content" style="height:100%;" >
-  		 
   		  <font size=6>${boardType.boardname}</font>
-      <%--     <c:if test="${boardType.chkprivate==1}">
-          |비공개 게시판</c:if>
-  		  <c:if test="${boardType.chkprivate!=1}">
-  		  |공개 게시판
- 		  </c:if> --%>
  		  <br> 
-	<div class="w3-container" style="margin-top:10px">
-		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 90%;margin-left:5%">
+	<div class="w3-half" style="margin-top:10px">
+		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 95%;">
 			<tr>
 				<th class="w3-black w3-center" colspan="4" >제목: [${article.subject}]</th>
 			</tr>
@@ -41,7 +33,14 @@
 				<td width="25%" align="center">${article.reg_date}</td>
 			</tr>
 			<tr height="30">
-				<td width="100%" align="left" colspan="4" style="padding: 50px;"><pre>${article.content}</pre></td>
+				<td width="100%" class="w3-center" colspan="4" style="padding: 10px; height:350px">
+					<c:if test="${article.filename!=null }">
+								<img
+									src="<%=request.getContextPath()%>/fileSave/${article.filename}"
+									class="w3-border w3-center"
+									style="height: 100px; width: 100px">
+					</c:if>
+				<pre class="w3-left">${article.content}</pre></td>
 			</tr>
 			
 		</table> 
@@ -53,62 +52,26 @@
 		onclick="document.location.href='deleteForm?num=${article.num}&pageNum=${article.num}'">
 		
 		<input class="w3-button w3-black" type="button" value="글목록"
-		onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board')">
-		<!-- 글목록 넘어갈때 pagenum 보내줘야함 -->
+		onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board?pageNum=${pageNum}&studynum=${article.studynum}&boardid=${article.boardid}')">
+		
+		<input class="w3-button w3-black" type="button" value="답글쓰기"
+		onclick="$('#content').load('<%=request.getContextPath()%>/board/writeForm?num=${num}&ref=${article.ref}&re_step=${article.re_step}&re_level=${article.re_level}&pageNum=${pageNum}')">
 		</div>
 	</div> 
-  		 	   
-  		 	 
-  		 	 
-  		 	 </div>
-  	<!-- 	</div> -->
-    </div>
-
-
-
-
+	
+	<div class="w3-half" style="margin-top:10px">
+  <input class="w3-border" style="width:85%;height:40px;margin-left:-15px"/>
+  	<button class="w3-button  w3-teal" style="height:40px;margin-top:-5px"type="submit" >댓글</button>
+  	</div>
+	
+   </div>
       </div>
-
-	<%-- <br>
-	<br>
-	<b>글내용 보기</b>
-	<div class="container">
-		<table class="w3-table-all" style="width: 80%;">
-			<tr height="30">
-				<td width="125" align="center">글번호</td>
-				<td width="125" align="center">${article.num}</td>
-				<td width="125">조회수</td>
-				<td width="125" align="center">${article.readcount}</td>
-			</tr>
-			<tr height="30">
-				<td width="125">작성자</td>
-				<td width="125" align="center">${article.writer}</td>
-				<td width="125" align="center">작성일</td>
-				<td align="center" width="125" align="center">${article.reg_date}</td>
-			</tr>
-			<tr height="30">
-				<td align="center" width="125">글제목</td>
-				<td align="center" width="375" colspan="3">${article.subject}</td>
-			</tr>
-			<tr height="30">
-				<td align="center" width="125">글내용</td>
-				<td align="left" width="375" colspan="3"><pre>${article.content}</pre></td>
-			</tr>
-			<tr height="30">
-				<td colspan="4" class="w3-center"><input type="button"
-					value="글수정"
-					onclick="document.location.href='updateForm?num=${article.num}&pageNum=${pageNum}'">
-					&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="글삭제"
-					onclick="document.location.href='deleteForm?num=${article.num}&pageNum=${article.num}'">
-					&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="답글쓰기"
-					onclick="document.location.href='writeForm?num=${num}&ref=${ref}&re_step=${re_step}&re_level=${re_level}&pageNum=${pageNum}'">
-					&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="글목록"
-					onclick="document.location.href='list?pageNum=${pageNum}'">
-				</td>
-			</tr>
-		</table>
-	</div> --%>
-
+	 <!-- 
+		쓸수있는 el: boardType// article, num , pageNum
+  		 	 article은 BoardVO 
+  		BoardVO에서 쓸수있는 변수 num, studynum, boardid, writer, subject, ref, re_step,
+  		 	 re_level, reg_date, readcount, content, 등등
+  		 	  -->
 
 
 

@@ -112,11 +112,15 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
               		     processData: false,
                          contentType: false,
                          success: function(data){
-                            $('#content').html(data);
+         $('#content').html(data);
+       /*    document.getElementById('boardlistDropdown').innerHTML+="<a href='#'>${newBoardType.boardname }</a>";
+        */                     
                          }
                  });
 			 document.getElementById('clearName').value=""; 
 			 document.getElementById('makeBoard').style.display='none';
+			 
+			 
 			 
 		}
 	

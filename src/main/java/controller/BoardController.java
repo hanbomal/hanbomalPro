@@ -41,9 +41,7 @@ public class BoardController {
 	String group="1";
 
 	@ModelAttribute
-	public void addAttributes(String boardid, String pageNum, String group) {
-		if (boardid != null)
-			this.boardid = boardid;
+	public void addAttributes(String pageNum, String group) {
 		if (pageNum != null && pageNum != "")
 			this.pageNum = pageNum;
 		if (group != null)
@@ -51,7 +49,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/study_board")
-	public String study_board(Model mv) throws Throwable {
+	public String study_board(Model mv,String boardid, String studynum) throws Throwable {
 		
 		int pageSize = 7;
 		int currentPage = Integer.parseInt(pageNum);
@@ -61,9 +59,9 @@ public class BoardController {
 		int number = 0;
 		List articleList = null;
 		BoardDAO dbPro = BoardDAO.getInstance();
-		count = dbPro.getArticleCount(boardid,group);
+		count = dbPro.getArticleCount(boardid,studynum);
 		if (count > 0) {
-			articleList = dbPro.getArticles(startRow, endRow, boardid,group);
+			articleList = dbPro.getArticles(startRow, endRow, boardid,studynum);
 		}
 		number = count - (currentPage - 1) * pageSize;
 		
@@ -73,9 +71,10 @@ public class BoardController {
 		int endPage = startPage + bottomLine - 1;
 		if (endPage > pageCount)
 			endPage = pageCount;
-			
+		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
+		mv.addAttribute("boardType",boardType);	
 		mv.addAttribute("boardid",boardid);
-		mv.addAttribute("group",group);
+		mv.addAttribute("studynum",studynum);
 		mv.addAttribute("pageCount",pageCount);
 		mv.addAttribute("endPage",endPage);
 		mv.addAttribute("bottomLine",bottomLine);
@@ -86,11 +85,11 @@ public class BoardController {
 		mv.addAttribute("count",count);
 		return "board/study_board";
 	}
-	
+	/*content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&studynum=${article.studynum }'*/
 	@RequestMapping("/content")
-	public String content(Model mv, int num) throws Throwable {
-		BoardVO article = boardDB.getArticle(num, group,boardid,"content");
-		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
+	public String content(Model mv, int num,String boardid, String studynum) throws Throwable {
+		BoardVO article = boardDB.getArticle(num, studynum,boardid,"content");
+		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
 		mv.addAttribute("boardType",boardType);
 		mv.addAttribute("article", article);
 		mv.addAttribute("num", num);
@@ -99,16 +98,22 @@ public class BoardController {
 	}
 	@RequestMapping("/writeForm")
 	public ModelAndView writeForm(BoardVO article,HttpServletRequest req) throws Exception {
-		String memberid=getSessionId(req);
 		ModelAndView mv = new ModelAndView();
-		System.out.println(boardid);
-		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
+		String memberid=getSessionId(req);
+		BoardTypeVO boardType=boardDB.getBoardType(article.getBoardid(),article.getStudynum());
 		mv.addObject("boardType",boardType);
-		mv.addObject("boardid", boardid);
+		if(boardid==null||boardid.equals("")) {
+			boardid="1";
+		}
+		mv.addObject("boardid", article.getBoardid());
+		mv.addObject("boardType",boardType);
 		mv.addObject("num", article.getNum());
+		mv.addObject("ref", article.getRef());
+		mv.addObject("re_step", article.getRe_step());
+		mv.addObject("re_level", article.getRe_level());
 		mv.addObject("pageNum", pageNum);
 		mv.addObject("memberid", memberid);
-		mv.addObject("studynum",group);
+		mv.addObject("studynum",article.getStudynum());
 		mv.setViewName("board/writeForm");
 		return mv;
 	}
@@ -133,9 +138,10 @@ public class BoardController {
 			article.setFilename("");
 			article.setFilesize(0);
 		}
-		System.out.println(article);
 		boardDB.insertArticle(article);
 		mv.addAttribute("pageNum", pageNum);
+		mv.addAttribute("studynum", article.getStudynum());
+		mv.addAttribute("boardid", article.getBoardid());
 		return "redirect:/board/study_board";
 	}
 	

@@ -6,6 +6,10 @@
 	<select id="getNextNum" resultType="int">
 		select groupSer.nextval from dual
 	</select>
+		
+	<select id="getNextBoardid" resultType="int">
+		select boardidser.nextval from dual
+	</select>
 
 	<insert id="makingStudy" parameterType="Room">
 		insert into studygroup
@@ -23,7 +27,12 @@
 		insert into studyrelation(memberid, studynum, studyname, joinpoint, nickname,
 		joindate, lastdate,position, leader,status,photo ) 
 		values(#{memberid},#{studynum},#{studyname},0,#{nickname},
-		sysdate,sysdate,'방장',#{leader},2,null)
+		sysdate,sysdate,null,#{leader},2,null)
+	</insert>
+	
+	<insert id="DefaultBoard" parameterType="hashmap">
+		insert into boardtype(studynum, boardid, boardname, createdate ) 
+		values(#{studynum},#{boardid},'공지 게시판',sysdate)
 	</insert>
 
 	<select id="resultList" resultType="Room" parameterType="hashmap">
@@ -73,6 +82,13 @@
 		 select nvl(max(id),0) from groupposition where studynum=#{studynum}
 	</select>
 	
-	
+	<update id="updateStudy" parameterType="Study">
+	update studygroup set peoplecount=#{peopleCount}, leader=#{leader} where num=#{num}
+	</update>
+
+	 <update id="grantPostion" parameterType="hashmap">
+	update studyrelation set position=#{positionSelect} where memberid=#{memberid} 
+	and studynum=#{studynum}
+	</update> 
 	
 </mapper>

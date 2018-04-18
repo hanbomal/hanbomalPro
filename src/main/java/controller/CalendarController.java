@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import dao.CalendarDAO;
 import model.CalendarVO;
@@ -135,6 +135,37 @@ public class CalendarController {
 		return "calendar/updateComp";
 
 	}
+	
+
+	@RequestMapping("/dailyWordsView")
+	public String dailyWordsView(HttpServletRequest req, HttpServletResponse res, Model model) throws Throwable {
+		String day=req.getParameter("day");
+		String num=req.getParameter("num");
+		String fileName=day.replaceAll("-", "");
+		
+		model.addAttribute("day",day);
+		model.addAttribute("num",num);
+		model.addAttribute("fileName",fileName);
+		
+		
+		try {
+		File file=new File("c:\\save\\"+num+"\\"+num+"_"+fileName+".txt");
+		if(!file.exists()) {
+			model.addAttribute("isExists","FALSE");
+		}else {
+			model.addAttribute("isExists","TRUE");
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	  
+		return "calendar/dailyWordsView";
+
+	}
+	
 
 	
 }

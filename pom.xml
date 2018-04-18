@@ -11,7 +11,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>3.8.1</version> 
       <scope>test</scope>
     </dependency>
     
@@ -20,8 +20,8 @@
 			<groupId>org.springframework</groupId> 
 			<artifactId>spring-context</artifactId>
 			<version>4.0.4.RELEASE</version>
-		</dependency>
-
+		</dependency> 
+   
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -108,7 +108,7 @@
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
-<dependency>  
+<dependency>   
     <groupId>com.oracle</groupId> 
     <artifactId>ojdbc6</artifactId>
     <version>11.1.0.7.0</version>

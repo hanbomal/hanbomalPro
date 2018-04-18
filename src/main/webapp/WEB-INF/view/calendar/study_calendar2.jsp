@@ -48,7 +48,7 @@ var dataset = [
                 ,"end":'<c:out value="${list.enddate}" />'
                 ,"place":'<c:out value="${list.place}"/>'
                 ,"description":'<c:out value="${list.description}"/>'
-                ,"studynum":'<c:out value="${list.studynum}"/>'
+                ,"studynum":'<c:out value="${list.studynum}"/>'                	    
             } 
             <c:if test="${!status.last}">,</c:if>
        
@@ -128,7 +128,9 @@ jQuery(document).ready(function(){
        , navLinkDayClick: function(date, jsEvent) {
     	    //console.log('day', date.format()); // date is a moment
     	    //console.log('coords', jsEvent.pageX, jsEvent.pageY);
-    	    alert("test");
+    	    //alert(date.format());
+    	    dailyWordsView(date.format());
+    	    document.getElementById('message').style.display='block';
     	  }
        , select: function(startDate, endDate) {
     	   document.getElementById('title').value='';
@@ -152,11 +154,11 @@ jQuery(document).ready(function(){
 
 <div style="width: 100%; background: rgba(241, 241, 241, 1); ">
 <!-- 달력 출력 모달 -->
-    <div class="w3-container  w3-padding w3-padding-right w3-padding-left" id="calendar" style="height:600px; width:95%; "></div>
+    <div class="w3-container  w3-padding w3-padding-right w3-padding-left" id="calendar" style="height:600px; width:95%; z-index: 0; position: relative;"></div>
     </div>
      <!-- 메시지 모달 -->
        <div id="message" class="w3-modal" >
-<div id="messageContent" class="w3-center  w3-container w3-padding">
+<div id="messageContent" class=" w3-container w3-padding">
 </div>  </div>
     
     
@@ -298,6 +300,13 @@ function toUpdatePage(data){
 		
 	}
 	
+	function dailyWordsView(data){
+		
+		var day="day="+data+"&num=<%=request.getAttribute("num")%>";
+		sendRequest("<%=request.getContextPath()%>/calcontroller/dailyWordsView",day,fromServer,"POST");
+		
+	}
+	
 	
 function update(data){
 		
@@ -333,6 +342,44 @@ var menuClick = function(url){
 };
 
 </script>
+<script>
+function openSelect(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("selected");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.className += " w3-red";
+}
+</script>
+    
+<script>
+function loadChatHistory(date,group){
 
+	
+	 $.ajax({
+		type: 'POST',
+		url: '../chatcontroller/chatHistory',
+		async:false,
+		data: {    "date" : date,
+					"group":group
+        },
+		contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+		success: function(data) {
+			$('#chathistory').html(data);
+		},
+		error: function(request, status, error) {
+			alert(error);
+		}
+	});
+	 
+ 
+}
+</script>
 </body>
 </html>

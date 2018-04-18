@@ -45,24 +45,37 @@ function leaveConfirm(){
 
 </div>
 <form id="leaveConfirmForm"> 
+ 
 <c:if test="${memberInfo.leader==memberInfo.memberId }">
-
+   
+ 
 <div class="w3-container w3-padding w3-border">
-    
+<c:if test="${membercount>1 }">
 방장 넘기기<p/>
 <select class="w3-input" style="display: inline-block;" name="leader">
+
+
 <c:forEach var="member" items="${memberlist }">
+
 <c:if test="${member.memberId!=memberInfo.memberId }">
 <option value="${member.memberId }">${member.memberId }</option>
 </c:if>
+
 </c:forEach>
+
 </select>
 
+</c:if>
 
+<c:if test="${membercount==1 }">
+남은 회원이 없어 방이 삭제됩니다.
+</c:if>
 </div>
 
 
 </c:if>
+
+
 
 <input type="hidden" name="memberId" value="${memberInfo.memberId }">
 <input type="hidden" name="studynum" value="${memberInfo.studynum }">

@@ -55,7 +55,6 @@ public class PageController {
 		mv.addAttribute("rescount",rescount);
 	}
 	
-	
 	// autoComplete Method
 	public void autoComplete(Model mv) throws Throwable {
 		// auto_complete
@@ -285,13 +284,13 @@ public class PageController {
 		autoComplete(mv);
 		HeaderInfo(req, mv);
 		String memberid=getSessionId(req);
+		System.out.println("group_test="+group);
 		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
+		mv.addAttribute("typeList", typeList);
 		mv.addAttribute("memberid",memberid);
 		StudyVO study= studyDB.getOneStudy(group);
 		mv.addAttribute("study", study);
-		mv.addAttribute("typeList", typeList);
 		mv.addAttribute("group",group);
-
 		return "page/study_test";
 	}
 	
@@ -333,19 +332,12 @@ public class PageController {
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/addBoardType")
-	public String addBoardType(BoardTypeVO board,Model mv,HttpServletRequest req) throws Throwable {
-		group=board.getStudynum()+"";
-		boardid=boardDB.getNextBoardid(group)+"";
-		board.setBoardid(boardid);
-		board.setStudynum(Integer.parseInt(group));
-		boardDB.addBoard(board);
-		//typeList 
-		HttpSession session = req.getSession();
-		List<BoardTypeVO> typeList=(List)session.getAttribute("typeList");
-		typeList=boardDB.getTypeList(group);
-		session.setAttribute("typeList", typeList);
-		mv.addAttribute("boardid",boardid);
-		mv.addAttribute("group",group);
+	public String addBoardType(BoardTypeVO type, Model mv,HttpServletRequest req) throws Throwable {
+		System.out.println("addBoardType[studynum]="+type.getStudynum());
+		System.out.println("addBoardType[boardname]="+type.getBoardname());
+		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
+		mv.addAttribute("typeList", typeList);
+		boardDB.addBoard(type);
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/updateBoardType")

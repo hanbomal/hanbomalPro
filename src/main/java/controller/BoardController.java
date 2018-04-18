@@ -51,7 +51,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/study_board")
-	public String study_board(Model mv) throws Throwable {
+	public String study_board(Model mv,String boardid, String studynum) throws Throwable {
 		
 		int pageSize = 7;
 		int currentPage = Integer.parseInt(pageNum);
@@ -61,9 +61,9 @@ public class BoardController {
 		int number = 0;
 		List articleList = null;
 		BoardDAO dbPro = BoardDAO.getInstance();
-		count = dbPro.getArticleCount(boardid,group);
+		count = dbPro.getArticleCount(boardid,studynum);
 		if (count > 0) {
-			articleList = dbPro.getArticles(startRow, endRow, boardid,group);
+			articleList = dbPro.getArticles(startRow, endRow, boardid,studynum);
 		}
 		number = count - (currentPage - 1) * pageSize;
 		
@@ -73,7 +73,8 @@ public class BoardController {
 		int endPage = startPage + bottomLine - 1;
 		if (endPage > pageCount)
 			endPage = pageCount;
-			
+		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
+		mv.addAttribute("boardType",boardType);	
 		mv.addAttribute("boardid",boardid);
 		mv.addAttribute("group",group);
 		mv.addAttribute("pageCount",pageCount);
@@ -86,9 +87,9 @@ public class BoardController {
 		mv.addAttribute("count",count);
 		return "board/study_board";
 	}
-	
+	/*content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&studynum=${article.studynum }'*/
 	@RequestMapping("/content")
-	public String content(Model mv, int num) throws Throwable {
+	public String content(Model mv, int num,String boardid, String studynum) throws Throwable {
 		BoardVO article = boardDB.getArticle(num, group,boardid,"content");
 		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
 		mv.addAttribute("boardType",boardType);
@@ -98,17 +99,24 @@ public class BoardController {
 		return "board/content";
 	}
 	@RequestMapping("/writeForm")
-	public ModelAndView writeForm(BoardVO article,HttpServletRequest req) throws Exception {
-		String memberid=getSessionId(req);
+	public ModelAndView writeForm(BoardVO article,String boardid,String studynum,HttpServletRequest req) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		System.out.println(boardid);
-		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
+		String memberid=getSessionId(req);
+		System.out.println(article);
+		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
 		mv.addObject("boardType",boardType);
+		if(boardid==null||boardid.equals("")) {
+			boardid="1";
+		}
 		mv.addObject("boardid", boardid);
+		mv.addObject("boardType",boardType);
 		mv.addObject("num", article.getNum());
+		mv.addObject("ref", article.getRef());
+		mv.addObject("re_step", article.getRe_step());
+		mv.addObject("re_level", article.getRe_level());
 		mv.addObject("pageNum", pageNum);
 		mv.addObject("memberid", memberid);
-		mv.addObject("studynum",group);
+		mv.addObject("studynum",studynum);
 		mv.setViewName("board/writeForm");
 		return mv;
 	}
@@ -118,7 +126,7 @@ public class BoardController {
 		      , method= RequestMethod.POST
 		      , consumes ={"multipart/form-data"}
 		)
-	public String writePro(MultipartHttpServletRequest request,BoardVO article, Model mv)throws Exception {
+	public String writePro(MultipartHttpServletRequest request,BoardVO article, Model mv,String studynum,String boardid)throws Exception {
 		MultipartFile multi = request.getFile("uploadfile");
 		String filename = multi.getOriginalFilename();
 		System.out.println("filename:[" + filename + "]");
@@ -133,9 +141,11 @@ public class BoardController {
 			article.setFilename("");
 			article.setFilesize(0);
 		}
-		System.out.println(article);
-		boardDB.insertArticle(article);
+		article.setStudynum(studynum);
+		boardDB.insertArticle(article,boardid,studynum);
 		mv.addAttribute("pageNum", pageNum);
+		mv.addAttribute("studynum", studynum);
+		mv.addAttribute("boardid", boardid);
 		return "redirect:/board/study_board";
 	}
 	

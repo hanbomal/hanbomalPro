@@ -70,32 +70,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   <button class="w3-button w3-right "
   onclick="$('#content').load('<%=request.getContextPath()%>/gallery/list?memberid=${memberid }&studynum=${group }');document.getElementById('contentTitle').innerHTML='사진첩'">사진첩</button>
   
-      <div class="w3-dropdown-hover w3-right"> 
-    <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
-    <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;">
-    
-      <c:if test="${typeList!=null}">
+    <button class="w3-button w3-right w3-dropdown-hover " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
+
+    <div id="reload" class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;">
+    <a>ddd</a>
+    </div> 
+      <c:if test="${typeList.size()>0}">
       	    <c:forEach var="typeList" items="${typeList}">
-     			 <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board?group=${typeList.studynum }&boardid=${typeList.boardid }');document.getElementById('contentTitle').innerHTML='게시판'">${typeList.boardname }</a> 
+     			 <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board?studynum=${typeList.studynum }&boardid=${typeList.boardid}');document.getElementById('contentTitle').innerHTML='게시판'">${typeList.boardname }</a> 
 			</c:forEach>
 	  </c:if>
 	  
 	  
-	  <!-- 	   
-  textarea.innerHTML +="<table align='left' style='width:100%;'><tr><td><ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
-      +texts[0]+
-      "<span class='w3-small'>&nbsp;"+texts[1]+"</span><br>"
-      +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
-      +" <span class='w3-medium'><font color='white'>"+texts[2]+"</font></span>"
-    +" </div></li></ul></td></tr></table>"; 
-    
 	  
-	  	 -->
-    </div> 
-
-  </div>
+  
+  
+  
   <button class="w3-button w3-right " onclick="$('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=${group }');document.getElementById('contentTitle').innerHTML='달력'">달력</button>
-      
       </div>
     <div class="w3-card-4" >
       

@@ -25,7 +25,7 @@
    
       <!--  리스트를 가지고와야함-->
  	  <select class="w3-select w3-center" name="positionSelect" style="width:220px">
- 	  	<option value="${groupposition}" selected="selected">${groupposition}</option>
+ 	  	<option value="${groupposition}" selected="selected" disabled="disabled">${groupposition}</option>
  	  	<c:forEach items="${AllPosition}" var="List">
  	  	 	<option value="${List.groupposition}">${List.groupposition}</option>
  	  	</c:forEach>

@@ -22,10 +22,19 @@
 		<form id="uploadform" method="post" name="writeform" enctype="multipart/form-data">
 			  	<input type="hidden" name="writer" value="${memberid}">
 			 	<input type="hidden" name="boardid" value="${boardid}">
-			 	<input type="hidden" name="studynum" value="${studynum}">
+			 	<input type="hidden" name="studynum" value="${boardType.studynum}">
+			 	<input type="hidden" name="ref" value="${ref}">
+				<input type="hidden" name="re_level" value="${re_level}">
+				<input type="hidden" name="num" value="${num}">
+				<input type="hidden" name="re_step" value="${re_step}">
 		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 90%;margin-left:5%">
 			<tr>
-				<th class="w3-black w3-center" colspan="2" >[글쓰기]</th>
+					<c:if test="${num==0 }">
+						<th class="w3-black w3-center" colspan="2" >[글쓰기]</th>
+					</c:if>
+					<c:if test="${num!=0 }">
+						<th class="w3-black w3-center" colspan="2" >[답글쓰기]</th>
+					</c:if>
 			</tr>
 				<tr>
 					<th  width="10%" class=" w3-center">제 목</th>

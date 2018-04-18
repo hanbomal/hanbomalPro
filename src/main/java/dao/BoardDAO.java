@@ -28,9 +28,13 @@ public class BoardDAO extends MybatisConnector {
 		return li;
 	}
 	
-	public void addBoard(BoardTypeVO board) {
+	public void addBoard(BoardTypeVO type) {
 		sqlSession = sqlSession();
-		sqlSession.insert(namespace + ".addBoard", board);
+		int number = sqlSession.selectOne(namespace + ".getNextBoardid");
+		String boardid=number+"";
+		type.setBoardid(boardid);
+		System.out.println(type);
+		sqlSession.insert(namespace + ".addBoard", type);
 		sqlSession.commit();
 		sqlSession.close();
 	}
@@ -68,12 +72,12 @@ public class BoardDAO extends MybatisConnector {
 		return boardType;
 	}
 	
-	public int getArticleCount(String boardid,String group) {
+	public int getArticleCount(String boardid,String studynum) {
 		int x = 0;
 		sqlSession = sqlSession();
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("boardid", boardid);
-		map.put("num", group);
+		map.put("studynum", studynum);
 		x = sqlSession.selectOne(namespace + ".getArticleCount", map);
 		sqlSession.close();
 		return x;
@@ -91,14 +95,24 @@ public class BoardDAO extends MybatisConnector {
 		return li;
 	}
 
-	public void insertArticle(BoardVO article) {
+	public void insertArticle(BoardVO article,String boardid, String studynum) {
 		sqlSession = sqlSession();
 		Map map = new HashMap<String,String>();
-		map.put("studynum", article.getStudynum());
-		map.put("boardid", article.getBoardid());
+		map.put("studynum", studynum);
+		map.put("boardid",boardid);
+		System.out.println("studynum="+studynum);
+		System.out.println("boardid="+boardid);
 		int number = sqlSession.selectOne(namespace + ".getNextNumber",map);
-		article.setNum(number+1);
-		System.out.println("11111111111111"+article);
+		if(article.getNum()!=0) {//답글쓰기
+			sqlSession.update(namespace+".updateRe_step", article);
+			article.setRe_level(article.getRe_level()+1);
+			article.setRe_step(article.getRe_step()+1);
+		}else {//새글쓰기
+			article.setRef(number);
+			article.setRe_step(0);
+			article.setRe_level(0);
+		}
+		article.setNum(number);
 		sqlSession.insert(namespace + ".insertBoard", article);
 		sqlSession.commit();
 		sqlSession.close();
@@ -118,6 +132,8 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 		return article;
 	}
+	
+	
 
 	public int updateArticle(BoardVO article) {
 		sqlSession = sqlSession();

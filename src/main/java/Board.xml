@@ -4,18 +4,19 @@
 
 <mapper namespace="board">
 	<select id="getArticleCount" resultType="int" parameterType="hashmap">
-		select nvl(count(*),0) from studyboard 	WHERE studynum = #{num}
+		select nvl(count(*),0) from studyboard 	WHERE studynum = #{studynum}
 		and boardid=#{boardid}
 	</select>
 	
+	<update id="updateRe_step" parameterType="Board">
+		update studyboard set re_step=re_step+1 where ref=#{ref} and re_step>#{re_step}
+		 and boardid = #{boardid} and studynum=#{studynum}
+	</update>
+	
 	<select id="getArticles" resultType="Board" parameterType="hashmap">
 		select * from (select rownum rnum ,a.* from (select *
-		 from studyboard where boardid = #{boardid} and studynum=#{group} order by reg_date desc) 
+		 from studyboard where boardid = #{boardid} and studynum=#{group} order by ref desc , re_step) 
 					a ) where rnum  between #{startRow} and #{endRow}
-	</select>
-	
-	<select id="getNextNumber" resultType="int">
-		 select nvl(max(num),0) from studyboard where boardid=#{boardid} and studynum=#{studynum}
 	</select>
 	
 	<select id="getNextBoardid" resultType="int">
@@ -28,9 +29,9 @@
    </insert>
 	
 	<insert id="insertBoard" parameterType="Board">
-      insert into studyboard(num, boardid, studynum, writer, subject, reg_date, 
-      readcount, content, filename, filesize)
-      values(#{num}, #{boardid},#{studynum},#{writer},#{subject},sysdate, 0, #{content},
+      insert into studyboard(num, boardid, studynum, writer, subject, reg_date, ref, re_step, 
+      re_level, readcount, content, filename, filesize)
+      values(#{num}, #{boardid},#{studynum},#{writer},#{subject},sysdate, #{ref},#{re_step},#{re_level}, 0, #{content},
       #{filename},#{filesize})
    </insert>
 	

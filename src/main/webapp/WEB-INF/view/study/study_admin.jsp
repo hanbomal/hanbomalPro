@@ -112,6 +112,9 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
               		     processData: false,
                          contentType: false,
                          success: function(data){
+                        /* 	 parent.document.getElementById('#reload').reload() */
+                        	 
+                        	 /* getElementById('content').reload(); */
                             $('#content').html(data);
                          }
                  });

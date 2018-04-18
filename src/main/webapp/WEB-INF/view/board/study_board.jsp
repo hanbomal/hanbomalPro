@@ -21,8 +21,16 @@
 <div class="w3-container"><div class="w3-bar ">
   	<span >전체 글 : ${count }</span>
   <button class="w3-button w3-padding-small w3-right w3-black w3-margin-bottom" 
-  title="글쓰기" onclick="$('#content').load('../board/writeForm?boardid=${boardType.boardid}')">+</button>
+  title="글쓰기" onclick="$('#content').load('../board/writeForm?boardid=${boardType.boardid}&studynum=${boardType.studynum }')">+</button>
 </div>
+		<c:if test="${count==0 }">
+			<table class="w3-table  w3-centered" style="width: 100%; border:black;">
+			<tr class="w3-black">
+			<td class="w3-center">게시판에 저장된 글이 없습니다.</td>
+			</table>
+		</c:if>
+
+	<c:if test="${count!=0 }">
   <table class="w3-table  w3-centered" style="width: 100%; border:black;">
     <tr class="w3-black">
       <th class="w3-center" width="50">번 호</th>
@@ -31,12 +39,27 @@
       <th class="w3-center" width="150">작성일</th>
       <th class="w3-center" width="50">조 회</th>
     </tr>
+		<!--  
+		쓸수있는 el 
+		group pageCount endPage bottomLine startPage currentPage articleList number count 
 		
+		articleList에 쓸수있는 변수
+		num, studynum boardid writer subject ref re_step re_level reg_date readcount 등등
+		-->
     <c:forEach var="article" items="${articleList}">
-			<tr class="w3-hover-white" onclick="$('#content').load('../board/content?num=${article.num}&pageNum=${currentPage }')">
+			<tr class="w3-hover-white" 
+			onclick="$('#content').load('../board/content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&group=${article.studynum }')">
 			<td class="w3-center" width="50">${number}</td>
 			<c:set var="number" value="${number-1}"/>
-				<td width="250">${article.subject }
+				<td width="250">
+			<c:if test="${article.re_level>0}">	
+					<img src="../imgs/level.gif" width="${5 *article.re_level}" height="16">
+					<img src="../imgs/re.gif">
+			</c:if>
+			<c:if test="${article.re_level==0}">	
+ 					<img src="../imgs/level.gif" height="16"> 
+ 			</c:if>		
+				${article.subject }
 			<c:if test="${article.readcount>=20 }">
 					<img src="../imgs/hot.gif" border="0" height="16"> 
 			</c:if>	
@@ -46,8 +69,8 @@
 				<td class="w3-center" width="50">${article.readcount}</td>
 			</tr>
 	</c:forEach>
-
   </table>
+  </c:if>
 </div>
 
 

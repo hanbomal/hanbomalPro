@@ -169,42 +169,43 @@ public class ChatController {
 		req.setAttribute("lastday", lastdayText);
 		
 		
-		String groupName=sPro.getOneStudy(group).getStudyName();
-		List<RelationVO> memberList=rPro.getJoinMemberListForChat(groupName);
+	
+		List<RelationVO> memberList=rPro.getJoinMemberListForChat(group);
+		
 		//System.out.println(groupName);
 		//System.out.println(memberList.get(0).getNickName());
 		
 		HashMap<String,String> namemap=new HashMap<String,String>();
-		Set<String> nameset=new HashSet<String>();
 		
 		
 		Iterator<RelationVO> it=memberList.iterator();
 		while(it.hasNext()) {
 			RelationVO member=(RelationVO)it.next();
+			System.out.println(member);
 			String username=member.getMemberId();
-			nameset.add(username);
 			
-			if(member.getStatus()=="2") {
+			System.out.println(member.getStatus());
+			if(member.getStatus().equals("2")) {
 			
-				if((member.getPhoto()!="")&&(member.getPhoto()!=null)) {
+					if((member.getPhoto()!="")&&(member.getPhoto()!=null)) {
+						
+						namemap.put(username,req.getContextPath()+"/fileSave/"+member.getPhoto());
+						
+					}
 					
-					namemap.put(username,req.getContextPath()+"/fileSave/"+member.getPhoto());
-					nameset.add(username+","+req.getContextPath()+"/fileSave/"+member.getPhoto());
-					//System.out.println(req.getContextPath()+"/fileSave/"+member.getPhoto());
-				}
-				
-				else {
-					namemap.put(username,req.getContextPath()+"/imgs/profile.png");
-					nameset.add(username+","+req.getContextPath()+"/imgs/profile.png");
-					
-					
-					//System.out.println(req.getContextPath()+"/imgs/profile.png");
-				}
+					else {
+						namemap.put(username,req.getContextPath()+"/imgs/profile.png");
+						
+					}
 			
-			}else {
+			}
+			else {
 				namemap.put(username,req.getContextPath()+"/imgs/Xprofile.png");
 			}
+			
 		}
+		
+		
 		
 		
 	        Set<String> set = namemap.keySet();
@@ -221,11 +222,12 @@ public class ChatController {
 	        //stbf.append("</script>");
 
 		
+	   System.out.println("=================="+stbf);
 	   
 	    mv.addAttribute("nameJs",stbf);
-		mv.addAttribute("nameMap",namemap);
+		
 		mv.addAttribute("memberList",memberList);
-		mv.addAttribute("nameset",nameset);
+		
 		
 		return "chat/websocketGroup";
 
@@ -265,6 +267,117 @@ public class ChatController {
 		gPro.addGallery(gallery);
 
 		return "chat/uploadComp";
+	}
+	
+	
+	
+	@RequestMapping("/chatHistory")
+	public String chatHistory(HttpServletRequest req, HttpServletResponse res,String group, String date, Model mv) throws Throwable {
+	
+		String cid = group; 
+		
+		String logPath = "C:\\save\\" + cid+"\\"+cid+"_"+date+".txt";
+
+	
+		Charset cs = StandardCharsets.UTF_8;
+	
+		List<Chatdata> chatd = new ArrayList<Chatdata>();
+	
+			File file = new File(logPath);
+
+			if (file.exists()) {
+
+				
+				Path path = Paths.get(logPath);
+				List<String> list = new ArrayList<String>();
+				list = Files.readAllLines(path, cs);
+
+					for (String readLine : list) {
+						readLine.trim();
+						 
+						
+						if (readLine.substring(1,8).equals("=======")) {
+							Chatdata cd = new Chatdata();
+							cd.setName("server");
+							cd.setDate("server");
+							String str=readLine.substring( readLine.indexOf("[")+1, readLine.indexOf("]") );
+							
+							cd.setContent(str.trim());
+							chatd.add(cd);
+							
+						} else {
+							
+							
+							String[] tmp = readLine.substring(readLine.indexOf("[") + 1, readLine.lastIndexOf("]"))
+									.split("\\]" + " " + "\\[");
+							List tmplist = new ArrayList();
+							
+							
+								for (int i = 0; i < tmp.length; i++) {
+										tmplist.add(tmp[i]);
+									}
+								if (tmp.length == 2) {
+										tmplist.add("");
+									}
+
+							Chatdata cd = new Chatdata();
+							cd.setName((String) tmplist.get(0));
+							cd.setDate((String) tmplist.get(1));
+							cd.setContent((String) tmplist.get(2));
+
+							chatd.add(cd);
+						}
+
+					}
+				}
+			
+
+		List<RelationVO> memberList=rPro.getJoinMemberListForChat(group);
+		
+		
+		HashMap<String,String> namemap=new HashMap<String,String>();
+		
+		
+		
+		Iterator<RelationVO> it=memberList.iterator();
+		while(it.hasNext()) {
+			RelationVO member=(RelationVO)it.next();
+			String username=member.getMemberId();
+					
+			if(member.getStatus().equals("2")) {			
+				if((member.getPhoto()!="")&&(member.getPhoto()!=null)) {					
+					namemap.put(username,req.getContextPath()+"/fileSave/"+member.getPhoto());				
+				}				
+				else {
+					namemap.put(username,req.getContextPath()+"/imgs/profile.png");				
+				}			
+			}else {
+				namemap.put(username,req.getContextPath()+"/imgs/Xprofile.png");
+			}
+		}
+		
+		
+	        Set<String> set = namemap.keySet();
+	        Object obj[] = set.toArray();
+
+	        StringBuffer stbf = new StringBuffer();
+	       // stbf.append("<script type='text/javascript'>");
+	        stbf.append("var historyNameMap = new Array();");
+	        for(int i=0; i<obj.length; i++)
+	        {
+	            if(i!=0)stbf.append("");
+	            stbf.append("historyNameMap['"+obj[i]+"'] = '"+namemap.get(obj[i])+"';");
+	        }
+	        //stbf.append("</script>");
+
+	        
+	        
+	    req.setAttribute("chatHistoryData", chatd);			
+	    mv.addAttribute("nameHistoryJs",stbf);		
+		mv.addAttribute("memberList",memberList);
+	
+		return "chat/chatHistoryView";
+
 	}
 
 }

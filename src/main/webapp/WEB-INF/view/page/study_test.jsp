@@ -72,7 +72,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   
       <div class="w3-dropdown-hover w3-right"> 
     <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
-    <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;">
+    <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;" id="boardlistDropdown">
     
       <c:if test="${typeList!=null}">
       	    <c:forEach var="typeList" items="${typeList}">

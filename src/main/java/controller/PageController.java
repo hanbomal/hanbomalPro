@@ -312,7 +312,7 @@ public class PageController {
 		
 		StudyVO study=studyDB.getOneStudy(studynum);
 		
-		List members=relationDB.getJoinMemberList(study.getStudyName());
+		List members=relationDB.getJoinMemberList(study.getNum()+"");
 		
 		
 		mv.addAttribute("members",members);
@@ -439,7 +439,7 @@ public class PageController {
 		String memberid=req.getParameter("name");
 		String group=req.getParameter("group");
 		StudyVO study=studyDB.getOneStudy(group);
-		RelationVO memberInfo=relationDB.getMemberInfo(study.getStudyName(), memberid);
+		RelationVO memberInfo=relationDB.getMemberInfo(group, memberid);
 		mv.addAttribute("memberInfo",memberInfo);
 		return "study/viewMyInfo";
 	}
@@ -535,8 +535,8 @@ public class PageController {
 		String group=req.getParameter("group");
 		
 		StudyVO study=studyDB.getOneStudy(group);
-		RelationVO memberInfo=relationDB.getMemberInfo(study.getStudyName(), memberid);
-		List memberlist=relationDB.getJoinMemberList(study.getStudyName());
+		RelationVO memberInfo=relationDB.getMemberInfo(group, memberid);
+		List memberlist=relationDB.getJoinMemberList(group);
 		
 		Iterator it=memberlist.iterator();
 		

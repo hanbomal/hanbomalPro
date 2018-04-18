@@ -113,10 +113,15 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
                          contentType: false,
                          success: function(data){
                             $('#content').html(data);
+                            document.getElementById('boardlistDropdown').innerHTML+="<a href='#'><button>test..</button></a>";
+                            
+                            
                          }
                  });
 			 document.getElementById('clearName').value=""; 
 			 document.getElementById('makeBoard').style.display='none';
+			 
+			 
 			 
 		}
 	

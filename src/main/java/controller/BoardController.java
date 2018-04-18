@@ -88,8 +88,8 @@ public class BoardController {
 	/*content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&studynum=${article.studynum }'*/
 	@RequestMapping("/content")
 	public String content(Model mv, int num,String boardid, String studynum) throws Throwable {
-		BoardVO article = boardDB.getArticle(num, group,boardid,"content");
-		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
+		BoardVO article = boardDB.getArticle(num, studynum,boardid,"content");
+		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
 		mv.addAttribute("boardType",boardType);
 		mv.addAttribute("article", article);
 		mv.addAttribute("num", num);

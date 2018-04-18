@@ -258,7 +258,7 @@ var today =new Date().toString('yyyyMMdd');
 	            } 
 	            <c:if test="${!status.last}">,</c:if>
 	       
-	    </c:forEach> 
+	    </c:forEach>
 	];
   
 

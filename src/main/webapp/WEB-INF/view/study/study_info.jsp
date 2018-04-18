@@ -76,15 +76,15 @@ function leaveQuestion(){
 
 
 
-
-<table class='w3-table w3-bordered' style="border:black; max-width: 90%;" align="center">
+<div class="w3-display-container w3-margin-bottom">
+<img src="<%=request.getContextPath() %>/fileSave/${study.study_pro}"  style="max-width:300px;" class="w3-card-4 w3-border">
+<div class="w3-small w3-white w3-border w3-tag w3-display-topleft">대표 사진</div>
+</div>
+<table class='w3-table w3-bordered' style="border:black;" align="center">
 
 <tr><td class="w3-black">이름</td><td>${study.studyName }</td>
 <td rowspan="3" width="30%">
-<div class="w3-display-container">
-<img src="<%=request.getContextPath() %>/fileSave/${study.study_pro}" width="100%" class="w3-card-4 w3-border" >
-<div class="w3-small w3-white w3-border w3-tag w3-display-bottomright">대표 사진</div>
-</div></td></tr>
+</td></tr>
 <tr><td class="w3-black">개설일</td><td>${study.openDate }</td></tr>
 <tr><td class="w3-black">소개</td><td>${study.study_intro}</td></tr>
 <tr><td class="w3-black">회원 목록<br><span class="w3-small">(총 ${memberCount}명)</span></td>

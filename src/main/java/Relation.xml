@@ -61,11 +61,11 @@
 					
 					
 	<select id="getJoinMemberList" resultType="Relation" parameterType="hashmap">
-	SELECT * FROM studyrelation WHERE studyName=#{studyName} and status=2
+	SELECT * FROM studyrelation WHERE studynum=#{studynum} and status=2
 	</select>
 	
 	<select id="getMemberInfo" resultType="Relation" parameterType="hashmap">
-	SELECT * FROM studyrelation WHERE studyName=#{studyName} and memberid=#{memberid} and status=2
+	SELECT * FROM studyrelation WHERE studynum=#{studynum} and memberid=#{memberid} and status=2
 	</select>
 	
 	<update id="updateMemberInfo" parameterType="Relation">
@@ -82,7 +82,7 @@
 	</update>
 	
 	<select id="getJoinMemberListForChat" resultType="Relation" parameterType="hashmap">
-	SELECT * FROM studyrelation WHERE studyName=#{studyName} and (status=2 or status=3 or status=4 )
+	SELECT * FROM studyrelation WHERE studynum=#{studynum} and (status=2 or status=3 or status=4 )
 	</select>
 	
 </mapper>

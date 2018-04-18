@@ -22,6 +22,10 @@
 	<select id="getNextBoardid" resultType="int">
 		select boardidser.nextval from dual
 	</select>
+	<select id="getNextNumber" resultType="int">
+		select STUDYBOARDSER.nextval from dual
+	</select>
+	
 	
 	<insert id="addBoard" parameterType="Type">
       insert into boardtype(studynum, boardid, boardname, createdate)
@@ -46,6 +50,12 @@
 	<select id="getBoardType" resultType="Type" parameterType="hashmap">
 		select * from boardtype where studynum =#{group} and boardid =#{boardid}
 	</select>			
+	
+	
+	<select id="getnewBoardType" resultType="Type" parameterType="hashmap">
+			select * from boardtype where studynum =#{studynum} and boardid=(select max(boardid) from BOARDTYPE)
+	</select>		
+	
 					
 	<update id="updateArticle" parameterType="Board">
 		update studyboard set writer=#{writer}, email=#{email},subject=#{subject},

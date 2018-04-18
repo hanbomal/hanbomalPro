@@ -7,7 +7,7 @@
 		insert into studyrelation(memberId,studynum,studyName,joinPoint,nickName,
 		joinDate, lastDate, position, leader, status, photo)
 		values(#{memberid},#{studynum}, #{studyName},0,#{nickname},
-		sysdate,sysdate,'회원',#{leader},1,null)
+		sysdate,sysdate,null,#{leader},1,null)
 
 	</insert>
 

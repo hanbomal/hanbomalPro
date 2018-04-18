@@ -16,13 +16,27 @@
 <!-- <div class="w3-card-2" style="margin-top:10px" > -->
 	 <div  id="content" style="height:100%; " >
   		 	     <font size=6>${boardType.boardname}</font>
+       <!-- 
+       }
+		mv.addObject("boardid", article.getBoardid());
+		mv.addObject("boardType",boardType);
+		mv.addObject("num", article.getNum());
+		mv.addObject("ref", article.getRef());
+		mv.addObject("re_step", article.getRe_step());
+		mv.addObject("re_level", article.getRe_level());
+		mv.addObject("pageNum", pageNum);
+		mv.addObject("memberid", memberid);
+		mv.addObject("studynum",article.getStudynum());
+		mv.setViewName("board/writeForm");
        
+       
+        -->
  	
  <div class="w3-container" style="margin-top:10px">
 		<form id="uploadform" method="post" name="writeform" enctype="multipart/form-data">
 			  	<input type="hidden" name="writer" value="${memberid}">
 			 	<input type="hidden" name="boardid" value="${boardid}">
-			 	<input type="hidden" name="studynum" value="${boardType.studynum}">
+			 	<input type="hidden" name="studynum" value="${studynum}">
 			 	<input type="hidden" name="ref" value="${ref}">
 				<input type="hidden" name="re_level" value="${re_level}">
 				<input type="hidden" name="num" value="${num}">
@@ -60,7 +74,7 @@
 				<button type="submit" onclick="upload()" class=" w3-button w3-black">
 					<i class="fa fa-check"></i>확인</button>
 			<input type="button" value="목록보기" class="w3-black  w3-button" 
-					onClick="$('#content').load('<%=request.getContextPath()%>/board/study_board')">
+					onClick="$('#content').load('../board/study_board?boardid=${boardid}&studynum=${studynum }')">
 					<input type="reset" value="다시작성"
 					class=" w3-black  w3-button ">
 					

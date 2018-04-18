@@ -26,15 +26,21 @@ public class StudyDAO extends MybatisConnector{
 	public void makingStudy(StudyVO study,String nickname) {
 		sqlSession=sqlSession();
 		int num=sqlSession.selectOne(namespace+".getNextNum");
+		
+		int number = sqlSession.selectOne(namespace + ".getNextBoardid");
+		String boardid=number+"";
+		
 		study.setNum(num);
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberid", study.getLeader());
 		map.put("studynum", study.getNum());
 		map.put("studyname",study.getStudyName());
 		map.put("nickname", nickname);
+		map.put("boardid", boardid);
 		map.put("leader", study.getLeader());
 		sqlSession.insert(namespace+".makingStudy",study);
 		sqlSession.insert(namespace+".addRelation",map);
+		sqlSession.insert(namespace+".DefaultBoard",map);
 		sqlSession.commit();
 		sqlSession.close();
 	}

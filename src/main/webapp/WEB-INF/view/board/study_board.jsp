@@ -41,14 +41,14 @@
     </tr>
 		<!--  
 		쓸수있는 el 
-		group pageCount endPage bottomLine startPage currentPage articleList number count 
+		studynum pageCount endPage bottomLine startPage currentPage articleList number count 
 		
 		articleList에 쓸수있는 변수
 		num, studynum boardid writer subject ref re_step re_level reg_date readcount 등등
 		-->
     <c:forEach var="article" items="${articleList}">
 			<tr class="w3-hover-white" 
-			onclick="$('#content').load('../board/content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&group=${article.studynum }')">
+			onclick="$('#content').load('../board/content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&studynum=${article.studynum }')">
 			<td class="w3-center" width="50">${number}</td>
 			<c:set var="number" value="${number-1}"/>
 				<td width="250">

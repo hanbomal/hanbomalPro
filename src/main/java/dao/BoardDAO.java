@@ -72,6 +72,18 @@ public class BoardDAO extends MybatisConnector {
 		return boardType;
 	}
 	
+	public BoardTypeVO getnewBoardType(String group) {
+		sqlSession = sqlSession();
+		Map map = new HashMap<String, String>();
+		map.put("studynum", group);
+		BoardTypeVO boardType = sqlSession.selectOne(namespace + ".getnewBoardType", map);
+		sqlSession.commit();
+		sqlSession.close();
+		return boardType;
+	}
+	
+	
+	
 	public int getArticleCount(String boardid,String studynum) {
 		int x = 0;
 		sqlSession = sqlSession();
@@ -95,13 +107,9 @@ public class BoardDAO extends MybatisConnector {
 		return li;
 	}
 
-	public void insertArticle(BoardVO article,String boardid, String studynum) {
+	public void insertArticle(BoardVO article) {
 		sqlSession = sqlSession();
 		Map map = new HashMap<String,String>();
-		map.put("studynum", studynum);
-		map.put("boardid",boardid);
-		System.out.println("studynum="+studynum);
-		System.out.println("boardid="+boardid);
 		int number = sqlSession.selectOne(namespace + ".getNextNumber",map);
 		if(article.getNum()!=0) {//답글쓰기
 			sqlSession.update(namespace+".updateRe_step", article);

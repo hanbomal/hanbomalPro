@@ -112,13 +112,9 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
               		     processData: false,
                          contentType: false,
                          success: function(data){
-                        /* 	 parent.document.getElementById('#reload').reload() */
-                        	 
-                        	 /* getElementById('content').reload(); */
-                            $('#content').html(data);
-                            document.getElementById('boardlistDropdown').innerHTML+="<a href='#'><button>test..</button></a>";
-                            
-                            
+         $('#content').html(data);
+       /*    document.getElementById('boardlistDropdown').innerHTML+="<a href='#'>${newBoardType.boardname }</a>";
+        */                     
                          }
                  });
 			 document.getElementById('clearName').value=""; 

@@ -69,27 +69,32 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   <div class="w3-container w3-white"><h6  style="display: inline-block; cursor: move;" id="contentTitle"></h6>
   <button class="w3-button w3-right "
   onclick="$('#content').load('<%=request.getContextPath()%>/gallery/list?memberid=${memberid }&studynum=${group }');document.getElementById('contentTitle').innerHTML='사진첩'">사진첩</button>
-
+    <div class="w3-dropdown-hover w3-right"> 
+    <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;" id="boardlistDropdown">
+      <c:if test="${typeList.size()>0}">
+      	    <c:forEach var="typeList" items="${typeList}">
+     			 <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('../board/study_board?studynum=${typeList.studynum }&boardid=${typeList.boardid}');document.getElementById('contentTitle').innerHTML='게시판'">${typeList.boardname }</a> 
+			</c:forEach>
+	  </c:if>
+   </div></div>
+<%-- 
 <!-- 전 -->  
     <button class="w3-button w3-right w3-dropdown-hover " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
 
     <div id="reload" class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;">
     <a>ddd</a>
     </div> 
-     <%--  <c:if test="${typeList.size()>0}"> --%>
+      <c:if test="${typeList.size()>0}">
 <!-- ========= -->
       <div class="w3-dropdown-hover w3-right"> 
     <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
     <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;" id="boardlistDropdown">
-    
-      <c:if test="${typeList!=null}">
 <!--후  -->
-      	    <c:forEach var="typeList" items="${typeList}">
-     			 <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board?studynum=${typeList.studynum }&boardid=${typeList.boardid}');document.getElementById('contentTitle').innerHTML='게시판'">${typeList.boardname }</a> 
-			</c:forEach>
-	  </c:if>
+    
+    
 	  
-	  
+	   --%>
 	  
   
   

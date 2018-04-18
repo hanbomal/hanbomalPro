@@ -41,9 +41,7 @@ public class BoardController {
 	String group="1";
 
 	@ModelAttribute
-	public void addAttributes(String boardid, String pageNum, String group) {
-		if (boardid != null)
-			this.boardid = boardid;
+	public void addAttributes(String pageNum, String group) {
 		if (pageNum != null && pageNum != "")
 			this.pageNum = pageNum;
 		if (group != null)
@@ -76,7 +74,7 @@ public class BoardController {
 		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
 		mv.addAttribute("boardType",boardType);	
 		mv.addAttribute("boardid",boardid);
-		mv.addAttribute("group",group);
+		mv.addAttribute("studynum",studynum);
 		mv.addAttribute("pageCount",pageCount);
 		mv.addAttribute("endPage",endPage);
 		mv.addAttribute("bottomLine",bottomLine);
@@ -99,16 +97,15 @@ public class BoardController {
 		return "board/content";
 	}
 	@RequestMapping("/writeForm")
-	public ModelAndView writeForm(BoardVO article,String boardid,String studynum,HttpServletRequest req) throws Exception {
+	public ModelAndView writeForm(BoardVO article,HttpServletRequest req) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		String memberid=getSessionId(req);
-		System.out.println(article);
-		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
+		BoardTypeVO boardType=boardDB.getBoardType(article.getBoardid(),article.getStudynum());
 		mv.addObject("boardType",boardType);
 		if(boardid==null||boardid.equals("")) {
 			boardid="1";
 		}
-		mv.addObject("boardid", boardid);
+		mv.addObject("boardid", article.getBoardid());
 		mv.addObject("boardType",boardType);
 		mv.addObject("num", article.getNum());
 		mv.addObject("ref", article.getRef());
@@ -116,7 +113,7 @@ public class BoardController {
 		mv.addObject("re_level", article.getRe_level());
 		mv.addObject("pageNum", pageNum);
 		mv.addObject("memberid", memberid);
-		mv.addObject("studynum",studynum);
+		mv.addObject("studynum",article.getStudynum());
 		mv.setViewName("board/writeForm");
 		return mv;
 	}
@@ -126,7 +123,7 @@ public class BoardController {
 		      , method= RequestMethod.POST
 		      , consumes ={"multipart/form-data"}
 		)
-	public String writePro(MultipartHttpServletRequest request,BoardVO article, Model mv,String studynum,String boardid)throws Exception {
+	public String writePro(MultipartHttpServletRequest request,BoardVO article, Model mv)throws Exception {
 		MultipartFile multi = request.getFile("uploadfile");
 		String filename = multi.getOriginalFilename();
 		System.out.println("filename:[" + filename + "]");
@@ -141,11 +138,10 @@ public class BoardController {
 			article.setFilename("");
 			article.setFilesize(0);
 		}
-		article.setStudynum(studynum);
-		boardDB.insertArticle(article,boardid,studynum);
+		boardDB.insertArticle(article);
 		mv.addAttribute("pageNum", pageNum);
-		mv.addAttribute("studynum", studynum);
-		mv.addAttribute("boardid", boardid);
+		mv.addAttribute("studynum", article.getStudynum());
+		mv.addAttribute("boardid", article.getBoardid());
 		return "redirect:/board/study_board";
 	}
 	

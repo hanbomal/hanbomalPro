@@ -338,6 +338,9 @@ public class PageController {
 		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
 		mv.addAttribute("typeList", typeList);
 		boardDB.addBoard(type);
+		BoardTypeVO newBoardType = boardDB.getnewBoardType(group);
+		mv.addAttribute("newBoardType",newBoardType);
+		
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/updateBoardType")
@@ -403,12 +406,16 @@ public class PageController {
 		StudyVO study=studyDB.getOneStudy(group);
 		List members=relationDB.getJoinMemberList(study.getStudyName());
 		String memberid = getSessionId(req);
+		
 		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
+		mv.addAttribute("typeList",typeList);
+		
+		BoardTypeVO newBoardType = boardDB.getnewBoardType(group);
+		mv.addAttribute("newBoardType",newBoardType);
 		
 		List<PositionVO> position = studyDB.getAllPosition(group);
 		mv.addAttribute("positionList",position);
 	
-		mv.addAttribute("typeList",typeList);
 		mv.addAttribute("study",study);
 		mv.addAttribute("memberCount",members.size());
 		mv.addAttribute("memberid",memberid);

@@ -13,8 +13,7 @@ create table board2(
 
   regdate date not null,
   readcount int,
-  filename VARCHAR2(100) ,
-  filesize INT
+
 
 
 )

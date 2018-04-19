@@ -380,6 +380,54 @@ function loadChatHistory(date,group){
 	 
  
 }
+
+function loadWordCloud(date,group){
+
+	
+	 $.ajax({
+		type: 'POST',
+		url: '../R/rprocessing',
+		async:false,
+		data: {    "date" : date,
+					"group":group,
+					"type":"wordcloud"
+       },
+		contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+		success: function(data) {
+			$('#wordcloud').html(data);
+		},
+		error: function(request, status, error) {
+			alert(error);
+		}
+	});
+	 
+
+}
+function loadPie(date,group){
+
+	
+	 $.ajax({
+		type: 'POST',
+		url: '../R/rprocessing',
+		async:false,
+		data: {    "date" : date,
+					"group":group,
+					"type":"pie"
+      },
+		contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+		success: function(data) {
+			$('#pie').html(data);
+		},
+		error: function(request, status, error) {
+			alert(error);
+		}
+	});
+	 
+
+}
+
+
+
 </script>
 </body>
 </html>

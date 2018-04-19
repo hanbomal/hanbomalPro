@@ -115,6 +115,25 @@
     <scope>test</scope>
 </dependency>
     
+<!-- https://mvnrepository.com/artifact/servlets.com/cos -->
+<dependency>
+    <groupId>servlets.com</groupId>
+    <artifactId>cos</artifactId>
+    <version>05Nov2002</version>
+</dependency>
+   <!-- https://mvnrepository.com/artifact/org.nuiton.thirdparty/Rserve -->
+<dependency>
+    <groupId>org.nuiton.thirdparty</groupId>
+    <artifactId>Rserve</artifactId>
+    <version>1.7-3</version>
+</dependency>
+    
+<!-- https://mvnrepository.com/artifact/org.rosuda.REngine/REngine -->
+<dependency>
+    <groupId>org.rosuda.REngine</groupId>
+    <artifactId>REngine</artifactId>
+    <version>2.1.0</version>
+</dependency>
     
     
   </dependencies>

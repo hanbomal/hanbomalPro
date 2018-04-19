@@ -1,16 +1,21 @@
 package chat;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
+import org.rosuda.REngine.REXP;
+import org.rosuda.REngine.REXPMismatchException;
+import org.rosuda.REngine.Rserve.RConnection;
+import org.rosuda.REngine.Rserve.RserveException;
 public class test {
 
-	public static void main(String[] args) {
-		
 	
+	static public void main(String args[]) throws RserveException, REXPMismatchException {
+
+	    RConnection c = new RConnection();
+	    REXP x = c.eval("1+2");
+	    System.out.print(x.asString());
 
 	}
+
+
+
 
 }

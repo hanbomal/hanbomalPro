@@ -19,6 +19,8 @@
    <bean class="controller.CalendarController" />
    <bean class="controller.BoardController" />
    <bean class="controller.GalleryController" />
+   <bean class="controller.RController" />
+   
    
    
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

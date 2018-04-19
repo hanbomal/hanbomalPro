@@ -22,7 +22,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="../api/date.js"></script>
-<script type="text/javascript" src="../api/JMAP.js"></script>
 
 <meta charset="UTF-8">
 
@@ -262,7 +261,7 @@ var today =new Date().toString('yyyyMMdd');
 	];
   
 
-  ${nameJs}
+  ${nameJs};
 
 
         var textarea = document.getElementById("messageWindow");

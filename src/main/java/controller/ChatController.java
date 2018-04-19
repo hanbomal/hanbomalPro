@@ -181,10 +181,10 @@ public class ChatController {
 		Iterator<RelationVO> it=memberList.iterator();
 		while(it.hasNext()) {
 			RelationVO member=(RelationVO)it.next();
-			System.out.println(member);
+			
 			String username=member.getMemberId();
 			
-			System.out.println(member.getStatus());
+			
 			if(member.getStatus().equals("2")) {
 			
 					if((member.getPhoto()!="")&&(member.getPhoto()!=null)) {
@@ -222,7 +222,7 @@ public class ChatController {
 	        //stbf.append("</script>");
 
 		
-	   System.out.println("=================="+stbf);
+	  
 	   
 	    mv.addAttribute("nameJs",stbf);
 		

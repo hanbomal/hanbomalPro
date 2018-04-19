@@ -1,3 +1,4 @@
+<%@page import="controller.RserveService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,8 +17,9 @@
 	
 	
   <div class="w3-bar w3-black" style="width: 100%">
+
     <button class="w3-bar-item w3-button tablink w3-red" onclick="openSelect(event,'wordcloud')">많이 사용한 단어</button>
-    <button class="w3-bar-item w3-button tablink" onclick="openSelect(event,'pie')">대화 참여 비율</button>
+    <button class="w3-bar-item w3-button tablink" onclick="openSelect(event,'pie')">대화 참여 비율</button> 
     <button class="w3-bar-item w3-button tablink" onclick="loadChatHistory(${fileName },${num });openSelect(event,'chathistory')">대화 내용 보기</button>
      <a href="<%=request.getContextPath() %>/download.do?path=${num}&fileName=${fileName }.txt">
      ${realFileName }<button class="w3-bar-item w3-button tablink w3-right" onclick="">대화 내용 다운로드</button></a>
@@ -25,7 +27,9 @@
   <div style="max-height:460px; overflow: auto;" class="w3-border">
   <div id="wordcloud" class="w3-container w3-center w3-padding  selected" style=" " >
 
-   <img src="<%=request.getContextPath() %>/imgs/wordcloud.png" style="max-height:400px;">
+
+
+   <img src="<%=request.getContextPath() %>/imgs/wordcloud.png" style="max-height:400px;"> 
    
   </div>
 

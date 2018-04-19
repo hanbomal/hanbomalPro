@@ -4,6 +4,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
+
+<script type="text/javascript">
+
+function button_event(){
+	
+	
+	if (confirm(" 정말 삭제하시겠습니까??") == true){    //확인
+	    document.form.submit();
+	}else{   //취소
+	    return false;
+	}
+
+
+
+}
+</script>
+
+
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- content -->
 <div class="w3-container bgimg-1" style="padding:64px 16px; " id="about">
@@ -54,7 +74,7 @@
                      <input type="hidden" name="memberid" value="${member.memberid}">
 					<input type="hidden" name="passwd" value="${member.passwd}"> 
 							
-                     <input type="submit" class="w3-button w3-w3-pale-red w3-hover-black" value="삭제">
+                     <input type="submit" class="w3-button w3-w3-pale-red w3-hover-black" value="삭제" onclick="return button_event(this.form);">
                       
          </form>
          </td>
@@ -106,4 +126,4 @@
   
 </div>
 </div>
-</html>
+</html>  

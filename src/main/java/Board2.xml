@@ -30,10 +30,10 @@ select * from (select rownum rnum, a.* from (select num, writer, subject, reg_da
 	<insert id="insertBoard"  parameterType="board2">
 	 insert into board2(num,writer,subject,
 					+  reg_date,
-			       ref,re_step,re_level,content) 
+			       ref,re_step,re_level,content,filename,filesize) 
 					values(#{num},#{writer},#{subject},
 					 sysdate,
-			       #{ref},#{re_step},#{re_level},#{content})
+			       #{ref},#{re_step},#{re_level},#{content},#{filename},#{filesize})
 	</insert>
 	
 	<update id="addReadCount"  parameterType="hashmap">

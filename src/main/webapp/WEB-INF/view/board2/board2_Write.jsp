@@ -12,13 +12,13 @@
 
 <center><b>글쓰기</b>
 <br>
-<form method="post" name="writeform" action="writePro" >
+<form method="post" name="writeform" action="board2_WritePro"  enctype="multipart/form-data">
 
 <input  type="hidden"   name="num" value="${num}">
 <input  type="hidden"   name="ref" value="${ref}">
 <input  type="hidden"   name="re_level" value="${re_level}">
 <input  type="hidden"   name="re_step" value="${re_step}">
-<input  type="hidden"   name="re_step" value="${regdate}">
+<input  type="hidden"   name="pageNum" value="${pageNum}">
 
 
 <table class="w3-table-all"  style="width:70%;" >
@@ -54,6 +54,13 @@
      <textarea name="content" rows="13" cols="40"></textarea> </td>
   </tr>
   
+     <tr>
+    <td  width="70"   align="center">file</td>
+    <td  width="330">
+       <input type="file" size="40" maxlength="30" 
+       name="uploadfile" >
+       </td>
+  </tr>
 <tr>      
  <td colspan=2  align="center"> 
   <input type="submit" value="글쓰기" >  

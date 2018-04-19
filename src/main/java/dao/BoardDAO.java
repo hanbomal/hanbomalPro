@@ -170,11 +170,12 @@ public class BoardDAO extends MybatisConnector {
 		return updateCount;
 	}
 	
-	public int deleteArticle(int num, String passwd) {
+	public int deleteArticle(int num, String boardid, String studynum) {
 		sqlSession = sqlSession();
 		Map map = new HashMap<String,Object>();
 		map.put("num", num);
-		map.put("passwd", passwd);
+		map.put("boardid", boardid);
+		map.put("studynum", studynum);
 		int deleteNum = sqlSession.delete(namespace + ".deleteArticle", map);
 		sqlSession.commit();
 		sqlSession.close();

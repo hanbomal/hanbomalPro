@@ -169,6 +169,8 @@ list-style: none;}
 				<a onclick="$('#gallery').load('<%=request.getContextPath()%>/gallery/list?pageNum=${startPage+bottomLine}');" class="w3-bar-item w3-button w3-hover-black">»</a>
 			</c:if>
 			    </div>
+			    
+			    
   </div>
 		</c:if>
 

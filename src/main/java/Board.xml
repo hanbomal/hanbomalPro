@@ -58,8 +58,8 @@
 	
 					
 	<update id="updateArticle" parameterType="Board">
-		update studyboard set writer=#{writer}, email=#{email},subject=#{subject},
-		content=#{content} where num=#{num} 
+		update studyboard set subject=#{subject}, content=#{content}, filename=#{filename}, filesize=#{filesize}
+		where num=#{num} and boardid=#{boardid} and studynum=#{studynum} 
 	</update>
 	
 	<update id="updateBoardType" parameterType="Type">
@@ -72,7 +72,7 @@
 	
    
    <delete id="deleteArticle" parameterType="hashmap" >
- 	  delete from studyboard where num=#{num} and passwd=#{passwd} 
+ 	  delete from studyboard where num=#{num} and boardid=#{boardid} and studynum=#{studynum}
    </delete> 	
    
 	<delete id="deleteBoard" parameterType="hashmap" >

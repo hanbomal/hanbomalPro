@@ -96,6 +96,60 @@ public class BoardController {
 		mv.addAttribute("pageNum", pageNum);
 		return "board/content";
 	}
+	
+	@RequestMapping("/updateForm")
+	public String updateForm(int num,String boardid, String studynum, Model mv) throws Exception  {
+			BoardVO article = boardDB.getArticle(num,studynum, boardid, "update");
+			BoardTypeVO boardType=boardDB.getBoardType(article.getBoardid(),article.getStudynum());
+			mv.addAttribute("boardType",boardType);
+			mv.addAttribute("article", article);
+			mv.addAttribute("boardid", article.getBoardid());
+			mv.addAttribute("ref", article.getRef());
+			mv.addAttribute("re_step", article.getRe_step());
+			mv.addAttribute("re_level", article.getRe_level());
+			mv.addAttribute("studynum", article.getStudynum());
+			mv.addAttribute("num", article.getNum());
+			mv.addAttribute("pageNum", pageNum);
+		return "board/updateForm";
+	}
+	@RequestMapping(
+		      value = "/updatePro"
+		      , method= RequestMethod.POST
+		      , consumes ={"multipart/form-data"}
+		)
+	public String updatePro(MultipartHttpServletRequest request,BoardVO article, Model mv) throws Exception {
+		MultipartFile multi = request.getFile("uploadfile");
+		String filename = multi.getOriginalFilename();
+		System.out.println("filename:[" + filename + "]");
+		if (filename != null && !filename.equals("")) {
+			String uploadPath = request.getRealPath("/") + "fileSave";
+			System.out.println(uploadPath);
+			FileCopyUtils.copy(multi.getInputStream(),
+					new FileOutputStream(uploadPath + "/" + multi.getOriginalFilename()));
+			article.setFilename(filename);
+			article.setFilesize((int) multi.getSize());
+		} else {
+			article.setFilename("");
+			article.setFilesize(0);
+		}
+		int updateCount=boardDB.updateArticle(article);
+		mv.addAttribute("updateCount", updateCount);
+		mv.addAttribute("pageNum", pageNum);
+		mv.addAttribute("studynum",article.getStudynum());
+		mv.addAttribute("boardid",article.getBoardid());
+		return "redirect:/board/study_board";
+	}
+	
+	@RequestMapping("/deletePro")
+	public String deletePro(int num,String boardid, String studynum,Model mv) throws Throwable {
+		int deleteCount=boardDB.deleteArticle(num, boardid,studynum);
+		mv.addAttribute("deleteCount",deleteCount);
+		mv.addAttribute("pageNum",pageNum);
+		mv.addAttribute("studynum",studynum);
+		mv.addAttribute("boardid",boardid);
+		return "redirect:/board/study_board";
+	}
+	
 	@RequestMapping("/writeForm")
 	public ModelAndView writeForm(BoardVO article,HttpServletRequest req) throws Exception {
 		ModelAndView mv = new ModelAndView();

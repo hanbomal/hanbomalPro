@@ -35,6 +35,7 @@ public class PageController {
 	String pageNum = "1";
 	String group="1";
 	String boardid = "1";
+	String workspaceTitle="WORKSPACE";
 
 	@ModelAttribute
 	public void addAttributes(String boardid,String group,String pageNum) {
@@ -50,6 +51,7 @@ public class PageController {
 		List<StudyVO> groupList=studyDB.getGroupList(getSessionId(req));
 		int reqcount = relationDB.requestCount(getSessionId(req));
 		int rescount = relationDB.responseCount(getSessionId(req));
+		
 		mv.addAttribute("groupList",groupList);
 		mv.addAttribute("reqcount",reqcount);
 		mv.addAttribute("rescount",rescount);
@@ -291,6 +293,10 @@ public class PageController {
 		StudyVO study= studyDB.getOneStudy(group);
 		mv.addAttribute("study", study);
 		mv.addAttribute("group",group);
+		
+		workspaceTitle=study.getStudyName();
+		mv.addAttribute("workspaceTitle",workspaceTitle);
+		
 		return "page/study_test";
 	}
 	

@@ -13,7 +13,23 @@ public class MemberVO {
 	private String listid;
 	private String passwdq;
 	private String passwdkey;
+	private String formatJoindate;
+	private String formatLastDate;
 	
+	
+	
+	public String getFormatJoindate() {
+		return formatJoindate;
+	}
+	public void setFormatJoindate(String formatJoindate) {
+		this.formatJoindate = formatJoindate;
+	}
+	public String getFormatLastDate() {
+		return formatLastDate;
+	}
+	public void setFormatLastDate(String formatLastDate) {
+		this.formatLastDate = formatLastDate;
+	}
 	public String getPasswdq() {
 		return passwdq;
 	}

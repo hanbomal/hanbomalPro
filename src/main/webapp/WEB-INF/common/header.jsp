@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+		String workspaceTitle2=(String)request.getAttribute("workspaceTitle");
+		if (workspaceTitle2==null){
+			workspaceTitle2="WORKSPACE";
+		}
+		
+		%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -60,7 +67,7 @@ body, html {
 
 				<form action="../page/main" autocomplete="off" method="post">
 					<input type="text" style="outline: none; width: 300px"
-						placeholder="Search..." name="studyName"
+						placeholder="그룹명을 입력하세요..." name="studyName"
 						id="myInput">
 					<button type="submit" class="w3-button w3-blue"
 						style="margin-left: -4px; padding: 8px; margin-bottom: 2px">
@@ -72,12 +79,16 @@ body, html {
 
 			<!-- Right-sided navbar links -->
 			<div class="w3-right w3-hide-small">
-				<a href="../page/about" class="w3-bar-item w3-button">ABOUT</a>
+				<a href="../page/about" class="w3-bar-item w3-button">공지사항</a>
 
 		<c:if test="${sessionScope.memberid==null}">
 				<a href="javascript:void(0)" class="w3-bar-item w3-button"
 					onclick="document.getElementById('login').style.display='block'"><i
-					class="fa fa-user"></i> MYPAGE</a>
+					class="fa fa-user"></i> 로그인</a>
+					<a href="javascript:void(0)" class="w3-bar-item w3-button"
+					onclick=""><i
+					class="fa fa-user"></i> 회원가입</a>
+					
 	    </c:if>
 	    <c:if test="${sessionScope.memberid!=null}">
 				<div class="w3-dropdown-hover">
@@ -106,10 +117,12 @@ body, html {
 						
 					</div>
 				</div>
-		</c:if> 
-					<div class="w3-dropdown-hover">
-					<button class="w3-button">
-						<i class="fa fa-th"></i> WORKSPACE
+		
+		
+		
+			<div class="w3-dropdown-hover" >
+					<button class="w3-button" style="width: 150px;">
+						<span class="w3-left"><i class="fa fa-th"></i> <%=workspaceTitle2 %></span>
 					</button>
 					
 					<c:if test="${sessionScope.memberid!=null}">
@@ -118,12 +131,15 @@ body, html {
 						<i class="fa fa-plus"></i> 
 						그룹추가</a> 
 						<c:forEach items="${groupList}" var="groupList">
-					 <a href="../page/test?group=${groupList.num}" class="w3-bar-item w3-button">${groupList.studyName}</a> 
+					 <a href="../page/test?group=${groupList.num}"  class="w3-bar-item w3-button">${groupList.studyName}</a> 
 						</c:forEach>
 					</div>
 					</c:if>
 					
 				</div>
+		
+		</c:if> 
+				
 		
 			</div>
 			

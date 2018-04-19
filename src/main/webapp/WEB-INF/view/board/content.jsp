@@ -47,17 +47,17 @@
 								<img
 									src="../fileSave/${article.filename}"
 									class="w3-border w3-center"
-									style="height: 100px; width: 100px;margin-left:-5%">
+									style="height: auto; width: 100%;">
  				 	</div>
 				</td>
 			</tr>
 			<tr>
-				<td width="100%" class="w3-left" colspan="4" style="height:230px">:&nbsp;${article.content}</td>
+				<td width="100%" class="w3-left w3-black" colspan="4" style="height:230px; overflow: auto;"><pre style="width: 100%;">${article.content}</pre></td>
 			</tr>
 			</c:if>
 			<c:if test="${article.filename==null }">
 			<tr>
-				<td width="100%" class="w3-left" colspan="4" style="height:350px">:&nbsp;${article.content}</td>
+				<td width="100%" class="w3-left" colspan="4" style="height:350px; overflow: auto;"><pre>${article.content}</pre></td> 
 			</tr>
 			</c:if>
 		</table>  

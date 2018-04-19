@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dao.MemberDAO;
 import dao.StudyDAO;
 import model.MemberVO;
+import model.StudyVO;
 
 @Controller
 @RequestMapping("/member")
@@ -274,13 +275,21 @@ PageController page=new PageController();
 	   int endRow = currentPage * pageSize;
 	   int count = 0;
 	   int number = 0;
-	   List memberList = null;
+	   List<MemberVO> memberList = null;
 	   MemberDAO dbPro = MemberDAO.getInstance();
 	   count = dbPro.getMemberCount();
 	   //게시판에 있는 글 수 count
 	   if (count > 0) {
 	      memberList = dbPro.getMembers(startRow, endRow);
 	   }
+	/*	private String formatJoindate;
+		private String formatLastDate;*/
+	   
+	   for(MemberVO tmp:memberList) {
+		   tmp.setFormatJoindate(sdf.format(tmp.getJoindate()));
+		   tmp.setFormatLastDate(sdf.format(tmp.getLastdate()));
+	   }
+	   
 	   number = count - (currentPage - 1) * pageSize;
 	   int bottomLine = 3; 
 	   int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
@@ -339,13 +348,15 @@ PageController page=new PageController();
 	   int endRow = currentPage * pageSize;
 	   int count = 0;
 	   int number = 0;
-	   List studyList = null;
+	   List<StudyVO> studyList = null;
 	   StudyDAO dbPro = StudyDAO.getInstance();
 	   count = dbPro.getStudyCount();
 	   //게시판에 있는 글 수 count
 	   if (count > 0) {
 	      studyList = dbPro.getStudyList(startRow, endRow);
 	   }
+	   
+	   
 	   number = count - (currentPage - 1) * pageSize;
 	   int bottomLine = 3; 
 	   int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);

@@ -5,6 +5,7 @@
    <!-- add -->
    <typeAliases>
    <typeAlias type="model.StudyVO" alias="Room"/> 
+   <typeAlias type="model.Board2VO" alias="board2"/> 
      <typeAlias type="model.StudyVO" alias="Study"/> 
   <typeAlias type="model.CalendarVO" alias="Schedule"/>  
   <typeAlias type="model.RelationVO" alias="Relation"/>  
@@ -34,5 +35,6 @@
    		 <mapper resource="Member.xml"/>  
    		 <mapper resource="Gallery.xml"/>
    		  <mapper resource="Board.xml"/>
+   		   <mapper resource="Board2.xml"/>
    </mappers>
 </configuration>

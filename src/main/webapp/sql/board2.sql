@@ -7,12 +7,16 @@ create table board2(
   subject varchar2(100),
   content varchar2(3000),
 
+
   ref int not null,
   re_step int not null,
   re_level int not null,
 
   regdate date not null,
   readcount int,
+
+ filename VARCHAR2(100) ,
+  filesize INT
 
 
 

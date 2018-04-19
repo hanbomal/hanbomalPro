@@ -17,10 +17,23 @@ public class Board2VO {
     private int ref;
     private int re_step;	
     private int re_level;
- 
+    private String filename;
+	private int filesize;
 
 	
    
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public int getFilesize() {
+		return filesize;
+	}
+	public void setFilesize(int filesize) {
+		this.filesize = filesize;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -75,14 +88,14 @@ public class Board2VO {
 	public void setRe_level(int re_level) {
 		this.re_level = re_level;
 	}
+	@Override
+	public String toString() {
+		return "Board2VO [num=" + num + ", writer=" + writer + ", subject=" + subject + ", content=" + content
+				+ ", reg_date=" + reg_date + ", readcount=" + readcount + ", ref=" + ref + ", re_step=" + re_step
+				+ ", re_level=" + re_level + ", filename=" + filename + ", filesize=" + filesize + "]";
+	}
 
 	
-	 @Override
-		public String toString() {
-			return "Board2DAO [num=" + num + ", writer=" + writer + ", subject=" + subject + ", content=" + content
-					+ ", reg_date=" + reg_date + ", readcount=" + readcount + ", ref=" + ref + ", re_step=" + re_step
-					+ ", re_level=" + re_level + "]";
-		}	
-
+	
 	
 }

@@ -19,23 +19,31 @@
 			
       </div>
     <div class="w3-card-4">
-      <div class="w3-container " id="res" style="overflow:auto; background: rgba(241, 241, 241, 0.75); ">
+      <div class="w3-container " id="res" style="overflow:auto;height:600px; background: rgba(241, 241, 241, 0.75); ">
      
-<div class="w3-container">
-  <table class="w3-table  w3-centered" style="width: 100%; border:black;">
+<div class="w3-container ">
+ 
+  	 
+ 		<c:if test="${count==0 }">
+			<div class="w3-center w3-padding-top">
+			<table class="w3-table table-bordered w3-center" width="100%">
+			<tr  >
+			<td class="w3-center w3-padding"><br>
+			<span class="w3-tag w3-white w3-border">요청 내역이 없습니다.</span><br><br></td>
+			</table>
+			</div>
+		</c:if>
+  	
+  	
+  	
+  	<c:if test="${count>0}">
+  	 <table class="w3-table  w3-centered" style="width: 100%; border:black;">
     <tr  class="w3-black">
       <th style="width:25%">신청일</th>
       <th style="width:30%">그룹명</th>
       <th style="width:25%">신청자</th>
       <th style="width:20%">상태</th>
     </tr>
-  	<c:if test="${count==0}">
-    <tr>
-      <td colspan="4" class="w3-center">No impormation</td>
-    </tr>
-  	</c:if>
-  	
-  	<c:if test="${count>0}">
   	<c:forEach var="group" items="${resList}">
      <tr>
       <td style="width:25%">${group.joinDate }</td>
@@ -46,15 +54,15 @@
       <form method="post" action="sendRedirect" >
       	<input type="hidden" name="memberId" value="${group.memberId}">
       	<input type="hidden" name="studyName" value="${group.studyName}">
-      	<button type="submit" name="yes" value="yes" class="w3-button w3-black w3-half">수락</button>
-      	<button type="submit" name="no" value="no" class="w3-button w3-red w3-half">거절</button>
+      	<button type="submit" name="yes" value="yes" class="w3-button w3-black w3-padding-small">수락</button>
+      	<button type="submit" name="no" value="no" class="w3-button w3-red w3-padding-small">거절</button>
       </form>
       </c:if>
   </td>
-    </tr>
+    </tr> 
     </c:forEach>	
-  	</c:if>
   </table>
+  	</c:if>
 </div>
 
 

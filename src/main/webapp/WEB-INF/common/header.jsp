@@ -69,7 +69,7 @@ body, html {
 					<input type="text" style="outline: none; width: 300px"
 						placeholder="그룹명을 입력하세요..." name="studyName"
 						id="myInput">
-					<button type="submit" class="w3-button w3-blue"
+					<button type="submit" class="w3-button w3-black"
 						style="margin-left: -4px; padding: 8px; margin-bottom: 2px">
 						<i class="fa fa-search w3-large"></i>
 					</button>

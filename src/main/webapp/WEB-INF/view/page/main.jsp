@@ -11,8 +11,9 @@
 	<br>
 	<!--개설된 방  검색 결과 추가 -->
 	<div class="w3-section w3-row">
-		<div class="w3-third">&nbsp;</div>
-		<div class="w3-container w3-third" >
+		<div class="w3-quarter"> &nbsp;</div>
+		
+		<div class="w3-container w3-half "  >
 			<c:if test="${group.size()!=null}">
 				<div class="w3-card-4 w3-white w3-padding">
 					<font>&nbsp;검색결과: ${group.size()} 건</font>
@@ -30,32 +31,32 @@
 				</div>
 			</c:if>
 			<c:forEach var="room" items="${group}">
-				<div class="w3-card-4 w3-light-grey " >
+				<div class="w3-card-4 w3-light-grey" >
 					<div class="w3-cell-row">
 						<div class="w3-cell w3-cell-middle w3-center w3-hide-small"
 							style="width: 80px; height: 65px">
 							<!--그룹 프로필  -->
 							<c:if test="${room.study_pro==null }">
 								<img src="<%=request.getContextPath()%>/imgs/defaultprofile.png"
-									class="w3-border w3-hide-small"
-									style="height: 70px; width: 70px">
+									class=" w3-hide-small w3-padding"
+									style="height: 90px; width:100px">
 							</c:if>
 
 							<c:if test="${room.study_pro!=null }">
 								<img
 									src="<%=request.getContextPath()%>/fileSave/${room.study_pro}"
-									class="w3-border w3-hide-small"
-									style="height: 70px; width: 70px">
+									class=" w3-hide-small w3-padding"
+									style="height: 90px; width: 100px">
 							</c:if>
 						</div>
-						<div class="w3-cell " style="height:65px;padding:5px;padding-left:10px">
+						<div class="w3-cell w3-padding " style="height:70px;padding:5px;padding-left:10px">
 						<c:if test="${room.relation.status!=2}">
-							<div >⦁그룹명: <font size="3"><Strong>${room.studyName}</Strong></font>
+							<div >⦁그룹명: <font size="4"><Strong>${room.studyName}</Strong></font>
 					    	</div>	
 						</c:if>	
 						<c:if test="${room.relation.status==2}">
 							<div >⦁그룹명: <a href="../page/test?group=${room.num}">
-							<font size="3"><Strong>${room.studyName}</Strong></font></a>
+							<font size="4"><Strong>${room.studyName}</Strong></font></a>
 					    	</div>	
 					    	
 						</c:if>
@@ -78,13 +79,13 @@
 									<input type="hidden" name="studyName" value="${studyName}" />
 									<input type="hidden" name="leader" value="${room.leader}" /> 
 									<input type="hidden" name="chk" value="${chk}" /> 
-									<input class="w3-button w3-white w3-border w3-border-red"	
+									<input class="w3-button w3-red"	
 									type="submit" value="가입" style="height:70px" />
 								</form>
 							</c:if>
 							<c:if test="${room.relation.status==1}">
 								<div class="w3-dropdown-hover w3-round-large">
-									<div class="w3-button w3-white w3-border w3-border-blue w3-cell w3-cell-middle" 
+									<div class="w3-button w3-blue w3-cell w3-cell-middle" 
 									style="height:70px;">대기
 									</div>
 									<div class="w3-dropdown-content w3-bar-block w3-border">
@@ -101,11 +102,15 @@
 
 							</c:if>
 								<c:if test="${room.relation.status==2}">
-									<div class="w3-tag w3-teal  w3-center" 
-									style="height:50px;width:64px">
-									<div style="margin-top:10px">
+								<!-- 	<div class="w3-tag w3-teal  w3-center" 
+									style="height:70px;width:64px">
+									<div style="margin-top:20px">
 									<i class="fa fa-check"></i>회원</div>
-									</div>
+									</div> -->
+									<button class="w3-button w3-teal"	
+									type="button" disabled="disabled" value="가입" style="height:70px" >
+									회원</button>
+									
 							
 								</c:if>
 						</div>
@@ -128,20 +133,4 @@
 			class="fa fa-linkedin w3-hover-opacity"></i>
 	</div>
 </div>
-<!-- <script>
-// Accordion
-function studyIntro(id) {
-    var x = document.getElementById(id);
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-theme-d1";
-    } else { 
-        x.className = x.className.replace("w3-show", "");
-        x.previousElementSibling.className = 
-        x.previousElementSibling.className.replace(" w3-theme-d1", "");
-    }
-}
-
-</script>
- -->
 </html>

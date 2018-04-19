@@ -47,7 +47,7 @@
 		num, studynum boardid writer subject ref re_step re_level reg_date readcount 등등
 		-->
     <c:forEach var="article" items="${articleList}">
-			<tr class="w3-hover-white"  draggable="true" ondragstart="drag(event)" id="${article.num}"
+			<tr class="w3-hover-white"  draggable="true" ondragstart="drag(event);" id="${article.num}"
 			onclick="$('#content').load('../board/content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&studynum=${article.studynum }')">
 			<td class="w3-center" width="50">${number}</td>
 			<c:set var="number" value="${number-1}"/>
@@ -133,6 +133,8 @@ function boardToChat(id){
 	
 	var memberidChk=document.getElementById("memberidChk").value;
 	var boardMessage="";
+	
+	
 	 var now = new Date();
 	 var nowText="";
      var nowHour = now.getHours();
@@ -155,66 +157,53 @@ function boardToChat(id){
     	 
      	}
      
-     
-	  textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
-		  +"<li class='w3-large' style='border:none;' align='right'>"
-	          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
-	         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
-	          +"<span class='w3-medium w3-left' >"+memberidChk+"님이 게시글 다시 보내기를 하셨습니다.<p/><b>게시판 : </b><br><b>글제목: </b><br><b>올린날짜: </b><p/>"
-	          +"</span></span></li></ul></td></tr></table>";
    
-    
-	 textarea.scrollTop=textarea.scrollHeight;
-    
-	 
-	 boardMessage=memberidChk+"님이 게시글 다시 보내기를 하셨습니다.<p/><b>게시판 : </b><br><b>글제목: </b><p/>"
-     +"</span></span></li></ul></td></tr></table>";
-	 
-     webSocket.send(boardMessage.trim());
+     var article;
      
-     
-	loadArticle(id);
-	
-}
+     $.ajax({
+    	 url : "../board/loadArticle", 
+    	 method : "GET",  
+    	 dataType:"JSON",
+    	 data:{"id":id,
+    			"group":<c:out value="${studynum}"/>,
+    			"boardid":<c:out value="${boardid}"/>
+    			}, 
+    	 success : function(json) {
+    	        
+    	   //alert(JSON.stringify(json));       
+    	   
+    	        article=JSON.parse(JSON.stringify(json));
+    	      
 
-function loadArticle(id) {
-	
-	/* $.ajax({
-		url:"../board/loadArticle", 
-		type:"post",
-		data:{"id":id,
-			"group":<c:out value="${studynum}"/>,
-			"boardid":<c:out value="${boardid}"/>
-			}, 
-		success:function(data){
-			//alert("성공");
-			alert("data="+data);
-		
-		},
-		error:function(request, status, error){
-			alert("실패");
-		}
-	});
-}
- */
- 
- 
- $.ajax({
-	 url : "../board/loadArticle", 
-	 method : "GET",  
-	 dataType:"JSON",
-	 success : function(json) {
-	        
-	   alert(JSON.stringify(json));       
-	        
-	 },
-	 error : function(XHR, textStatus, errorThrown) {
-	        
-	     alert("Error: " + textStatus);      
-	     alert("Error: " + errorThrown);
-	 
-	 }
-	});
+    	  	  textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+    	  		  +"<li class='w3-large' style='border:none;' align='right'>"
+    	  	          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
+    	  	         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
+    	  	          +"<span class='w3-medium w3-left' style='text-align: left;'>"+memberidChk+"님이 게시글 다시 보내기를 하셨습니다.<p/><b>게시판 : </b>"+article.boardname+"<br>"
+    	  	          +"<b>글제목: </b>"+article.title+"<br><b>글쓴이: </b>"+article.writer+"<br><b>올린날짜: </b>"+article.date+"<p/><br>"
+    	  	          +"<button class='w3-button w3-black' onclick=$('#content').load('../board/content?num="+id+"&studynum="+article.studynum+"&boardid="+article.boardid+"')>게시글 보기</button>"
+    	  	          +"</span></span></li></ul></td></tr></table>";
+    	     
+    	      
+    	  	 textarea.scrollTop=textarea.scrollHeight;
+    	      
+    	  	 
+    	  	 boardMessage=memberidChk+"님이 게시글 다시 보내기를 하셨습니다.<p/><b>게시판 : </b>"+article.boardname+"<br>"
+ 	          +"<b>글제목: </b>"+article.title+"<br><b>글쓴이: </b>"+article.writer+"<br><b>올린날짜: </b>"+article.date+"<p/><br>"
+  	          +"<button class='w3-button w3-black' onclick=$('#content').load('../board/content?num="+id+"&studynum="+article.studynum+"&boardid="+article.boardid+"')>게시글 보기</button>";
+  	          
+  	          
+    	       webSocket.send(boardMessage.trim());
+    	 
+    	 
+    	 },
+    	 error : function(XHR, textStatus, errorThrown) {
+    	        
+    	     alert("Error: " + textStatus);      
+    	     alert("Error: " + errorThrown);
+    	 
+    	 }
+    	});
 
 
  }

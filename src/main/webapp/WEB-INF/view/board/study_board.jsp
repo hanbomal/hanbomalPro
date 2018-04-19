@@ -11,7 +11,7 @@
 
 <!-- content -->
 <div class="w3-container " style="height:600px; width:100%; overflow:auto;  ">
-     
+     <input type="hidden" value="${memberid }" id="memberidChk">
 <div class="w3-container " style="width: 100%;">
  <!--  <div class="w3-card-2" style="margin-top:10px" > -->
  <div  id="content" style="height:100%;" >
@@ -47,7 +47,7 @@
 		num, studynum boardid writer subject ref re_step re_level reg_date readcount 등등
 		-->
     <c:forEach var="article" items="${articleList}">
-			<tr class="w3-hover-white" 
+			<tr class="w3-hover-white"  draggable="true" ondragstart="drag(event)" id="${article.num}"
 			onclick="$('#content').load('../board/content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&studynum=${article.studynum }')">
 			<td class="w3-center" width="50">${number}</td>
 			<c:set var="number" value="${number-1}"/>
@@ -111,4 +111,114 @@
  
 
       </div>
+      <script>
+ function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    //alert(document.getElementById(data).id);
+  /*   imageToChat(document.getElementById(data).id); */
+    boardToChat(document.getElementById(data).id);
+  
+}
+
+function boardToChat(id){
+	
+	var memberidChk=document.getElementById("memberidChk").value;
+	var boardMessage="";
+	 var now = new Date();
+	 var nowText="";
+     var nowHour = now.getHours();
+     var nowMt = now.getMinutes();
+     if(nowMt<10){
+    	 nowMt='0'+nowMt;
+     }
+   
+     if ( nowHour <12   ) {
+    
+
+       nowText='오전 ' + nowHour + ':' + nowMt;
+
+     } else if (  nowHour >= 12   ) {
+	
+    	 if(nowHour>=13){
+    		 nowHour=nowHour-12;
+    	 }
+    	 nowText='오후 ' + nowHour + ':' + nowMt;
+    	 
+     	}
+     
+     
+	  textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+		  +"<li class='w3-large' style='border:none;' align='right'>"
+	          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
+	         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
+	          +"<span class='w3-medium w3-left' >"+memberidChk+"님이 게시글 다시 보내기를 하셨습니다.<p/><b>게시판 : </b><br><b>글제목: </b><br><b>올린날짜: </b><p/>"
+	          +"</span></span></li></ul></td></tr></table>";
+   
+    
+	 textarea.scrollTop=textarea.scrollHeight;
+    
+	 
+	 boardMessage=memberidChk+"님이 게시글 다시 보내기를 하셨습니다.<p/><b>게시판 : </b><br><b>글제목: </b><p/>"
+     +"</span></span></li></ul></td></tr></table>";
+	 
+     webSocket.send(boardMessage.trim());
+     
+     
+	loadArticle(id);
+	
+}
+
+function loadArticle(id) {
+	
+	/* $.ajax({
+		url:"../board/loadArticle", 
+		type:"post",
+		data:{"id":id,
+			"group":<c:out value="${studynum}"/>,
+			"boardid":<c:out value="${boardid}"/>
+			}, 
+		success:function(data){
+			//alert("성공");
+			alert("data="+data);
+		
+		},
+		error:function(request, status, error){
+			alert("실패");
+		}
+	});
+}
+ */
+ 
+ 
+ $.ajax({
+	 url : "../board/loadArticle", 
+	 method : "GET",  
+	 dataType:"JSON",
+	 success : function(json) {
+	        
+	   alert(JSON.stringify(json));       
+	        
+	 },
+	 error : function(XHR, textStatus, errorThrown) {
+	        
+	     alert("Error: " + textStatus);      
+	     alert("Error: " + errorThrown);
+	 
+	 }
+	});
+
+
+ }
+      
+      
+</script>
 </html>

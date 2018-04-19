@@ -1,8 +1,10 @@
 package controller;
 
 import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.BoardDAO;
 import model.BoardTypeVO;
 import model.BoardVO;
-import model.GalleryVO;
 
 @Controller
 @RequestMapping("/board")
@@ -49,7 +51,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/study_board")
-	public String study_board(Model mv,String boardid, String studynum) throws Throwable {
+	public String study_board(Model mv,HttpServletRequest req, String boardid, String studynum) throws Throwable {
 		
 		int pageSize = 7;
 		int currentPage = Integer.parseInt(pageNum);
@@ -72,6 +74,7 @@ public class BoardController {
 		if (endPage > pageCount)
 			endPage = pageCount;
 		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
+		String memberid=getSessionId(req);
 		mv.addAttribute("boardType",boardType);	
 		mv.addAttribute("boardid",boardid);
 		mv.addAttribute("studynum",studynum);
@@ -83,6 +86,9 @@ public class BoardController {
 		mv.addAttribute("articleList",articleList);
 		mv.addAttribute("number",number);
 		mv.addAttribute("count",count);
+		mv.addAttribute("memberid",	memberid);
+		
+		
 		return "board/study_board";
 	}
 	/*content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&studynum=${article.studynum }'*/
@@ -200,5 +206,41 @@ public class BoardController {
 	}
 	
 	
+	/*@ResponseBody
+	@RequestMapping(value="loadArticle",
+	produces="application/String; charset=utf-8",
+	method=RequestMethod.POST)
+	public String checkid(String id,String group,String boardid) { 
+        //자동적으로 넘어옴(id는 넘겨받은 parameter값의 name과 같아야됨
+		System.out.println("id:"+id);
+		
+		BoardVO article=boardDB.getArticle(Integer.parseInt(id), group, boardid, "");
+		
+		return article.toString();
+	}*/
 	
+	@ResponseBody
+	@RequestMapping(value = "loadArticle", method = RequestMethod.GET, produces="application/json")
+	public List< Map< String, Object>> ajax_receiveJSON() {
+	   
+	 
+	   
+		
+	 List< Map< String, Object>> list = new ArrayList< Map< String, Object>>();
+	   
+	 for(int i=0 ; i<3 ; i++) {
+	    
+	  Map< String, Object> map = new HashMap< String, Object>();
+	    
+	  map.put("id", "id"+i);
+	  map.put("name", "name"+i);
+	    
+	  list.add(map);
+	 }
+	   
+	 return list;    
+	} 
+	
+	
+
 }

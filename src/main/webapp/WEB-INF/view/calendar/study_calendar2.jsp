@@ -135,7 +135,12 @@ jQuery(document).ready(function(){
     	    //console.log('coords', jsEvent.pageX, jsEvent.pageY);
     	    //alert(date.format());
     	    dailyWordsView(date.format());
+    
+    	   
     	    document.getElementById('message').style.display='block';
+    		 
+    		  
+    		  
     	  }
        , select: function(startDate, endDate) {
     	   document.getElementById('title').value='';
@@ -309,7 +314,7 @@ function toUpdatePage(data){
 		
 		var day="day="+data+"&num=<%=request.getAttribute("num")%>";
 		sendRequest("<%=request.getContextPath()%>/calcontroller/dailyWordsView",day,fromServer,"POST");
-		
+	
 	}
 	
 	

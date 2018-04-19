@@ -214,7 +214,8 @@ list-style: none;}
 function imageToChat(id){
 	var imgSrc=document.getElementById(id).src;
 	var chkMem=document.getElementById("chkMem").value;
-
+	var  galleryMessage="";
+	
 	 var now = new Date();
 	 var nowText="";
      var nowHour = now.getHours();

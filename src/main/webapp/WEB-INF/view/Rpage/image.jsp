@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<img src="<%=request.getContextPath() %>/Rimg/${imgname}"/>
+<img src="<%=request.getContextPath() %>/Rimg/${imgname}" height="auto"/>
 </body>
 </html>

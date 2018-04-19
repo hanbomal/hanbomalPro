@@ -32,36 +32,31 @@
 					 
       </div>
     <div class="w3-card-4">
-      <div class="w3-container " id="req1" style="overflow:auto; background: rgba(241, 241, 241, 0.75); ">
+      <div class="w3-container " id="req1" style="overflow:auto; height:600px; background: rgba(241, 241, 241, 0.75); ">
 <div class="w3-container">
-
-<!-- <div class="w3-card-4 w3-white w3-padding">
-					<font>&nbsp;검색결과: ${group.size()} 건</font>
-					 
-			<select class="w3-right" style="margin-top:1.5px" 
-			onchange="window.location='main?studyName=${studyName}&chk='+this.value">
-  			  <option value="${chk}" selected disabled="disabled">
-  			  <c:if test="${chk!='byDate'}">정확도순</c:if>
-  			  <c:if test="${chk=='byDate'}">최신순</c:if>
-  			  </option>
-			
-  			  <option value="byName">정확도순</option>
-  			  <option value="byDate">최신순</option>
-			</select>
-				</div> -->
-  <table class="w3-table  w3-centered" style="width: 100%; border:black; ">
+  
+  	
+ 		<c:if test="${count==0 }">
+			<div class="w3-center w3-padding-top">
+			<table class="w3-table table-bordered w3-center" width="100%">
+			<tr  >
+			<td class="w3-center w3-padding"><br>
+			<span class="w3-tag w3-white w3-border">신청 내역이 없습니다.</span><br><br></td>
+			</table>
+			</div>
+		</c:if>
+  	
+  	
+  	
+  	
+  	<c:if test="${count>0}">
+  	
+  	<table class="w3-table  w3-centered" style="width: 100%; border:black; ">
     <tr class="w3-black">
       <th style="width:30%">신청일</th>
       <th style="width:40%">그룹명</th>
       <th style="width:30%">상태</th>
     </tr>
-  	<c:if test="${count==0}">
-    <tr>
-      <td colspan="3" class="w3-center">No impormation</td>
-    </tr>
-  	</c:if>
-  	
-  	<c:if test="${count>0}">
   	<c:forEach var="group" items="${reqList}">
      <tr id="acep">
       <td style="width:30%">${group.joinDate }</td>
@@ -74,8 +69,8 @@
       </c:if>
     </tr>
     </c:forEach>	
+     </table>
   	</c:if>
-  </table>
 </div>
 <!-- x effect 
 <span onclick="document.getElementById('acep').style.display='none'">&times;</span> -->

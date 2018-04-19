@@ -15,22 +15,22 @@
   		 	 <div  id="content" style="height:100%;" >
   		  <font size=6>${boardType.boardname}</font>
  		  <br> 
-	<div class="w3-half" style="margin-top:10px">
+	<div style="margin-top:10px">
 		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 100%;">
 			<tr>
 				<th class="w3-black w3-center" colspan="4" >제목: [${article.subject}]</th>
 			</tr>
 			<tr height="30">
-				<th width="25%" align="center">글번호</th>
-				<td width="25%" align="center">${article.num}</td>
-				<th width="25%" align="center">조회수</th>
-				<td width="25%" align="center">${article.readcount}</td>
+				<td width="25" align="center"><b>글번호</b></td>
+				<td width="25" align="center">${article.num}</td>
+				<td width="25" align="center"><b>조회수</b></td>
+				<td width="25" align="center">${article.readcount}</td>
 			</tr>
 			<tr height="30">
-				<th width="25%" align="center">작성자</th>
-				<td width="25%" align="center">${article.writer}</td>
-				<th width="25%" align="center">작성일</th>
-				<td width="25%" align="center">${article.reg_date}</td>
+				<td width="25" align="center"><b>작성자</b></td>
+				<td width="25" align="center">${article.writer}</td>
+				<td width="25" align="center"><b>작성일</b></td>
+				<td width="25" align="center">${article.reg_date}</td>
 			</tr>
 			<c:if test="${article.filename!=null }">
 			<tr height="30">
@@ -38,7 +38,7 @@
 					<div>
 					 <div class="w3-dropdown-click w3-left">
    				 <button onclick="myFunction()" class="w3-button" style="padding:2px"><i class="fa fa-list" style="font-size:29px"></i></button>
-   					 <div id="Demo" class="w3-dropdown-content w3-border" style="z-index:9999">
+   					 <div id="Demo" class="w3-dropdown-content w3-border" style="z-index:99">
 					      <div class="w3-container">Link 1</div>
 					      <div class="w3-container">Link 2</div>
 					      <div class="w3-container">Link 3</div>
@@ -47,7 +47,7 @@
 								<img
 									src="../fileSave/${article.filename}"
 									class="w3-border w3-center"
-									style="height: auto; width: 100%;">
+									style="max-height:400px;">
  				 	</div>
 				</td>
 			</tr>
@@ -57,7 +57,7 @@
 			</c:if>
 			<c:if test="${article.filename==null }">
 			<tr>
-				<td width="100%" class="w3-left" colspan="4" style="height:350px; overflow: auto;"><pre>${article.content}</pre></td> 
+				<td width="100%"  class="w3-left" colspan="4" style="height:350px; overflow: auto;"><pre>${article.content}</pre></td> 
 			</tr>
 			</c:if>
 		</table>  
@@ -76,11 +76,11 @@
 		</div>
 	</div> 
 	
-	<div class="w3-half" style="margin-top:10px">
+	<div style="margin-top:10px">
 	
 		<div class=" w3-border w3-padding" style="margin-left:5%;width:90%">
-  			<input class="w3-border" style="width:85%;height:40px;"/>
-  			<button class="w3-button  w3-teal" style="height:40px;margin-top:-5px"type="submit" >댓글</button>
+  			<input class="w3-border" style="width:90%;height:40px;"/>
+  			<button class="w3-button  w3-black" style="height:40px;margin-top:-5px"type="submit" >댓글</button>
   		</div>
   		
   		<div class="w3-container w3-card w3-light grey w3-bordered " style="margin-left:5%;height:400px; width:90%;padding-top:5px">

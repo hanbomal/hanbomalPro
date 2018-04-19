@@ -8,7 +8,7 @@
 <!-- 쓸수있는 el들 leader groupposition studynum memberid AllPosition nickName-->
 </head>
 <body>
-    <div class="w3-modal-content w3-card-4" style="max-width: 400px;">
+    <div class="w3-modal-content w3-card-4" style="max-width: 700px;">
       <header class="w3-container w3-teal"> 
         <span onclick="document.getElementById('clickMember').style.display='none'" 
         class="w3-button w3-display-topright">&times;</span>
@@ -24,21 +24,21 @@
       <font size=3>⦁ 역할부여</font>
    
       <!--  리스트를 가지고와야함-->
- 	  <select class="w3-select w3-center" name="positionSelect" style="width:220px">
+ 	  <select class="w3-select w3-center" name="positionSelect" style="width:500px">
  	  	<option value="${groupposition}" selected="selected" disabled="disabled">${groupposition}</option>
  	  	<c:forEach items="${AllPosition}" var="List">
  	  	 	<option value="${List.groupposition}">${List.groupposition}</option>
  	  	</c:forEach>
  	  </select>
- 	  <button class="w3-button" type="submit" onclick="grantPosition()"><i class="fa fa-save" style="font-size:26px"></i></button>
+ 	  <button class="w3-button" type="submit" onclick="grantPosition()">저장</button>
       </div>
     <%--     <input id="clearName" class="w3-input" type="text" name="groupposition" value="${groupposition }"> --%>
       </div>
       <div class="w3-container">
        	<input type="submit" onclick="changeLeader()" 
-        class="w3-input w3-teal w3-center w3-section w3-half w3-padding w3-button" value="방장위임">
+        class=" w3-teal w3-center w3-section w3-padding-small w3-right w3-button" value="방장위임">
        	<input type="submit" onclick="banishMember()" 
-        class="w3-input w3-red w3-center w3-section w3-half w3-padding w3-button" value="추방하기">
+        class=" w3-red w3-center w3-section w3-padding-small w3-right w3-button" value="추방하기">
         </div>
         </form>
     </div>

@@ -69,7 +69,7 @@ body, html {
 					<input type="text" style="outline: none; width: 300px"
 						placeholder="그룹명을 입력하세요..." name="studyName"
 						id="myInput">
-					<button type="submit" class="w3-button w3-blue"
+					<button type="submit" class="w3-button w3-black"
 						style="margin-left: -4px; padding: 8px; margin-bottom: 2px">
 						<i class="fa fa-search w3-large"></i>
 					</button>
@@ -79,7 +79,7 @@ body, html {
 
 			<!-- Right-sided navbar links -->
 			<div class="w3-right w3-hide-small">
-				<a href="../page/about" class="w3-bar-item w3-button">공지사항</a>
+				<a href="<%=request.getContextPath() %>/board2/board2_List" class="w3-bar-item w3-button">공지사항</a>
 
 		<c:if test="${sessionScope.memberid==null}">
 				<a href="javascript:void(0)" class="w3-bar-item w3-button"
@@ -96,7 +96,7 @@ body, html {
 						<i class="fa fa-th"></i> ${sessionScope.memberid} 님
 					</button>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
-						<a href="<%=request.getContextPath() %>/member/before_check" class="w3-bar-item w3-button">MY PAGE<!-- 지혜가 도와준 절대경로 -->
+						<a href="<%=request.getContextPath() %>/member/before_check" class="w3-bar-item w3-button">MY PAGE
 						</a>
 						<a href="../page/RequestPage" class="w3-bar-item w3-button">신청목록
 						<c:if test="${reqcount>0 }">
@@ -213,7 +213,7 @@ body, html {
 					type="button" class="w3-button w3-black">취소</button>
 					
 				<span class="w3-right w3-padding w3-hide-small"><a
-					href="<%=request.getContextPath()%>/member/join2">회원가입</a>&nbsp;&nbsp;&nbsp; <a href=".${pageContext.request.contextPath}/member/findpasswd"">비밀번호</a>를
+					href="<%=request.getContextPath()%>/member/join2">회원가입</a>&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath() %>/member/findPasswd"">비밀번호</a>를
 					잊으셨나요?</span>
 					
 			</div>

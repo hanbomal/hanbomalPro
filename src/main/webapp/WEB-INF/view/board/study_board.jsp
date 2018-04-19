@@ -51,7 +51,7 @@
 			onclick="$('#content').load('../board/content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&studynum=${article.studynum }')">
 			<td class="w3-center" width="50">${number}</td>
 			<c:set var="number" value="${number-1}"/>
-				<td width="250">
+				<td width="250" align="left" style="text-align: left">
 			<c:if test="${article.re_level>0}">	
 					<img src="../imgs/level.gif" width="${5 *article.re_level}" height="16">
 					<img src="../imgs/re.gif">

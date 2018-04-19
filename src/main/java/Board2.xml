@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="board2">
+	
+	<select id="getArticleCount" resultType="int">
+		   SELECT nvl(count(*),0) FROM board2
+	</select>
+	
+	<select id="getArticles" resultType="board2" parameterType="hashmap">
+select * from (select rownum rnum, a.* from (select num, writer, subject, reg_date, readcount, ref, re_step, re_level, 
+	content,filename,filesize from board2  order by ref desc, re_step) a) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getNextNumber" parameterType="int">
+	
+	select board2ser.nextval from dual
+	</select>
+
+	
+	<update id="updateRe_step" parameterType="board2">
+	update board2 set re_step=re_step+1 "
+ where ref=#{ref} and re_step> #{re_step} 
+	
+	</update>
+	
+	<insert id="insertBoard"  parameterType="board2">
+	 insert into board2(num,writer,subject,
+					+  reg_date,
+			       ref,re_step,re_level,content) 
+					values(#{num},#{writer},#{subject},
+					 sysdate,
+			       #{ref},#{re_step},#{re_level},#{content})
+	</insert>
+	
+	<update id="addReadCount"  parameterType="hashmap">
+	
+	update board2 set readcount=readcount+1
+	where num=#{num} 
+	</update>
+	<select id="getArticle" parameterType="hashmap" resultType="board2">
+	
+	select * from board2 where num =
+	#{num} 
+	</select> 
+	
+	<update id="updateArticle"  parameterType="board2">
+	
+       update board2 set 
+		subject=#{subject},content=#{content} where num=#{num} 
+	
+	</update>
+	
+	
+	
+	<update id="deleteArticle"  parameterType="map">
+	
+       delete from board2 where num=#{num} 
+				
+	
+	</update>
+	
+</mapper>
+

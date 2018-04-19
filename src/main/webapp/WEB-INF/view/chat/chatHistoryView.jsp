@@ -60,13 +60,14 @@ function historyView(){
 	else if(l0=='<%=session.getAttribute("memberid")%>'){
 		
 	          
-		chatHistoryArea.innerHTML +="<div ><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
-			  +"<li class='w3-large' style='border:none;' align='right'>"
-		          +"<span class='w3-small'>"+l1+"</span>&nbsp;"
-		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
-		          +"<span class='w3-medium messageClass'>"+l2+"</span></span></li></ul></td></tr></table></div>";
-	          
-		  
+		          chatHistoryArea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+  	  		  +"<li class='w3-large' style='border:none;' align='right'>"
+  	  	          +"<span class='w3-small'>"+l1+"</span>&nbsp;"
+  	  	         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
+  	  	          +"<span class='w3-medium w3-left' style='text-align: left;'>"+l2
+  	  	          +"</span></span></li></ul></td></tr></table>";
+		          
+		          
 	  }else{
 
 	 chatHistoryArea.innerHTML +="<div ><table align='left' style='width:100%;'><tr><td>"

@@ -7,9 +7,12 @@
  
 
 <script>
-$(document).ready(function(){    $('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=${group}');
+$(document).ready(function(){   
 document.getElementById('contentTitle').innerHTML='달력';
-$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${group}&name=${memberid }'); });
+$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${group}&name=${memberid }'); 
+$('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=${group}');
+
+});
 
  $( function() {
     $( "#draggable" ).draggable({ handle: "#handle" });
@@ -25,6 +28,7 @@ $('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${grou
  
  
   </script>
+ 
 
 
  <link href="../api/fullcalendar-3.9.0/fullcalendar.css" rel="stylesheet"/> 
@@ -129,6 +133,49 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 </div>
 
 
+
+<script>
+function onClickReview(num) {
+	
+		$.ajax({
+            type: "POST",
+            url: "../gallery/imageViewRe",
+            data: {    "num" : num,
+            	"memberid" : '<c:out value="${memberid}"/>'
+               },
+            success: function(data) {
+            	document.getElementById("modal_imageContent_re").innerHTML=data;
+            
+            }, error: function() {
+                alert('실패');
+            }
+        });
+		
+		document.getElementById("viewModal_re").style.display='block';
+
+		
+		}
+
+</script>
+ <!--사진 다시보기 모달 -->
+     <div id="viewModal_re" class="w3-modal" style="display: none;">
+     
+    <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 600px;">
+     <div class="w3-container w3-center w3-teal">
+       <h6><b>사진 보기</b></h6>
+      </div>
+      <div class="w3-container w3-padding" >
+        <span onclick="document.getElementById('viewModal_re').style.display='none';" class="w3-button w3-display-topright">&times;</span>
+       
+<div class="w3-center  w3-container w3-padding" id="modal_imageContent_re">
+	
+</div>
+   </div>
+ 
+  
+   
+    </div>
+  </div>
 
 
   

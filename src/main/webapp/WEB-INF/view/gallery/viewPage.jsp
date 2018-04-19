@@ -20,12 +20,15 @@
 내용 : ${gallery.content }</span>
 </c:if>
 
+<c:if test="${isRe=='FALSE' }">
+
 <div class="w3-container w3-center w3-light-grey w3-margin-top">
-       <button class="w3-button" onclick="imageToChat('img01');">채팅방으로 다시 보내기</button>
+       <button class="w3-button" onclick="imageToChat(${gallery.num});">채팅방으로 다시 보내기</button>
        
        <c:if test="${memberid==gallery.name}">
        <button class="w3-button" onclick=" document.getElementById('viewModal').style.display='none';deleteImage(${gallery.num});">삭제하기</button>
        </c:if>
       </div>
+      </c:if>
 
 </html>

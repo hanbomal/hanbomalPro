@@ -110,7 +110,28 @@ public class GalleryController {
 		
 		model.addAttribute("gallery",gallery);
 		model.addAttribute("memberid",memberid);
+		model.addAttribute("isRe","FALSE");
 		
+		return "gallery/viewPage";
+	}
+	
+	@RequestMapping(
+		      value = "/imageViewRe"
+		      , method= RequestMethod.POST
+		  		)
+	public String imageViewRe(HttpServletRequest request, Model model)
+			throws Exception {
+		
+		String num=request.getParameter("num");
+		String memberid=request.getParameter("memberid");
+		
+		GalleryVO gallery=gPro.getImage(num);
+		
+		gallery.setFormatDate(sdf.format(gallery.getRegdate()));
+		
+		model.addAttribute("gallery",gallery);
+		model.addAttribute("memberid",memberid);
+		model.addAttribute("isRe","TRUE");
 		
 		return "gallery/viewPage";
 	}

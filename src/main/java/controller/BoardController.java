@@ -221,24 +221,27 @@ public class BoardController {
 	
 	@ResponseBody
 	@RequestMapping(value = "loadArticle", method = RequestMethod.GET, produces="application/json")
-	public List< Map< String, Object>> ajax_receiveJSON() {
+	public Map< String, Object> ajax_receiveJSON(HttpServletRequest req) {
 	   
 	 
-	   
+	   String id=req.getParameter("id");
+		String group=req.getParameter("group");
+		String boardid=req.getParameter("boardid");
 		
-	 List< Map< String, Object>> list = new ArrayList< Map< String, Object>>();
-	   
-	 for(int i=0 ; i<3 ; i++) {
+		BoardVO article=boardDB.getArticle(Integer.parseInt(id), group, boardid, "");
+		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
+	
 	    
 	  Map< String, Object> map = new HashMap< String, Object>();
 	    
-	  map.put("id", "id"+i);
-	  map.put("name", "name"+i);
-	    
-	  list.add(map);
-	 }
+	  map.put("boardname", boardType.getBoardname());
+	  map.put("title", article.getSubject());
+	  map.put("date", article.getReg_date());
+	  map.put("writer", article.getWriter());
+	  map.put("studynum", group);
+	  map.put("boardid",article.getBoardid());
 	   
-	 return list;    
+	 return map;    
 	} 
 	
 	

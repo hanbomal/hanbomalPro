@@ -7,29 +7,7 @@
 <html>
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/lib/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-function onClick(num) {
-	
-		$.ajax({
-            type: "POST",
-            url: "../gallery/imageView",
-            data: {    "num" : num,
-            	"memberid" : '<c:out value="${memberid}"/>'
-               },
-            success: function(data) {
-            	document.getElementById("modal_imageContent").innerHTML=data;
-            
-            }, error: function() {
-                alert('실패');
-            }
-        });
-		
-		document.getElementById("viewModal").style.display='block';
 
-		
-		}
-
-</script>
 
 <style>
 .thumbnail-wrappper {
@@ -188,25 +166,7 @@ list-style: none;}
 </div>
      
      
-   <!--사진 보기 모달 -->
-     <div id="viewModal" class="w3-modal" >
-     
-    <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 600px;">
-     <div class="w3-container w3-center w3-teal">
-       <h6><b>사진 보기</b></h6>
-      </div>
-      <div class="w3-container w3-padding" >
-        <span onclick="document.getElementById('viewModal').style.display='none';" class="w3-button w3-display-topright">&times;</span>
-       
-<div class="w3-center  w3-container w3-padding" id="modal_imageContent">
-	
-</div>
-   </div>
- 
   
-   
-    </div>
-  </div>
 
 
 <script>
@@ -243,13 +203,16 @@ function imageToChat(id){
 		  +"<li class='w3-large' style='border:none;' align='right'>"
 	          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
 	         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
-	          +"<span class='w3-medium'>"+chkMem+"님이 사진 다시 보내기를 하셨습니다.<p/><img src='"+imgSrc+"'></span></span></li></ul></td></tr></table>";
+	          +"<span class='w3-medium' style='text-align: left;'>"+chkMem+"님이 사진 다시 보내기를 하셨습니다.<p/><img src="+imgSrc
+	          +" onclick=onClickReview("+id+") style='cursor:pointer'><p/>"	         
+	          +"</span></span></li></ul></td></tr></table>";
    
+	     
     
 	 textarea.scrollTop=textarea.scrollHeight;
     
 	 
-	 galleryMessage=chkMem+"님이 사진 다시 보내기를 하셨습니다.<p/><img src="+imgSrc+">";
+	 galleryMessage=chkMem+"님이 사진 다시 보내기를 하셨습니다.<p/><img src="+imgSrc+" onclick=onClickReview("+id+") style=cursor:pointer><p/><br>";
 	 
      webSocket.send(galleryMessage.trim());
      
@@ -304,5 +267,48 @@ function drop(ev) {
 
 
 </script>
+ <script>
+function onClick(num) {
+	
+		$.ajax({
+            type: "POST",
+            url: "../gallery/imageView",
+            data: {    "num" : num,
+            	"memberid" : '<c:out value="${memberid}"/>'
+               },
+            success: function(data) {
+            	document.getElementById("modal_imageContent").innerHTML=data;
+            
+            }, error: function() {
+                alert('실패');
+            }
+        });
+		
+		document.getElementById("viewModal").style.display='block';
+
+		
+		}
+
+</script>
+ <!--사진 보기 모달 -->
+     <div id="viewModal" class="w3-modal" style="display: none;">
+     
+    <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 600px;">
+     <div class="w3-container w3-center w3-teal">
+       <h6><b>사진 보기</b></h6>
+      </div>
+      <div class="w3-container w3-padding" >
+        <span onclick="document.getElementById('viewModal').style.display='none';" class="w3-button w3-display-topright">&times;</span>
+       
+<div class="w3-center  w3-container w3-padding" id="modal_imageContent">
+	
+</div>
+   </div>
+ 
+  
+   
+    </div>
+  </div>
+
 
 </html>

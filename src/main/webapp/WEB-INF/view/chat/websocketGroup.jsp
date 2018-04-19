@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="../api/date.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
 <meta charset="UTF-8">
 
@@ -360,8 +361,8 @@ var today =new Date().toString('yyyyMMdd');
 		  
 		  var l0=chatdata[i].name;
 		  var l1=chatdata[i].date;
-		  var l2=chatdata[i].content.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&"); 
-		/*   var l2=chatdata[i].content.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&quot;/g, "\"");  */
+		var l2=chatdata[i].content.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&"); 
+		 //var l2=chatdata[i].content.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&quot;/g, "\""); 
 		  
 		
 		if(l0=='server'){
@@ -372,12 +373,20 @@ var today =new Date().toString('yyyyMMdd');
 		else if(l0=='<%=name%>'){
 			
 		          
-			  textarea.innerHTML +="<div ><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+			 textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+   	  		  +"<li class='w3-large' style='border:none;' align='right'>"
+   	  	          +"<span class='w3-small'>"+l1+"</span>&nbsp;"
+   	  	         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
+   	  	          +"<span class='w3-medium w3-left' style='text-align: left;'>"+l2
+   	  	          +"</span></span></li></ul></td></tr></table>";
+   	     
+			
+			 /*  textarea.innerHTML +="<div ><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
 				  +"<li class='w3-large' style='border:none;' align='right'>"
 			          +"<span class='w3-small'>"+l1+"</span>&nbsp;"
 			         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
-			          +"<span class='w3-medium messageClass'>"+l2+"</span></span></li></ul></td></tr></table></div>";
-		          
+			          +"<span class='w3-medium messageClass' style='text-align: left;'>"+l2+"</span></span></li></ul></td></tr></table></div>";
+		           */
 			  
 		  }else{
 
@@ -483,11 +492,12 @@ var today =new Date().toString('yyyyMMdd');
     	       rename=data;
     	       
        	    inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+rename+"><br>"+inputMessage.value;
+       	    
        	 textarea.innerHTML +="<div><table  align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
 			  +"<li class='w3-large' style='border:none;' align='right'>"
 		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
 		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
-		          +"<span class='w3-medium'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table></div>";
+		          +"<span class='w3-medium' style='text-align: left;'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table></div>";
        	resetFile();
 	    
        	
@@ -520,7 +530,7 @@ var today =new Date().toString('yyyyMMdd');
  			  +"<li class='w3-large' style='border:none;' align='right'>"
  		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
  		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
- 		          +"<span class='w3-medium'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table></div>";
+ 		          +"<span class='w3-medium' style='text-align: left;'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table></div>";
        
        
         
@@ -585,7 +595,7 @@ function checkKey(e){
 	}
 
 
-	document.onkeypress = checkKey;
+	document.getElementById('inputMessage').onkeypress = checkKey;
 
 	
 

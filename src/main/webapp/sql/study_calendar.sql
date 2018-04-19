@@ -2,9 +2,9 @@ DROP table calendar;
 CREATE TABLE calendar(
 	num int primary key,
     studynum int not null,
-	title varchar(20) not NULL,
-	place varchar(10),
-    description varchar(50),
+	title varchar(100) not NULL,
+	place varchar(100),
+    description varchar(200),
 	startdate varchar(30),
 	enddate varchar(30),
     rdate date default sysdate

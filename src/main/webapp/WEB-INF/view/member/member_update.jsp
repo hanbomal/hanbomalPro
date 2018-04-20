@@ -32,7 +32,8 @@
             return false;
         } 
        
-
+        else
+        	alert("수정완료 되었습니다")
     }
   </script>
   
@@ -81,7 +82,7 @@
 <div class="w3-row w3-section ">
 
     <div class="w3-rest">
-NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="nickname" type="text"  value="${member.nickname}">
+NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="nickname" type="text"  value="${member.nickname}" required>
     </div>
 </div>
 
@@ -89,7 +90,7 @@ NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px
 <div class="w3-row w3-section">
   
     <div class="w3-rest">
-  PASSWORD    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwd" type="password" value="${member.passwd}" >
+  PASSWORD    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwd" type="password" value="${member.passwd}" required>
     </div>
 </div>
 
@@ -99,7 +100,7 @@ NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px
 <div class="w3-row w3-section">
   
     <div class="w3-rest">
- PASSWORD CHECK     <input class="w3-input w3-border w3-light-grey"  name="passchk" type="password" placeholder="Password Check*" style="width:300px; display: inline-block,center;">
+ PASSWORD CHECK     <input class="w3-input w3-border w3-light-grey"  name="passchk" type="password" placeholder="Password Check*" style="width:300px; display: inline-block,center;"required>
     </div>
 </div>
 
@@ -117,7 +118,7 @@ QUESITION
 <div class="w3-row w3-section">
  
      <div class="w3-rest">
-   <select class="w3-select w3-border  w3-light-grey" name="passwdq" style="width:300px; display: inline-block,center;" value="${member.passwdq}">
+   <select class="w3-select w3-border  w3-light-grey" name="passwdq" style="width:300px; display: inline-block,center;" value="${member.passwdq}"required>
    
 
     <option value="" >비밀번호 힌트를 선택하세요.</option>
@@ -151,7 +152,7 @@ QUESITION
 <div class="w3-row w3-section">
  
     <div class="w3-rest">
-    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwdkey" type="text"  value="${member.passwdkey}" style="margin-left: 2%;">
+    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwdkey" type="text"  value="${member.passwdkey}" style="margin-left: 2%;" required>
     </div>
 </div>
 

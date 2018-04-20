@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.List;
@@ -11,12 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
 
 import dao.Board2DAO;
 import model.Board2VO;
@@ -65,7 +70,7 @@ public class Board2Controller {
 		   List board2List = null;
 		 
 		   count = dbPro.getArticleCount();
-		   //�Խ��ǿ� �ִ� �� �� count
+		   
 		   if (count > 0) {
 			   board2List = dbPro.getArticles(startRow, endRow);
 		   }
@@ -97,97 +102,115 @@ public class Board2Controller {
 	}
 	
 	@RequestMapping("/board2_Write")
-	 public String board2_Write(HttpServletRequest req,
-		       HttpServletResponse response)  throws Throwable { 
+	 public ModelAndView board2_Write(Board2VO article)  throws Throwable { 
 	 
 	
-		int num = 0, ref = 0, re_step = 0, re_level = 0;
+		ModelAndView mv = new ModelAndView();
 	
 
 		
 
-		if (req.getParameter("num") != null) {
-			num = Integer.parseInt(req.getParameter("num"));
-			ref = Integer.parseInt(req.getParameter("ref"));
-			re_step = Integer.parseInt(req.getParameter("re_step"));
-			re_level = Integer.parseInt(req.getParameter("re_level"));
-
-		}
-
-		req.setAttribute("num", num);
-		req.setAttribute("ref", ref);
-		req.setAttribute("re_step", re_step);
-		req.setAttribute("re_level", re_level);
-		req.setAttribute("pageNum", 1);
-	
-	
-	 
+		mv.addObject("num", article.getNum());
+		mv.addObject("ref", article.getRef());
+		mv.addObject("re_step", article.getRe_step());
+		mv.addObject("re_level", article.getRe_level());
+		mv.addObject("pageNum", pageNum);
+		mv.setViewName("board2/board2_Write");
 		
 		
 		
-		 return "board2/board2_Write";
+		 return mv;
 }
 	
 	@RequestMapping("/board2_WritePro")
-	 public String board2_WritePro(HttpServletRequest req,
-		       HttpServletResponse res)  throws Throwable { 
+	 public String board2_WritePro(MultipartHttpServletRequest request,Board2VO article, Model model)  throws Throwable { 
 		
 			
-		String realFolder = "";// 
-		String encType = "euc-kr"; //
-		int maxSize = 5 * 1024 * 1024; // 
-		ServletContext context = req.getServletContext();
-		realFolder = context.getRealPath("fileSaveh");
-		MultipartRequest multi = null;
-		multi = new MultipartRequest(req, realFolder, maxSize, encType,
-			new DefaultFileRenamePolicy());
-		Enumeration files = multi.getFileNames();
-		String filename = "";
-		File file = null;
-		if (files.hasMoreElements()) {
-			String name = (String) files.nextElement();
-			filename = multi.getFilesystemName(name);
-			String original = multi.getOriginalFileName(name);
-			String type = multi.getContentType(name);
-			file = multi.getFile(name);	}
+		ModelAndView mv = new ModelAndView();
+		MultipartFile multi = request.getFile("uploadfile");
+		String filename = multi.getOriginalFilename();
+		System.out.println("filename:["+filename+"]");
 		
-		String pageNum = multi.getParameter("pageNum");
-		
-		if (pageNum == null || pageNum == "") pageNum = "1";
-		Board2VO article = new Board2VO();
-		if (multi.getParameter("num") != null
-		&& !multi.getParameter("num").equals("")) {
-		article.setNum(Integer.parseInt(multi.getParameter("num")));
-		article.setRef(Integer.parseInt(multi.getParameter("ref")));
-		article.setRe_step(Integer.parseInt(multi.getParameter("re_step")));
-		article.setRe_level(Integer.parseInt(multi.getParameter("re_level")));
-		}article.setWriter(multi.getParameter("writer"));
-	
-		article.setSubject(multi.getParameter("subject"));
-	
-		article.setContent(multi.getParameter("content"));
-	
-		if (file != null)	{
+		if (filename != null && !filename.equals("")) {
+			String uploadPath = request.getRealPath("/")+"fileSave2"; 
+			System.out.println(uploadPath);
+			FileCopyUtils.copy(multi.getInputStream(), new FileOutputStream(uploadPath+"/"+multi.getOriginalFilename()));
 			article.setFilename(filename);
-			article.setFilesize((int) file.length());
-		}
-		else {
-			article.setFilename(" ");
+			article.setFilesize((int)multi.getSize());
+		} else {
+			article.setFilename("");
 			article.setFilesize(0);
 		}
 		
 		
-		
-		
-		
-		
-		System.out.println(article);
-		
 		dbPro.insertArticle(article);
-		req.setAttribute("pageNum", pageNum);
-		res.sendRedirect(req.getContextPath()+"board2/board2_list?pageNum="+pageNum);
-			return null;
+		model.addAttribute("pageNum",pageNum);
+		
+		return "redirect:board2_List";
 		}
+		
+	
+	@RequestMapping("/board2_content")
+	public String content (int num, Model model) throws Exception {
+		
+		Board2VO article = dbPro.getArticle(num);
+		
+	
+		
+		
+		model.addAttribute("article", article);
+		model.addAttribute("pageNum", pageNum);	
+	
+	
+		return "board2/board2_content";
+		
+	}
+		
+	@RequestMapping("/board2_update")
+	public String board2_update(int num, Model model) throws Exception {
+		
+		
+			
+		Board2VO article = dbPro.getArticle(num);
+		
+		
+		model.addAttribute("article", article);
+		model.addAttribute("pageNum", pageNum);
+	
+		
+		
+		
+		return "board2/board2_update";
+	
+	}	
+	
+	@RequestMapping("/board2_updatePro")
+	public String updatePro(Board2VO article, Model model) throws Exception {
+		int chk = dbPro.updateArticle(article);
+		
+		model.addAttribute("chk", chk);
+		model.addAttribute("pageNum", pageNum);
+		
+		return "redirect:board2_List";
+	}
+		
+	
+	@RequestMapping(value = "/board2_deletePro")
+	public ModelAndView board2_deletePro(int num) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("num", num);
+	
+		int check = dbPro.deleteArticle(num);
+		mv.addObject("check", check);
+		mv.addObject("pageNum",pageNum);
+		mv.setViewName("board2/board2_deletePro");
+		
+		return mv;
+	}
+		
+		
+		
+
 		
 		
 	}

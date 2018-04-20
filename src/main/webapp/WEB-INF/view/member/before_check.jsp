@@ -49,10 +49,10 @@
 
 
 
-<div class="w3-row w3-section">
+<div class="w3-center">
   
     <div class="w3-rest ">
-  PASSWORD    <input class="w3-input w3-border w3-light-grey " style="width:300px; display: inline-block,center;" name="passwd" type="password"  >
+   <input class="w3-input w3-border w3-light-grey w3-center" style="width:300px; display: inline-block;" name="passwd" type="password"  >
     </div>
 </div>
 

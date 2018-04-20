@@ -11,7 +11,7 @@ public class Board2VO {
     private String content;
     
 
-    private Date reg_date;
+    private Date regdate;
     private int readcount;
 
     private int ref;
@@ -58,11 +58,11 @@ public class Board2VO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getReg_date() {
-		return reg_date;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setReg_date(Date reg_date) {
-		this.reg_date = reg_date;
+	public void setRegdate(Date reg_date) {
+		this.regdate = reg_date;
 	}
 	public int getReadcount() {
 		return readcount;
@@ -91,7 +91,7 @@ public class Board2VO {
 	@Override
 	public String toString() {
 		return "Board2VO [num=" + num + ", writer=" + writer + ", subject=" + subject + ", content=" + content
-				+ ", reg_date=" + reg_date + ", readcount=" + readcount + ", ref=" + ref + ", re_step=" + re_step
+				+ ", regdate=" + regdate + ", readcount=" + readcount + ", ref=" + ref + ", re_step=" + re_step
 				+ ", re_level=" + re_level + ", filename=" + filename + ", filesize=" + filesize + "]";
 	}
 

@@ -11,11 +11,11 @@
 	</select>
 	
 	<select id="getArticles" resultType="board2" parameterType="hashmap">
-select * from (select rownum rnum, a.* from (select num, writer, subject, reg_date, readcount, ref, re_step, re_level, 
+select * from (select rownum rnum, a.* from (select num, writer, subject, regdate, readcount, ref, re_step, re_level, 
 	content,filename,filesize from board2  order by ref desc, re_step) a) where rnum between #{startRow} and #{endRow}
 	</select>
 	
-	<select id="getNextNumber" parameterType="int">
+	<select id="getNextNumber" resultType="int">
 	
 	select board2ser.nextval from dual
 	</select>
@@ -27,13 +27,9 @@ select * from (select rownum rnum, a.* from (select num, writer, subject, reg_da
 	
 	</update>
 	
-	<insert id="insertBoard"  parameterType="board2">
-	 insert into board2(num,writer,subject,
-					+  reg_date,
-			       ref,re_step,re_level,content,filename,filesize) 
-					values(#{num},#{writer},#{subject},
-					 sysdate,
-			       #{ref},#{re_step},#{re_level},#{content},#{filename},#{filesize})
+	<insert id="insertArticle"  parameterType="board2">
+	insert into board2(num, writer, subject, regdate, ref, re_step, re_level, content, filename, filesize)
+		values(#{num},#{writer},#{subject}, sysdate, #{ref},#{re_step},#{re_level},#{content},#{filename},#{filesize})
 	</insert>
 	
 	<update id="addReadCount"  parameterType="hashmap">
@@ -43,8 +39,7 @@ select * from (select rownum rnum, a.* from (select num, writer, subject, reg_da
 	</update>
 	<select id="getArticle" parameterType="hashmap" resultType="board2">
 	
-	select * from board2 where num =
-	#{num} 
+	select * from board2 where num =#{num} 
 	</select> 
 	
 	<update id="updateArticle"  parameterType="board2">

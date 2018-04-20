@@ -160,7 +160,7 @@ PageController page=new PageController();
 		e.printStackTrace();
 	}
 	
-	return "member/member_updatePro";
+	return "redirect:member_update";
 
 }
 	
@@ -222,10 +222,10 @@ PageController page=new PageController();
     int chk=dbPro.beforeCheck(memberid, passwd);
     req.setAttribute("chk",chk);
     
-    return "member/before_checkPro";
+    return "redirect:member_update";
 }
  
- @RequestMapping("/findPasswd")    //占썩�ο옙�쇽옙占쏙옙占� 筌≪��占쏙옙 占쏙옙 
+ @RequestMapping("/findPasswd")  
  public String bfindPasswd(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 
  return "member/findPasswd";
@@ -278,7 +278,7 @@ PageController page=new PageController();
 	   List<MemberVO> memberList = null;
 	   MemberDAO dbPro = MemberDAO.getInstance();
 	   count = dbPro.getMemberCount();
-	   //게시판에 있는 글 수 count
+	   //寃������� ���� 湲� �� count
 	   if (count > 0) {
 	      memberList = dbPro.getMembers(startRow, endRow);
 	   }
@@ -293,7 +293,7 @@ PageController page=new PageController();
 	   number = count - (currentPage - 1) * pageSize;
 	   int bottomLine = 3; 
 	   int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-	   int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //곱셈, 나눗셈먼저.
+	   int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //怨깆��, ������癒쇱��.
 	   int endPage = startPage + bottomLine -1;
 	   
 	   if (endPage > pageCount) endPage = pageCount;
@@ -351,7 +351,7 @@ PageController page=new PageController();
 	   List<StudyVO> studyList = null;
 	   StudyDAO dbPro = StudyDAO.getInstance();
 	   count = dbPro.getStudyCount();
-	   //게시판에 있는 글 수 count
+	   //寃������� ���� 湲� �� count
 	   if (count > 0) {
 	      studyList = dbPro.getStudyList(startRow, endRow);
 	   }
@@ -360,7 +360,7 @@ PageController page=new PageController();
 	   number = count - (currentPage - 1) * pageSize;
 	   int bottomLine = 3; 
 	   int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-	   int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //곱셈, 나눗셈먼저.
+	   int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //怨깆��, ������癒쇱��.
 	   int endPage = startPage + bottomLine -1;
 	   
 	   if (endPage > pageCount) endPage = pageCount;

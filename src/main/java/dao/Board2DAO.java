@@ -18,6 +18,10 @@ import org.apache.ibatis.session.SqlSession;
 
 
 
+
+
+
+
 public class Board2DAO extends MybatisConnector {
 	private final String namespace = "board2";
 	SqlSession sqlSession; 
@@ -43,7 +47,7 @@ public class Board2DAO extends MybatisConnector {
 
 	}
 	
-	// 원래 메소드 내용 다 지움. 위와 같이.  
+
 	public List getArticles(int startRow, int endRow) { 
 		sqlSession= sqlSession();
 		Map map = new HashMap();
@@ -80,11 +84,49 @@ public class Board2DAO extends MybatisConnector {
 	
 		
 		
-		sqlSession.insert(namespace + ".insertBoard" ,article);
+		sqlSession.insert(namespace + ".insertArticle" ,article);
 		sqlSession.commit(); 
 		sqlSession.close();
 	}
-
+	public Board2VO getArticle(int num) {
+		
+		sqlSession= sqlSession();
+		Map map = new HashMap();
+		map.put("num", num);
+		
+		sqlSession.update(namespace+".addReadCount",map);
 	
+		
+		Board2VO article = sqlSession.selectOne(namespace + ".getArticle" ,map);
+		sqlSession.commit();
+		sqlSession.close();
+		
+		return article;
+		
+	
+	
+}
+	
+	public int updateArticle (Board2VO article) {
+		
+		sqlSession= sqlSession();
+		int chk = sqlSession.update(namespace+".updateArticle", article);
+		sqlSession.commit();
+		sqlSession.close();
+		
+		return chk;
+	}
+	public int deleteArticle (int num) throws Exception {
+		
+		sqlSession= sqlSession();
+		Map map = new HashMap();
+		map.put("num", num);
+	
+		int chk = sqlSession.delete(namespace+".deleteArticle", map);
+		sqlSession.commit();
+		sqlSession.close();
+		
+		return chk;
+	}
 	
 }

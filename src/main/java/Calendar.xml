@@ -26,7 +26,9 @@
 	<select id="getCalendar" resultType="Schedule" parameterType="hashmap">
 	select * from calendar where num=#{num}
 	</select>
-	
+	<select id="isExists" resultType="int" parameterType="hashmap">
+	select count(*) from calendar where num=#{num}
+	</select>
 
 
 </mapper>

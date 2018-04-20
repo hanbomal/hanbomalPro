@@ -577,17 +577,23 @@ public class PageController {
 			study.setLeader(leader);
 			
 			
-		}else {
+		}
 	
 		relationDB.leaveStudy(studynum, memberId);
 		
-		}
+		
 		
 		study.setPeopleCount(study.getPeopleCount()-1);
 		studyDB.updateStudy(study);
 		System.out.println("탈퇴시키기 성공");
 		
-		return "redirect:/page/study_info?studynum="+studynum;
+		if(study.getPeopleCount()==0) {
+			
+			studyDB.deleteStudyByNum(studynum);
+		}
+			
+		return "redirect:/page/main";
+		
 	}
    	//써야되는 메소드명 grantPosition changeLeader banishMember 
 	//쓸수있는 매개변수 positionSelect studynum memberid leader

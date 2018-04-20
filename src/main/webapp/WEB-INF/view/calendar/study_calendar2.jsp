@@ -125,6 +125,7 @@ jQuery(document).ready(function(){
       		  
         
         }
+        
         , navLinks: true
        /*  , windowResize: function(view) {
             alert('The calendar has adjusted to a window resize');
@@ -142,6 +143,26 @@ jQuery(document).ready(function(){
     		  
     		  
     	  }
+        ,eventDragStop: function(event,jsEvent) {
+
+            var Tochat = jQuery('#chat');
+            var ofs = Tochat.offset();
+
+            var x1 = ofs.left;
+            var x2 = ofs.left + Tochat.outerWidth(true);
+            var y1 = ofs.top;
+            var y2 = ofs.top + Tochat.outerHeight(true);
+
+            if (jsEvent.pageX >= x1 && jsEvent.pageX<= x2 &&
+                jsEvent.pageY >= y1 && jsEvent.pageY <= y2) {
+               
+            	
+            	alert('SIII');
+            	calendarToChat(event);
+          
+            
+            }
+        }
        , select: function(startDate, endDate) {
     	   document.getElementById('title').value='';
 	    	  document.getElementById('place').value='';
@@ -156,7 +177,6 @@ jQuery(document).ready(function(){
 });
 
 
-    
 
 </script>
 
@@ -170,7 +190,7 @@ jQuery(document).ready(function(){
        <div id="message" class="w3-modal" >
 <div id="messageContent" class=" w3-container w3-padding">
 </div>  </div>
-    
+    <input type="hidden" value="${memberid }" id="memberidCal">
     
     <!-- 일정 등록 모달 -->
      <div id="addDay" class="w3-modal" >
@@ -436,7 +456,82 @@ function loadPie(date,group){
 
 }
 
+function calendarToChat(event){
+	
+	var memberidCal=document.getElementById("memberidCal").value;
+	
 
+	
+	 var now = new Date();
+	 var nowText="";
+     var nowHour = now.getHours();
+     var nowMt = now.getMinutes();
+     if(nowMt<10){
+    	 nowMt='0'+nowMt;
+     }
+   
+     if ( nowHour <12   ) {
+    
+
+       nowText='오전 ' + nowHour + ':' + nowMt;
+
+     } else if (  nowHour >= 12   ) {
+	
+    	 if(nowHour>=13){
+    		 nowHour=nowHour-12;
+    	 }
+    	 nowText='오후 ' + nowHour + ':' + nowMt;
+    	 
+     	}
+     
+   
+     var schedule;
+     
+     $.ajax({
+    	 url : "../calcontroller/loadSchedule", 
+    	 method : "GET",  
+    	 dataType:"JSON",
+    	 data:{"id":event.id,
+    			"group":event.studynum,
+    			
+    			}, 
+    	 success : function(json) {
+    	        	   
+    	schedule=JSON.parse(JSON.stringify(json));
+    	      
+
+ 	  	  textarea.innerHTML +="<div><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+ 	  		  +"<li class='w3-large' style='border:none;' align='right'>"
+ 	  	          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
+ 	  	         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
+ 	  	          +"<span class='w3-medium w3-left' style='text-align: left;'>"+memberidCal+"님이 일정 다시 보내기를 하셨습니다.<p/><b>일정 제목 : </b>"+schedule.title+"<br>"
+ 	  	          +"<b>시작일: </b>"+schedule.sdate+"<br><b>종료일: </b>"+schedule.edate+"<p/><br>"
+ 	  	          +"<button class=w3-button onclick=reviewSchedule("+event.id+")>일정 보기</button>"
+ 	  	          +"</span></span></li></ul></td></tr></table></div>";
+ 	     
+ 	      
+    	  	 textarea.scrollTop=textarea.scrollHeight;
+    	      
+    	  	 
+    	  	 boardMessage=memberidCal+"님이 일정 다시 보내기를 하셨습니다.<p/><b>일정 제목 : </b>"+schedule.title+"<br>"
+  	          +"<b>시작일: </b>"+schedule.sdate+"<br><b>종료일: </b>"+schedule.edate+"<p/><br>"
+	  	          +"<button class=w3-button onclick=reviewSchedule("+event.id+")>일정 보기</button>";
+	  	          
+  	          
+    	       webSocket.send(boardMessage.trim());
+    	 
+    	 
+    	 },
+    	 error : function(XHR, textStatus, errorThrown) {
+    	        
+    	     alert("Error: " + textStatus);      
+    	     alert("Error: " + errorThrown);
+    	 
+    	 }
+    	});
+
+
+ }
 
 </script>
 </body>

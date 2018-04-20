@@ -75,7 +75,13 @@ public class CalendarDAO extends MybatisConnector{
 		Map map=new HashMap();
 		map.put("num", num);
 		
-		CalendarVO calendar=sqlSession.selectOne(namespace+".getCalendar",map);
+		CalendarVO calendar=null;
+		int chk=0;
+		chk=sqlSession.selectOne(namespace+".isExists",map);
+		//System.out.println("테스트............"+chk);
+		if(chk!=0) {
+		calendar=sqlSession.selectOne(namespace+".getCalendar",map);
+		}
 		
 		sqlSession.close();
 		return calendar;

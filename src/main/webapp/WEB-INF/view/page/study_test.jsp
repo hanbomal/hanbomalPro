@@ -177,6 +177,34 @@ function onClickReview(num) {
     </div>
   </div>
 
+<script>
+function reviewSchedule(id) {
+	
+		$.ajax({
+            type: "POST",
+            url: "../calcontroller/contentsReview",
+            data: {    "id" : id,
+            	
+               },
+            success: function(data) {
+            	document.getElementById("modal_schedule_re").innerHTML=data;
+            
+            }, error: function() {
+                alert('실패');
+            }
+        });
+		
+		document.getElementById("viewSchedule_re").style.display='block';
+
+		
+		}
+
+</script>
+ <!--일정 다시보기 모달 -->
+         <div id="viewSchedule_re" class="w3-modal" >
+<div id="modal_schedule_re" class=" w3-container w3-padding">
+</div>  </div>
+    
 
   
 	

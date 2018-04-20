@@ -77,6 +77,11 @@
     <update id="deleteStudy" parameterType="map">
       delete from studygroup where studyName=#{studyName} 
 	 </update>
+	 
+	 <delete id="deleteStudyByNum" parameterType="hashmap">
+      delete from studygroup where num=#{num}   
+	 </delete>
+	 
 	
 	<select id="getNextID" resultType="int">
 		 select nvl(max(id),0) from groupposition where studynum=#{studynum}

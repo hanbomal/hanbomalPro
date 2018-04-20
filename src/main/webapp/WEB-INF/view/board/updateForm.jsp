@@ -14,9 +14,9 @@
 <div class="w3-container " style="height:600px; width:100%; overflow:auto;  ">
 <div class="w3-container " style="width: 100%;">
 	 <div  id="content" style="height:100%; " >
-  		 	     <font size=6>${boardType.boardname}</font>
+  		 	     <h4>${boardType.boardname}</h4>
  	
- <div class="w3-container" style="margin-top:10px">
+ <div class="w3-container w3-margin-top w3-padding-32" >
 		<form id="uploadform" method="post" name="writeform" enctype="multipart/form-data">
 			 	<input type="hidden" name="boardid" value="${boardid}">
 			 	<input type="hidden" name="studynum" value="${studynum}">

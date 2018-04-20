@@ -180,5 +180,16 @@ public void updateStudy(StudyVO study) {
 	sqlSession.commit();
 	sqlSession.close();
 }
+
+public int deleteStudyByNum(String num) {
+	sqlSession=sqlSession();
+	Map map=new HashMap();
+	map.put("num", num);
+	
+	int chk=sqlSession.delete(namespace+".deleteStudyByNum",map);
+	sqlSession.commit();
+	sqlSession.close();
+	return chk;
+}
 	
 }

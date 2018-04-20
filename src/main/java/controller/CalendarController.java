@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,20 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CalendarDAO;
+import model.BoardTypeVO;
+import model.BoardVO;
 import model.CalendarVO;
 
 @Controller
 @RequestMapping("/calcontroller")
 public class CalendarController {
 
-
+	CalendarDAO cpro = CalendarDAO.getInstance();
 
 	@RequestMapping("/listview")
 	public String listview(HttpServletRequest req, HttpServletResponse res, String num) throws Throwable {
 
-		CalendarDAO cpro = CalendarDAO.getInstance();
+		
 
 		List li = null;
 
@@ -38,7 +44,7 @@ public class CalendarController {
 
 	@RequestMapping("/addPro1")
 	public String addPro1(HttpServletRequest req, HttpServletResponse res, String num) throws Throwable {
-		CalendarDAO cpro=CalendarDAO.getInstance();
+		
     	CalendarVO calendar=new CalendarVO();
     	
     	calendar.setTitle(req.getParameter("title"));
@@ -71,7 +77,7 @@ public class CalendarController {
 	@RequestMapping("/deleteCalendar")
 	public String deleteCalendar(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 
-		CalendarDAO cpro=CalendarDAO.getInstance();
+		
     	String snum=req.getParameter("id");
     	String num=req.getParameter("num");
     	
@@ -89,7 +95,7 @@ public class CalendarController {
 
 
   	  String id = req.getParameter("id");
-  	  CalendarDAO cpro=CalendarDAO.getInstance();
+  	
   	  CalendarVO calendar=cpro.getCalendar(id);
   	  req.setAttribute("calendar",calendar); 
   	
@@ -97,6 +103,29 @@ public class CalendarController {
 		return "calendar/contentsView";
 
 	}
+	
+	@RequestMapping("/contentsReview")
+	public String contentsReview(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+
+
+  	  String id = req.getParameter("id");
+  	
+  	  CalendarVO calendar=cpro.getCalendar(id);
+  	  
+  	  if(calendar==null) {
+  		 calendar=new CalendarVO();
+  		  calendar.setDescription("삭제된 일정입니다.");
+  		  calendar.setTitle("삭제된 일정입니다.");
+  		  
+  	  }
+  	  
+  	  req.setAttribute("calendar",calendar); 
+  	
+
+		return "calendar/contentsReview";
+
+	}
+	
 
 	@RequestMapping("/updateForm")
 	public String updateForm(HttpServletRequest req, HttpServletResponse res) throws Throwable {
@@ -104,7 +133,7 @@ public class CalendarController {
 		
 		  String id = req.getParameter("id");
 		  String num=req.getParameter("num");
-		  CalendarDAO cpro=CalendarDAO.getInstance();
+		 
 		  CalendarVO calendar=cpro.getCalendar(id);
 		  req.setAttribute("calendar",calendar); 
 		  req.setAttribute("group", num);
@@ -117,7 +146,7 @@ public class CalendarController {
 	public String updatePro(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 
 
-		  CalendarDAO cpro=CalendarDAO.getInstance();
+		 
 		  CalendarVO calendar=new CalendarVO();
 		  
 		  calendar.setDescription(req.getParameter("description"));
@@ -166,6 +195,29 @@ public class CalendarController {
 
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "loadSchedule", method = RequestMethod.GET, produces="application/json")
+	public Map< String, Object> ajax_receiveJSON(HttpServletRequest req) {
+	   
+	 
+	   String id=req.getParameter("id");
+		String group=req.getParameter("group");
+		
+		
+		CalendarVO schedule=cpro.getCalendar(id);
+		
+	
+	  Map< String, Object> map = new HashMap< String, Object>();
+	    
+	 
+	  map.put("title", schedule.getTitle());
+	  map.put("sdate", schedule.getStartdate());
+	  map.put("edate", schedule.getEnddate());
+	  
+	 
+	   
+	 return map;    
+	} 
 
 	
 }

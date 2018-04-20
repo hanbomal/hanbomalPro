@@ -95,12 +95,28 @@ public class BoardController {
 	@RequestMapping("/content")
 	public String content(Model mv, int num,String boardid, String studynum) throws Throwable {
 		BoardVO article = boardDB.getArticle(num, studynum,boardid,"content");
+		
+		
+		if(article!=null) {
 		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
 		mv.addAttribute("boardType",boardType);
 		mv.addAttribute("article", article);
 		mv.addAttribute("num", num);
 		mv.addAttribute("pageNum", pageNum);
+		mv.addAttribute("studynum",article.getStudynum());
+		mv.addAttribute("boardid",article.getBoardid());
+		
+		
+		
 		return "board/content";
+		
+		}else {
+			
+			mv.addAttribute("studynum",studynum);
+			mv.addAttribute("boardid",boardid);
+		return "board/nocontent";
+		
+		}
 	}
 	
 	@RequestMapping("/updateForm")

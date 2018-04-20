@@ -15,7 +15,7 @@
 <div class="w3-container " style="width: 100%;">
 <!-- <div class="w3-card-2" style="margin-top:10px" > -->
 	 <div  id="content" style="height:100%; " >
-  		 	     <font size=6>${boardType.boardname}</font>
+  		 	     <h4>${boardType.boardname}</h4>
        <!-- 
        }
 		mv.addObject("boardid", article.getBoardid());
@@ -32,7 +32,7 @@
        
         -->
  	
- <div class="w3-container" style="margin-top:10px">
+ <div class="w3-container w3-margin-top w3-padding-32">
 		<form id="uploadform" method="post" name="writeform" enctype="multipart/form-data">
 			  	<input type="hidden" name="writer" value="${memberid}">
 			 	<input type="hidden" name="boardid" value="${boardid}">

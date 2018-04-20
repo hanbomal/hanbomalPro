@@ -10,6 +10,10 @@
 	<select id="getNextBoardid" resultType="int">
 		select boardidser.nextval from dual
 	</select>
+		
+	<select id="getPeopleCount" resultType="int" parameterType="hashmap">
+		select count(*) from studyrelation where studynum=#{studyNum} and status=2
+	</select>
 
 	<insert id="makingStudy" parameterType="Room">
 		insert into studygroup
@@ -79,7 +83,7 @@
 	 </update>
 	
 	<select id="getNextID" resultType="int">
-		 select nvl(max(id),0) from groupposition where studynum=#{studynum}
+		 select boardidser.nextval from dual
 	</select>
 	
 	<update id="updateStudy" parameterType="Study">

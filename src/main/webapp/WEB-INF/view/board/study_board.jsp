@@ -23,11 +23,22 @@
   <button class="w3-button w3-padding-small w3-right w3-black w3-margin-bottom" 
   title="글쓰기" onclick="$('#content').load('../board/writeForm?boardid=${boardType.boardid}&studynum=${boardType.studynum }')">+</button>
 </div>
-		<c:if test="${count==0 }">
+		<%-- <c:if test="${count==0 }">
 			<table class="w3-table  w3-centered" style="width: 100%; border:black;">
 			<tr class="w3-black">
 			<td class="w3-center">게시판에 저장된 글이 없습니다.</td>
 			</table>
+		</c:if> --%>
+		
+		
+ 		<c:if test="${count==0 }">
+			<div class="w3-center w3-padding-top">
+			<table class="w3-table table-bordered w3-center" width="100%">
+			<tr  >
+			<td class="w3-center w3-padding"><br>
+			<span class="w3-tag w3-white w3-border">저장된 글이 없습니다.</span><br><br></td>
+			</table>
+			</div>
 		</c:if>
 
 	<c:if test="${count!=0 }">

@@ -84,7 +84,6 @@ function memberInfo(num,position,groupleader, mid,nick){
 	var memberid=mid; 
 	var nickName=nick;
 	document.getElementById('clickMember').style.display='block';
-	/* o(${member.studynum},'${member.position }','${member.leader}')"> */
 	 $.ajax({
 		type: 'POST',
 		url: 'MemberInfo',

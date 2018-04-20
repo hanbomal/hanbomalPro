@@ -10,12 +10,17 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- content -->
+<script >
+$(document).ready(function(){   
+	$('#comment').load('../board/CommentBox?studynum=${article.studynum}&boardid=${article.boardid }&num=${num}'); 
+	});
+</script>
 
 <div class="w3-container " style="height:600px; overflow:auto; ">
   		 	 <div  id="content" style="height:100%;" >
   		  <font size=6>${boardType.boardname}</font>
  		  <br> 
-	<div style="margin-top:10px">
+	<div style="margin-top:10px;margin-bottom:10px">
 		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 100%;">
 			<tr>
 				<th class="w3-black w3-center" colspan="4" >제목: [${article.subject}]</th>
@@ -37,7 +42,15 @@
 				<td width="100%"  class="w3-center" colspan="4" style="padding: 10px; height:120px">
 					<div>
 					 <div class="w3-dropdown-click w3-left">
-   				 <button onclick="myFunction()" class="w3-button" style="padding:2px"><i class="fa fa-list" style="font-size:29px"></i></button>
+   				 <button onclick="myFunction()" class="w3-button" style="padding:2px">
+   				
+   				 <img src="../imgs/sight.jpg"
+									class="w3-center w3-border"
+									style="width:70px;height:70px;">
+   			<!-- 	 <i class="fa fa-list" style="font-size:2px"></i> -->
+   				 
+   				 
+   				 </button>
    					 <div id="Demo" class="w3-dropdown-content w3-border" style="z-index:99">
 					      <div class="w3-container">Link 1</div>
 					      <div class="w3-container">Link 2</div>
@@ -51,16 +64,25 @@
  				 	</div>
 				</td>
 			</tr>
-			<tr>
+			<%-- <tr>
 				<td width="100%" class="w3-left w3-black" colspan="4" style="height:230px; overflow: auto;"><pre style="width: 100%;">${article.content}</pre></td>
-			</tr>
+			</tr> --%>
+			
 			</c:if>
 			<c:if test="${article.filename==null }">
-			<tr>
-				<td width="100%"  class="w3-left" colspan="4" style="height:350px; overflow: auto;"><pre>${article.content}</pre></td> 
-			</tr>
+			 <tr>
+				<td width="100%"  class="w3-left" colspan="4" style="height:350px; overflow: auto;"></td> 
+			</tr> 
+			
+			
 			</c:if>
 		</table>  
+			<c:if test="${article.filename!=null }">
+			<div class="w3-left w3-card-2 w3-white w3-margin-bottom"  style="height:350px;width:100%; overflow: auto;">
+			<pre>${article.content}</pre>
+			</div>
+			</c:if>
+			
 		<div class="w3-center w3-padding-16">
 		<input class="w3-button w3-black" type="button" value="글수정" 
 		onclick="$('#content').load('../board/updateForm?num=${article.num}&pageNum=${pageNum}&studynum=${article.studynum}&boardid=${article.boardid}')">
@@ -72,57 +94,20 @@
 		onclick="$('#content').load('../board/study_board?pageNum=${pageNum}&studynum=${article.studynum}&boardid=${article.boardid}')">
 		
 		<input class="w3-button w3-black" type="button" value="답글쓰기"
-		onclick="$('#content').load('../board/writeForm?num=${num}&ref=${article.ref}&re_step=${article.re_step}&re_level=${article.re_level}&pageNum=${pageNum}&boardid=${article.boardid }&studynum=${article.studynum }')">
+		onclick="$('#content').load('../board/writeForm?num=${article.num}&ref=${article.ref}&re_step=${article.re_step}&re_level=${article.re_level}&pageNum=${pageNum}&boardid=${article.boardid }&studynum=${article.studynum }')">
 		</div>
 	</div> 
 	
-	<div style="margin-top:10px">
 	
-		<div class=" w3-border w3-padding" style="margin-left:5%;width:90%">
-  			<input class="w3-border" style="width:90%;height:40px;"/>
-  			<button class="w3-button  w3-black" style="height:40px;margin-top:-5px"type="submit" >댓글</button>
-  		</div>
   		
-  		<div class="w3-container w3-card w3-light grey w3-bordered " style="margin-left:5%;height:400px; width:90%;padding-top:5px">
-  			 <table  style="width: 100%; ">
-  			 	<tr>
-  			 	<td>
-  			 			<img src="../imgs/profile.png "class="w3-center" style="width:25px;height:25px">
-  			 		<font size="4"><b>gon</b></font> <font color="grey" size="2">2018.04.19.</font></td>
-  			 	</tr>
-  			 	<tr >
-  			 		<td colspan="2" style="padding-bottom:2px">게시판 별거 아닌거 같으면서도 시간이 오래걸리네 
-  			 		 </td>
-  			 	</tr>
-  			 	
-  			 		<tr>
-  			 	<td>
-  			 			<img src="../imgs/profile.png "class="w3-center" style="width:25px;height:25px">
-  			 		<font size="4"><b>jihye</b></font> <font color="grey" size="2">2018.04.19.</font></td>
-  			 	</tr>
-  			 	<tr >
-  			 		<td colspan="2">배고프다
-  			 		 </td>
-  			 	</tr>
-  			 	
-  			 		<tr>
-  			 	<td>
-  			 			<img src="../imgs/profile.png "class="w3-center" style="width:25px;height:25px">
-  			 		<font size="4"><b>hyeji</b></font> <font color="grey" size="2">2018.04.19.</font></td>
-  			 	</tr>
-  			 	<tr >
-  			 		<td colspan="2">달빛이 비치는 곳 그곳으로 향할래 
-  			 		 </td>
-  			 	</tr>
-  			 	
-  			 </table>
+  		<div id="comment" class="w3-container w3-card w3-light grey w3-bordered " style="margin-left:5%;height:400px; width:90%;padding-top:5px">
+  			 
   		</div> 
   		
-	</div>
    </div>
       </div>
 	 <!-- 
-		쓸수있는 el: boardType// article, num , pageNum
+		쓸수있는 el: boardType// article, num , pageNum, commentList
   		 	 article은 BoardVO 
   		BoardVO에서 쓸수있는 변수 num, studynum, boardid, writer, subject, ref, re_step,
   		 	 re_level, reg_date, readcount, content, 등등

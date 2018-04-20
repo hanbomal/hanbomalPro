@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- 쓸수있는 el들 leader groupposition studynum memberid AllPosition nickName-->
+
 </head>
 <body>
     <div class="w3-modal-content w3-card-4" style="max-width: 700px;">
@@ -19,27 +19,44 @@
    <input type="hidden" name="memberid" value="${memberid }" > 
    <input type="hidden" name="leader" value="${leader }" > 
       <div class="w3-container">
-      <div style="margin-top:10px">
-      <font size=3>[${nickName} 님]</font><br>
-      <font size=3>⦁ 역할부여</font>
-   
+      <div style="margin-top:20px;margin-left:15px">
+      <font size=3 class="w3-margin-bottom">[${nickName} 님]</font><br>
+      <font size=3>역할부여: </font>
+   <!-- 쓸수있는 el들 leader groupposition studynum memberid AllPosition nickName-->
       <!--  리스트를 가지고와야함-->
  	  <select class="w3-select w3-center" name="positionSelect" style="width:500px">
+ 	  
+ 	  	<c:if test="${groupposition=='default' }">
+ 	  	<option selected="selected" disabled="disabled" ><font color="gray">역할명을 추가하세요.</font></option>
+ 	  	</c:if>
+ 	  	<c:if test="${groupposition!=null && groupposition!='default' }">
  	  	<option value="${groupposition}" selected="selected" disabled="disabled">${groupposition}</option>
+ 	  	</c:if>
+ 	  
+ 	  
  	  	<c:forEach items="${AllPosition}" var="List">
  	  	 	<option value="${List.groupposition}">${List.groupposition}</option>
  	  	</c:forEach>
  	  </select>
+ 	  	<c:if test="${groupposition!='default' }">
  	  <button class="w3-button" type="submit" onclick="grantPosition()">저장</button>
+ 	  	</c:if>
       </div>
-    <%--     <input id="clearName" class="w3-input" type="text" name="groupposition" value="${groupposition }"> --%>
       </div>
-      <div class="w3-container">
+        <c:if test="${memberid!=leader}">
+      <div class="w3-container w3-padding-24 w3-center">
        	<input type="submit" onclick="changeLeader()" 
-        class=" w3-teal w3-center w3-section w3-padding-small w3-right w3-button" value="방장위임">
+        class=" w3-teal w3-center  w3-padding  w3-button" value="방장위임">
        	<input type="submit" onclick="banishMember()" 
-        class=" w3-red w3-center w3-section w3-padding-small w3-right w3-button" value="추방하기">
+        class=" w3-red w3-center w3-padding  w3-button" value="추방하기">
         </div>
+        </c:if>
+          <c:if test="${memberid==leader}">
+            <div class="w3-container w3-padding-16 w3-center">
+       	<button onclick="document.getElementById('clickMember').style.display='none'" 
+        class=" w3-black w3-center w3-padding  w3-button" >나가기</button>
+            </div>
+          </c:if>
         </form>
     </div>
   

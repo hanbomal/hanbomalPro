@@ -62,17 +62,15 @@
 			<td class="w3-center" width="50">${number}</td>
 			<c:set var="number" value="${number-1}"/>
 				<td width="250" align="left" style="text-align: left">
+				
+				
 			<c:if test="${article.re_level>0}">	
-					<img src="../imgs/level.gif" width="${5 *article.re_level}" height="16">
-					<img src="../imgs/re.gif">
+					<img src="../imgs/level.gif" width="${15 *article.re_level}" height="16">&#8600;
 			</c:if>
 			<c:if test="${article.re_level==0}">	
  					<img src="../imgs/level.gif" height="16"> 
  			</c:if>		
 				${article.subject }
-			<c:if test="${article.readcount>=20 }">
-					<img src="../imgs/hot.gif" border="0" height="16"> 
-			</c:if>	
 				</td>
 				<td class="w3-center" width="100">${article.writer}</td>
 				<td class="w3-center" width="150">${article.reg_date}</td>

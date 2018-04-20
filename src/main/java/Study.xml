@@ -32,7 +32,7 @@
 	
 	<insert id="DefaultBoard" parameterType="hashmap">
 		insert into boardtype(studynum, boardid, boardname, createdate ) 
-		values(#{studynum},#{boardid},'공지 게시판',sysdate)
+		values(#{studynum},#{boardid},'자유 게시판',sysdate)
 	</insert>
 
 	<select id="resultList" resultType="Room" parameterType="hashmap">

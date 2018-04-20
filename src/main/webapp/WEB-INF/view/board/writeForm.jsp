@@ -53,8 +53,18 @@
 				<tr>
 					<th  width="10%" class=" w3-center">제 목</th>
 					<td width="90%">
+					
+					<c:if test="${num==0}">
 						<input type="text" size="40" maxlength="50" 
 						name="subject" required="required" class="w3-input w3-border-0 w3-hover-light-grey">
+					</c:if>
+					<c:if test="${num!=0}">
+						<input type="text" size="40" maxlength="50" value="[답글] "
+						name="subject" required="required" class="w3-input w3-border-0 w3-hover-light-grey">
+					</c:if>
+					
+						
+						
 					</td>
 				</tr>
 				<tr>

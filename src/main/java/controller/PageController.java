@@ -483,6 +483,9 @@ public class PageController {
 		String leader=req.getParameter("leader");
 		String memberid=req.getParameter("memberid");
 		String groupposition=req.getParameter("groupposition");
+		if(groupposition==null||groupposition.equals("")) {
+			groupposition="default";
+		}
 		String studynum=req.getParameter("studynum");
 		String nickName=req.getParameter("nickName");
 		List<PositionVO> AllPosition=studyDB.getAllPosition(studynum);

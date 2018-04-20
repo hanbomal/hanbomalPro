@@ -31,9 +31,9 @@
 			</select>
 					 
       </div>
-    <div class="w3-card-4">
+    <div class="w3-card-4 ">
       <div class="w3-container " id="req1" style="overflow:auto; height:600px; background: rgba(241, 241, 241, 0.75); ">
-<div class="w3-container">
+<div class="w3-container w3-padding-16">
   
   	
  		<c:if test="${count==0 }">
@@ -83,10 +83,10 @@
 			<a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${startPage-bottomLine}" class="w3-bar-item w3-button w3-hover-black">«</a>
 			</c:if>
 			
-	<c:forEach var="i" begin="${startPage }" end="${endPage}">
-				<c:if test="${i!=currentPage }">  <a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>
+	<c:forEach var="i" begin="${startPage }" end="${endPage}">              
+				<c:if test="${i!=currentPage }">  <a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black w3-padding">${i }</a>
 				</c:if>
-				<c:if test="${i==currentPage }">  <a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }" class="w3-bar-item w3-black w3-button">${i }</a>
+				<c:if test="${i==currentPage }">  <a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }" class="w3-bar-item w3-black w3-button w3-padding">${i }</a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${endPage<pageCount }">

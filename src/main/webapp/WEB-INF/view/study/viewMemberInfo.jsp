@@ -20,7 +20,8 @@
    <input type="hidden" name="leader" value="${leader }" > 
       <div class="w3-container">
       <div style="margin-top:20px;margin-left:15px">
-      <font size=3 class="w3-margin-bottom">[${nickName} 님]</font><br>
+      <font size=3>[${nickName} 님]</font><br>
+    <div style="padding-top:10px">
       <font size=3>역할부여: </font>
    <!-- 쓸수있는 el들 leader groupposition studynum memberid AllPosition nickName-->
       <!--  리스트를 가지고와야함-->
@@ -41,6 +42,7 @@
  	  	<c:if test="${groupposition!='default' }">
  	  <button class="w3-button" type="submit" onclick="grantPosition()">저장</button>
  	  	</c:if>
+ 	  	  </div>
       </div>
       </div>
         <c:if test="${memberid!=leader}">
@@ -51,13 +53,13 @@
         class=" w3-red w3-center w3-padding  w3-button" value="추방하기">
         </div>
         </c:if>
+        </form>
           <c:if test="${memberid==leader}">
             <div class="w3-container w3-padding-16 w3-center">
        	<button onclick="document.getElementById('clickMember').style.display='none'" 
         class=" w3-black w3-center w3-padding  w3-button" >나가기</button>
             </div>
           </c:if>
-        </form>
     </div>
   
     

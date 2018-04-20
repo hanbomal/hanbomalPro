@@ -27,6 +27,9 @@
   title="글쓰기" onclick="$('#content').load('../board/writeForm?boardid=${boardType.boardid}&studynum=${boardType.studynum }')">+</button>
 </div>
 	<%-- 	<c:if test="${count==0 }">
+=======
+		<%-- <c:if test="${count==0 }">
+>>>>>>> branch 'master' of https://github.com/hanbomal/hanbomalPro.git
 			<table class="w3-table  w3-centered" style="width: 100%; border:black;">
 			<tr class="w3-black">
 			<td class="w3-center">게시판에 저장된 글이 없습니다.</td>

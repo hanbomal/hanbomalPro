@@ -62,7 +62,7 @@
 						</c:if>
 						<div class="w3-row">
 							<div class="w3-third">⦁방 장: ${room.leader}</div>	
-							<div class="w3-third">⦁멤버수: ${room.peopleCount}</div>
+							<div class="w3-third">⦁멤버수: ${room.count}</div>
 							<div class="w3-third">⦁개설일: ${room.openDate}</div>
 						</div> 
 						<div >⦁소 개: ${room.study_intro}

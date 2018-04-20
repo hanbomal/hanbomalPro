@@ -21,8 +21,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.BoardDAO;
+import dao.RelationDAO;
 import model.BoardTypeVO;
 import model.BoardVO;
+import model.CommentVO;
+import model.RelationVO;
 
 @Controller
 @RequestMapping("/board")
@@ -37,6 +40,7 @@ public class BoardController {
 		return memberid;
 	}
 	BoardDAO boardDB = BoardDAO.getInstance();
+	RelationDAO relationDB = RelationDAO.getInstance();
 	
 	String boardid = "1";
 	String pageNum = "1";
@@ -93,12 +97,16 @@ public class BoardController {
 	}
 	/*content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&studynum=${article.studynum }'*/
 	@RequestMapping("/content")
-	public String content(Model mv, int num,String boardid, String studynum) throws Throwable {
+	public String content(Model mv, int num,String boardid, String studynum,HttpServletRequest req) throws Throwable {
 		BoardVO article = boardDB.getArticle(num, studynum,boardid,"content");
 		
 		
 		if(article!=null) {
 		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
+		RelationVO memberInfo=relationDB.getMemberInfo(studynum, getSessionId(req));
+		mv.addAttribute("memberInfo", memberInfo);
+		mv.addAttribute("article", article);
+		
 		mv.addAttribute("boardType",boardType);
 		mv.addAttribute("article", article);
 		mv.addAttribute("num", num);
@@ -219,6 +227,30 @@ public class BoardController {
 		mv.addAttribute("studynum", article.getStudynum());
 		mv.addAttribute("boardid", article.getBoardid());
 		return "redirect:/board/study_board";
+	}
+	
+	@RequestMapping("/addComment")
+	public String addComment(CommentVO comment,int num, Model mv,HttpServletRequest req) throws Throwable {
+		
+		boardDB.addComment(comment);
+		mv.addAttribute("studynum",comment.getStudynum());
+		mv.addAttribute("boardid",comment.getBoardid());
+		mv.addAttribute("num",num);
+		
+		return "redirect:/board/CommentBox";
+	}
+	
+	@RequestMapping("/CommentBox")
+	public String CommentBox(CommentVO comment,int num, HttpServletRequest req,Model mv) throws Throwable {
+		/* 해당 게시판에 댓글 목록을 보여주는 작업*/
+		String studynum = comment.getStudynum()+"";
+		List<CommentVO> commentList=boardDB.getCommentList(comment.getBoardid(),comment.getStudynum(),num);
+		RelationVO memberInfo=relationDB.getMemberInfo(studynum, getSessionId(req));
+		BoardVO article = boardDB.getArticle(num, studynum,comment.getBoardid(),"content");
+		mv.addAttribute("commentList", commentList);
+		mv.addAttribute("memberInfo", memberInfo);
+		mv.addAttribute("article", article);
+		return "board/commentBox";
 	}
 	
 	

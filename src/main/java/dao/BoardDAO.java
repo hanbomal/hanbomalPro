@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import model.BoardTypeVO;
 import model.BoardVO;
+import model.CommentVO;
 import dao.MybatisConnector;
 
 public class BoardDAO extends MybatisConnector {
@@ -27,7 +28,16 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 		return li;
 	}
-	
+	public List<CommentVO> getCommentList(String boardid, int studynum,int num) {
+		sqlSession = sqlSession();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardid", boardid);
+		map.put("studynum", studynum);
+		map.put("num", num);
+		List<CommentVO> li = sqlSession.selectList(namespace + ".getCommentList", map);
+		sqlSession.close();
+		return li;
+	}
 	public void addBoard(BoardTypeVO type) {
 		sqlSession = sqlSession();
 		int number = sqlSession.selectOne(namespace + ".getNextBoardid");
@@ -35,6 +45,12 @@ public class BoardDAO extends MybatisConnector {
 		type.setBoardid(boardid);
 		System.out.println(type);
 		sqlSession.insert(namespace + ".addBoard", type);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	public void addComment(CommentVO comment) {
+		sqlSession = sqlSession();
+		sqlSession.insert(namespace + ".addComment", comment);
 		sqlSession.commit();
 		sqlSession.close();
 	}

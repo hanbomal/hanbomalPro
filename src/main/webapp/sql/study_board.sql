@@ -10,7 +10,7 @@ CREATE table studyboard (
   re_level int not null,
   reg_date DATE,
   readcount INT,
-  content VARCHAR2(100) not null,
+  content VARCHAR2(3000) not null,
   filename VARCHAR2(100) ,
   filesize INT
 

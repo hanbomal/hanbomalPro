@@ -26,10 +26,13 @@
 		select STUDYBOARDSER.nextval from dual
 	</select>
 	
-	
 	<insert id="addBoard" parameterType="Type">
       insert into boardtype(studynum, boardid, boardname, createdate)
       values(#{studynum},#{boardid},#{boardname},sysdate)
+   </insert>
+	<insert id="addComment" parameterType="Comment">
+      insert into studycomment(studynum, num, boardid, content, writer, profile ,commentdate)
+      values(#{studynum},#{num}, #{boardid},#{content},#{writer},#{profile},sysdate)
    </insert>
 	
 	<insert id="insertBoard" parameterType="Board">
@@ -87,6 +90,11 @@
 	<select id="getTypeList" resultType="Type" parameterType="hashmap">	
 	select * from boardtype where studynum = #{group} order by createdate desc
 	</select> 
+					
+	
+	<select id="getCommentList" resultType="Comment" parameterType="hashmap">	
+	select * from studycomment where studynum = #{studynum} and boardid=#{boardid} and num=${num} order by commentdate
+	</select> 				
 					
 		
 </mapper>

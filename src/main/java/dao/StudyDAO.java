@@ -63,7 +63,10 @@ public class StudyDAO extends MybatisConnector{
 				StudyVO groupInfo = (StudyVO) it.next();
 				StudyDAO studyDB = StudyDAO.getInstance();
 				RelationVO info=studyDB.getRelation(groupInfo.getStudyName(), memberid);
+				int count =studyDB.getPeopleCount(groupInfo.getNum());
+				System.out.println("count="+count);
 				groupInfo.setRelation(info);
+				groupInfo.setCount(count);
 				groupli.add(groupInfo);				
 			}while(it.hasNext());
 		}
@@ -169,6 +172,16 @@ public int deleteStudy(String studyName) {
 	sqlSession.commit();
 	sqlSession.close();
 	
+	return chk;
+	
+}
+public int getPeopleCount(int studyNum) {
+	sqlSession= sqlSession();
+	Map map = new HashMap();
+	map.put("studyNum", studyNum);
+	int chk = sqlSession.selectOne(namespace+".getPeopleCount", map);
+	sqlSession.commit();
+	sqlSession.close();
 	return chk;
 	
 }

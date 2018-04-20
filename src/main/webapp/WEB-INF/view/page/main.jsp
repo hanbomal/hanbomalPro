@@ -37,7 +37,7 @@
 							style="width: 80px; height: 65px">
 							<!--그룹 프로필  -->
 							<c:if test="${room.study_pro==null }">
-								<img src="<%=request.getContextPath()%>/imgs/defaultprofile.png"
+								<img src="<%=request.getContextPath()%>/imgs/groupProfile_default.jpg"
 									class=" w3-hide-small w3-padding"
 									style="height: 90px; width:100px">
 							</c:if>

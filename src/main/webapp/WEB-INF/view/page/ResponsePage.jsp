@@ -15,13 +15,13 @@
   <div class="w3-container w3-white w3-padding">
       
        
-       <font size=3>신청 목록</font>	<font>&nbsp;(총  ${count} 건)</font>
+       <font size=3>요청 목록</font>	<font>&nbsp;(총  ${count} 건)</font>
 			
       </div>
-    <div class="w3-card-4">
+    <div class="w3-card-4 "> 
       <div class="w3-container " id="res" style="overflow:auto;height:600px; background: rgba(241, 241, 241, 0.75); ">
      
-<div class="w3-container ">
+<div class="w3-container w3-padding-16">
  
   	 
  		<c:if test="${count==0 }">
@@ -37,7 +37,7 @@
   	
   	
   	<c:if test="${count>0}">
-  	 <table class="w3-table  w3-centered" style="width: 100%; border:black;">
+  	 <table class="w3-table   w3-centered" style="width: 100%; border:black;">
     <tr  class="w3-black">
       <th style="width:25%">신청일</th>
       <th style="width:30%">그룹명</th>
@@ -76,9 +76,9 @@
 			</c:if>
 			
 	<c:forEach var="i" begin="${startPage }" end="${endPage}">
-				<c:if test="${i!=currentPage }">  <a href="<%=request.getContextPath()%>/page/ResponsePage?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>
+				<c:if test="${i!=currentPage }">  <a href="<%=request.getContextPath()%>/page/ResponsePage?pageNum=${i }" class="w3-bar-item w3-hover-black w3-button w3-padding">${i }</a>
 				</c:if>
-				<c:if test="${i==currentPage }">  <a href="<%=request.getContextPath()%>/page/ResponsePage?pageNum=${i }" class="w3-bar-item w3-black w3-button">${i }</a>
+				<c:if test="${i==currentPage }">  <a href="<%=request.getContextPath()%>/page/ResponsePage?pageNum=${i }" class="w3-bar-item w3-black w3-button w3-padding">${i }</a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${endPage<pageCount }">

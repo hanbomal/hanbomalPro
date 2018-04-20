@@ -219,7 +219,7 @@ margin-bottom:5px;}
 
 <label><i class="fa fa-search w3-margin-left" style="font-size:20px"></i></label>&nbsp;
 <input type="text" class="w3-input  w3-hover-light-grey" 
-style="display: inline-block; width: 140px; " id="searchText" placeholder="검색어 입력">
+style="display: inline-block; width: 140px; " id="searchText" placeholder="검색어 입력" value="">
 
 <span class="w3-right w3-margin-right w3-tag w3-white w3-border" >
 <font color="w3-grey" style="font-size:12px;" id="curCount"></font></span>
@@ -373,12 +373,12 @@ var today =new Date().toString('yyyyMMdd');
 		else if(l0=='<%=name%>'){
 			
 		          
-			 textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+			 textarea.innerHTML +="<div><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
    	  		  +"<li class='w3-large' style='border:none;' align='right'>"
    	  	          +"<span class='w3-small'>"+l1+"</span>&nbsp;"
    	  	         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
    	  	          +"<span class='w3-medium w3-left' style='text-align: left;'>"+l2
-   	  	          +"</span></span></li></ul></td></tr></table>";
+   	  	          +"</span></span></li></ul></td></tr></table></div>";
    	     
 			
 			 /*  textarea.innerHTML +="<div ><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
@@ -420,7 +420,10 @@ var today =new Date().toString('yyyyMMdd');
       
     
              textarea.scrollTop=textarea.scrollHeight;
-       
+            
+             
+            
+    
     }
     
     
@@ -489,16 +492,20 @@ var today =new Date().toString('yyyyMMdd');
     	        cache: false,
     	        timeout: 600000,
     	        success: function (data) {
-    	       rename=data;
-    	       
-       	    inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+rename+"><br>"+inputMessage.value;
+    	      
+       	   rename=data;
+       	  inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+rename+"><br>"+inputMessage.value;
        	    
-       	 textarea.innerHTML +="<div><table  align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+       	 textarea.innerHTML +="<div height=300px><table  align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
 			  +"<li class='w3-large' style='border:none;' align='right'>"
 		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
 		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
 		          +"<span class='w3-medium' style='text-align: left;'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table></div>";
-       	resetFile();
+		          
+		        
+		          
+		          
+		          resetFile();
 	    
        	
        	if(document.getElementById('contentTitle').innerHTML=='사진첩'){
@@ -514,7 +521,8 @@ var today =new Date().toString('yyyyMMdd');
        inputMessage.value = "";
        
        textarea.scrollTop=textarea.scrollHeight;
-    	        
+
+       
     	        },
     	        error: function (e) {
     	            console.log("ERROR : ", e);
@@ -522,7 +530,8 @@ var today =new Date().toString('yyyyMMdd');
     	      
     	    });
     	 
-    	   
+    	    
+           
     	    
        }else{
     	   
@@ -550,7 +559,11 @@ var today =new Date().toString('yyyyMMdd');
          
        textarea.scrollTop=textarea.scrollHeight;
 			
-	}
+	
+    
+      
+    
+    }
     
     
     
@@ -559,16 +572,26 @@ var today =new Date().toString('yyyyMMdd');
     $(document).ready(function() {
         $('#searchText').keyup(function() {
             var k = $(this).val();
-            if(k==""||k==null){
-            	 textarea.scrollTop=textarea.scrollHeight;
-            }
+          	if(k==""||k==null){
+            	/* $("#messageWindow > div").show();
+            	 textarea.scrollTop=textarea.scrollHeight; */
+            	k=" ";
+            	 var temp = $("#messageWindow > div>table:contains('" + k + "')");
+             	$('.dateTitle').show();
+                     $(temp).parent().show(); 
+                     textarea.scrollTop=textarea.scrollHeight;         
+          	}
+            	 
+            	 
+          	else{
             
             $("#messageWindow > div").hide();
             var temp = $("#messageWindow > div>table:contains('" + k + "')");
     	$('.dateTitle').show();
-            $(temp).parent().show(); 
+            $(temp).parent().show(); }
            
-        })
+        
+    })
     })
     
     
@@ -596,7 +619,7 @@ function checkKey(e){
 
 
 	document.getElementById('inputMessage').onkeypress = checkKey;
-
+	 
 	
 
 //preview image 

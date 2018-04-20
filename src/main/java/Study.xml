@@ -10,6 +10,10 @@
 	<select id="getNextBoardid" resultType="int">
 		select boardidser.nextval from dual
 	</select>
+		
+	<select id="getPeopleCount" resultType="int" parameterType="hashmap">
+		select count(*) from studyrelation where studynum=#{studyNum} and status=2
+	</select>
 
 	<insert id="makingStudy" parameterType="Room">
 		insert into studygroup
@@ -32,7 +36,7 @@
 	
 	<insert id="DefaultBoard" parameterType="hashmap">
 		insert into boardtype(studynum, boardid, boardname, createdate ) 
-		values(#{studynum},#{boardid},'공지 게시판',sysdate)
+		values(#{studynum},#{boardid},'자유 게시판',sysdate)
 	</insert>
 
 	<select id="resultList" resultType="Room" parameterType="hashmap">
@@ -77,9 +81,14 @@
     <update id="deleteStudy" parameterType="map">
       delete from studygroup where studyName=#{studyName} 
 	 </update>
+	 
+	 <delete id="deleteStudyByNum" parameterType="hashmap">
+      delete from studygroup where num=#{num}   
+	 </delete>
+	 
 	
 	<select id="getNextID" resultType="int">
-		 select nvl(max(id),0) from groupposition where studynum=#{studynum}
+		 select boardidser.nextval from dual
 	</select>
 	
 	<update id="updateStudy" parameterType="Study">

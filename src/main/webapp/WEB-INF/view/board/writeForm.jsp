@@ -15,7 +15,7 @@
 <div class="w3-container " style="width: 100%;">
 <!-- <div class="w3-card-2" style="margin-top:10px" > -->
 	 <div  id="content" style="height:100%; " >
-  		 	     <font size=6>${boardType.boardname}</font>
+  		 	     <h4>${boardType.boardname}</h4>
        <!-- 
        }
 		mv.addObject("boardid", article.getBoardid());
@@ -32,7 +32,7 @@
        
         -->
  	
- <div class="w3-container" style="margin-top:10px">
+ <div class="w3-container w3-margin-top w3-padding-32">
 		<form id="uploadform" method="post" name="writeform" enctype="multipart/form-data">
 			  	<input type="hidden" name="writer" value="${memberid}">
 			 	<input type="hidden" name="boardid" value="${boardid}">
@@ -53,8 +53,18 @@
 				<tr>
 					<th  width="10%" class=" w3-center">제 목</th>
 					<td width="90%">
+					
+					<c:if test="${num==0}">
 						<input type="text" size="40" maxlength="50" 
 						name="subject" required="required" class="w3-input w3-border-0 w3-hover-light-grey">
+					</c:if>
+					<c:if test="${num!=0}">
+						<input type="text" size="40" maxlength="50" value="[답글] "
+						name="subject" required="required" class="w3-input w3-border-0 w3-hover-light-grey">
+					</c:if>
+					
+						
+						
 					</td>
 				</tr>
 				<tr>

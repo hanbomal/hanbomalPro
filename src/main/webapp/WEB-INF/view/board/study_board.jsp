@@ -10,34 +10,50 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- content -->
+
 <div class="w3-container " style="height:600px; width:100%; overflow:auto;  ">
      <input type="hidden" value="${memberid }" id="memberidChk">
 <div class="w3-container " style="width: 100%;">
  <!--  <div class="w3-card-2" style="margin-top:10px" > -->
  <div  id="content" style="height:100%;" >
-     <font size=6>${boardType.boardname}</font>
-  
-     <br><br>
+     <h4 style="display: inline-block;">${boardType.boardname}</h4>
+     <c:if test="${count!=0 }">	
+ <span class="w3-right w3-small w3-tag w3-white w3-border w3-margin-top">제목을 채팅창에 끌어다 놓으면 다시 전송됩니다.</span>
+ </c:if>	
 <div class="w3-container"><div class="w3-bar ">
   	<span >전체 글 : ${count }</span>
+  
   <button class="w3-button w3-padding-small w3-right w3-black w3-margin-bottom" 
   title="글쓰기" onclick="$('#content').load('../board/writeForm?boardid=${boardType.boardid}&studynum=${boardType.studynum }')">+</button>
 </div>
-		<c:if test="${count==0 }">
+	<%-- 	<c:if test="${count==0 }">
+=======
+		<%-- <c:if test="${count==0 }">
+>>>>>>> branch 'master' of https://github.com/hanbomal/hanbomalPro.git
 			<table class="w3-table  w3-centered" style="width: 100%; border:black;">
 			<tr class="w3-black">
 			<td class="w3-center">게시판에 저장된 글이 없습니다.</td>
 			</table>
+		</c:if> --%>
+		
+			<c:if test="${count==0 }">
+			<div class="w3-center w3-padding-top">
+			<table class="w3-table table-bordered w3-center" width="100%">
+			<tr  >
+			<td class="w3-center w3-padding"><br>
+			<span class="w3-tag w3-white w3-border">저장된 게시글이 없습니다.</span><br><br></td>
+			</table>
+			</div>
 		</c:if>
 
 	<c:if test="${count!=0 }">
-  <table class="w3-table  w3-centered" style="width: 100%; border:black;">
+  <table class="w3-table  w3-centered w3-margin-left w3-margin-right w3-padding" style="width: 100%; border:black;">
     <tr class="w3-black">
-      <th class="w3-center" width="50">번 호</th>
-      <th class="w3-center" width="250">제 목</th>
-      <th class="w3-center" width="100">작성자</th>
-      <th class="w3-center" width="150">작성일</th>
-      <th class="w3-center" width="50">조 회</th>
+      <th class="w3-center" width="10%">번 호</th>
+      <th class="w3-center" width="40%">제 목</th>
+      <th class="w3-center" width="20%">작성자</th>
+      <th class="w3-center" width="20%">작성일</th>
+      <th class="w3-center" width="10%">조 회</th>
     </tr>
 		<!--  
 		쓸수있는 el 
@@ -47,22 +63,20 @@
 		num, studynum boardid writer subject ref re_step re_level reg_date readcount 등등
 		-->
     <c:forEach var="article" items="${articleList}">
-			<tr class="w3-hover-white"  draggable="true" ondragstart="drag(event);" id="${article.num}"
+			<tr class="w3-hover-white"  draggable="true" ondragstart="drag(event);" id="${article.num}" style="cursor:pointer"
 			onclick="$('#content').load('../board/content?num=${article.num}&pageNum=${currentPage }&boardid=${article.boardid}&studynum=${article.studynum }')">
 			<td class="w3-center" width="50">${number}</td>
 			<c:set var="number" value="${number-1}"/>
 				<td width="250" align="left" style="text-align: left">
+				
+				
 			<c:if test="${article.re_level>0}">	
-					<img src="../imgs/level.gif" width="${5 *article.re_level}" height="16">
-					<img src="../imgs/re.gif">
+					<img src="../imgs/level.gif" width="${15 *article.re_level}" height="16">&#8600;
 			</c:if>
 			<c:if test="${article.re_level==0}">	
  					<img src="../imgs/level.gif" height="16"> 
  			</c:if>		
 				${article.subject }
-			<c:if test="${article.readcount>=20 }">
-					<img src="../imgs/hot.gif" border="0" height="16"> 
-			</c:if>	
 				</td>
 				<td class="w3-center" width="100">${article.writer}</td>
 				<td class="w3-center" width="150">${article.reg_date}</td>
@@ -175,14 +189,14 @@ function boardToChat(id){
     	        article=JSON.parse(JSON.stringify(json));
     	      
 
-    	  	  textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+    	  	  textarea.innerHTML +="<div><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
     	  		  +"<li class='w3-large' style='border:none;' align='right'>"
     	  	          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
     	  	         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
     	  	          +"<span class='w3-medium w3-left' style='text-align: left;'>"+memberidChk+"님이 게시글 다시 보내기를 하셨습니다.<p/><b>게시판 : </b>"+article.boardname+"<br>"
     	  	          +"<b>글제목: </b>"+article.title+"<br><b>글쓴이: </b>"+article.writer+"<br><b>올린날짜: </b>"+article.date+"<p/><br>"
-    	  	          +"<button class='w3-button w3-black' onclick=$('#content').load('../board/content?num="+id+"&studynum="+article.studynum+"&boardid="+article.boardid+"')>게시글 보기</button>"
-    	  	          +"</span></span></li></ul></td></tr></table>";
+    	  	          +"<button class=w3-button onclick=$('#content').load('../board/content?num="+id+"&studynum="+article.studynum+"&boardid="+article.boardid+"');document.getElementById('contentTitle').innerHTML='게시판';>게시글 보기</button>"
+    	  	          +"</span></span></li></ul></td></tr></table></div>";
     	     
     	      
     	  	 textarea.scrollTop=textarea.scrollHeight;
@@ -190,7 +204,7 @@ function boardToChat(id){
     	  	 
     	  	 boardMessage=memberidChk+"님이 게시글 다시 보내기를 하셨습니다.<p/><b>게시판 : </b>"+article.boardname+"<br>"
  	          +"<b>글제목: </b>"+article.title+"<br><b>글쓴이: </b>"+article.writer+"<br><b>올린날짜: </b>"+article.date+"<p/><br>"
-  	          +"<button class='w3-button w3-black' onclick=$('#content').load('../board/content?num="+id+"&studynum="+article.studynum+"&boardid="+article.boardid+"')>게시글 보기</button>";
+  	          +"<button class=w3-button onclick=$('#content').load('../board/content?num="+id+"&studynum="+article.studynum+"&boardid="+article.boardid+"');document.getElementById('contentTitle').innerHTML='게시판';>게시글 보기</button>";
   	          
   	          
     	       webSocket.send(boardMessage.trim());

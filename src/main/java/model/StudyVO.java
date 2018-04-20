@@ -5,6 +5,13 @@ import java.sql.Date;
 public class StudyVO {
 	private int num;
 	private String studyName;
+	private int count;
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	private int peopleCount; //현 인원수
 	private String leader;
 	private Date openDate;

@@ -37,7 +37,7 @@
 							style="width: 80px; height: 65px">
 							<!--그룹 프로필  -->
 							<c:if test="${room.study_pro==null }">
-								<img src="<%=request.getContextPath()%>/imgs/defaultprofile.png"
+								<img src="<%=request.getContextPath()%>/imgs/groupProfile_default.jpg"
 									class=" w3-hide-small w3-padding"
 									style="height: 90px; width:100px">
 							</c:if>
@@ -62,7 +62,7 @@
 						</c:if>
 						<div class="w3-row">
 							<div class="w3-third">⦁방 장: ${room.leader}</div>	
-							<div class="w3-third">⦁멤버수: ${room.peopleCount}</div>
+							<div class="w3-third">⦁멤버수: ${room.count}</div>
 							<div class="w3-third">⦁개설일: ${room.openDate}</div>
 						</div> 
 						<div >⦁소 개: ${room.study_intro}

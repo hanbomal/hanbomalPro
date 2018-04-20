@@ -26,7 +26,23 @@
   <c:forEach var="member" items="${members }">
  	<tr class="w3-hover-white" onclick="memberInfo(${member.studynum},'${member.position }','${member.leader}','${member.memberId }','${member.nickName }')">
  	  <td class="w3-center" width="25%">${member.nickName }</td>
+ 	  
+ 	  <c:if test="${member.position==null }">
+ 	  	<c:if test="${member.memberId==member.leader }">
+ 	  <td class="w3-center" width="25%"><font color="gray">방장</font></td>
+ 	  	</c:if>
+ 	  	<c:if test="${member.memberId!=member.leader }">
+ 	  <td class="w3-center" width="25%"><font color="gray">회원</font></td>
+ 	  	</c:if>
+ 	  </c:if>
+ 	  
+ 	  <c:if test="${member.position!=null }">
  	  <td class="w3-center" width="25%">${member.position }</td>
+ 	  </c:if>
+ 	  
+ 	  
+ 	  
+ 	  
  	  <td class="w3-center" width="25%">${member.joinDate }</td>
  	  <td class="w3-center" width="25%">${member.lastDate }</td>
  	</tr>
@@ -68,7 +84,6 @@ function memberInfo(num,position,groupleader, mid,nick){
 	var memberid=mid; 
 	var nickName=nick;
 	document.getElementById('clickMember').style.display='block';
-	/* o(${member.studynum},'${member.position }','${member.leader}')"> */
 	 $.ajax({
 		type: 'POST',
 		url: 'MemberInfo',

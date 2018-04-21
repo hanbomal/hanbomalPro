@@ -64,7 +64,7 @@ function leaveQuestion(){
 <body>
 <div class="w3-container w3-padding" style="height: 600px; overflow:auto; " >
 <div style="width: 100%;" class="w3-container w3-margin-left w3-margin-bottom">
-<div class="w3-bar  w3-padding ">&nbsp;
+<div class="w3-bar  w3-padding w3-margin-bottom">&nbsp;
 <button class="w3-button w3-padding-small w3-right w3-margin-left  w3-black w3-hover-red w3-margin-bottom" title="방 나가기"
   onclick="leaveQuestion();">방 나가기</button>&nbsp;
 
@@ -72,23 +72,30 @@ function leaveQuestion(){
   onclick="showMyInfo();">내 정보 수정</button>&nbsp;
   
 </div>
-<div>
+<div class="w3-half">
 
 
 
-<table class='w3-table w3-bordered' style="border:black;" align="center">
+<table class='w3-table w3-bordered w3-hoverable' style="border:black;" align="center">
 
 <tr><td class="w3-black" width="130px">이름</td><td><b>${study.studyName }</b></td>
 </tr>
 <tr><td class="w3-black">개설일</td><td>${study.openDate }</td></tr>
 <tr><td class="w3-black">소개</td><td>${study.study_intro}</td></tr>
-<tr><td class="w3-black">대표 사진</td><td><img src="<%=request.getContextPath() %>/fileSave/${study.study_pro}"  style="max-width:150px;" class="w3-card-4 w3-border"></td></tr>
+<tr><td class="w3-black ">대표 사진</td><td class="w3-padding"><img src="<%=request.getContextPath() %>/fileSave/${study.study_pro}"  style="width:80%;height:auto;" class="w3-card-4 w3-border"></td></tr>
 
-<tr><td class="w3-black">회원 목록<br><span class="w3-small">(총 ${memberCount}명)</span></td>
-<td><ul class="w3-ul">
+
+
+
+</table>
+</div>
+<div class="w3-half" style="max-height: 450px; overflow:auto;">
+<table style="width: 90%;" class="w3-table w3-hoverable w3-bordered w3-margin-right">
+<tr><td class="w3-black" colspan="2">회원 목록&nbsp;<span class="w3-small">(총 ${memberCount}명)</span></td></tr>
+<c:forEach var="member" items="${members }"><tr><td>
 	
-	<c:forEach var="member" items="${members }">
-	<li>
+	
+	
 	<c:if test="${(member.photo!=null)&&(member.photo!='')}"><img src="<%=request.getContextPath()%>/fileSave/${member.photo}" width="30px"></c:if>
 	<c:if test="${(member.photo==null)||(member.photo=='')}"><img src="<%=request.getContextPath()%>/imgs/profile.png" width="30px"></c:if>
 	${member.nickName } (${member.memberId }) 
@@ -96,38 +103,15 @@ function leaveQuestion(){
 	<span class="w3-tag w3-teal w3-border w3-small">방장</span>
 	</c:if>
 
-	</li>
+	</td>
+	<td width="40%">
+	<c:if test="${(member.position!=null)&&(member.position!='')}">
+	${member.position }</c:if>
 	
-	</c:forEach>
-	</ul></td></tr>
-
-
+	</td>
+	</tr></c:forEach>
 </table>
 
-
-
-<%-- 
-
-<ul class="w3-ul">
-<li>
-스터디 이름 : ${study.studyName }
-</li>
-<li>스터디 개설일 : ${study.openDate }</li>
-<li>스터디 소개 : ${study.study_intro }</li>
-<li>회원 목록 (총 ${memberCount}명) 
-	<ul class="w3-ul">
-	
-	<c:forEach var="member" items="${members }">
-	<li>
-	<c:if test="${(member.photo!=null)&&(member.photo!='')}"><img src="<%=request.getContextPath()%>/fileSave/${member.photo}" width="30px"></c:if>
-	<c:if test="${(member.photo==null)||(member.photo=='')}"><img src="<%=request.getContextPath()%>/imgs/profile.png" width="30px"></c:if>
-	${member.nickName } | ${member.memberId } (${member.position })</li>
-	
-	</c:forEach>
-	</ul>
-
-</li> 
-</ul> --%>
 </div>
 </div>
 </div>

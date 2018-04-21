@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ 
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/lib/jquery.min.js"></script>
@@ -44,6 +47,11 @@ $('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=${g
 <style>
  
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+#draggable .profileThum{
+width:30px;
+height:30px;
+margin-bottom:5px;}
 </style>
 
 <!-- content -->
@@ -56,8 +64,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 <div class="w3-third w3-container w3-margin-bottom"  id="draggable" >
    
       <div class="w3-container w3-white">
-      <h6 style="display: inline-block; cursor: move;" id="handle">실시간 토론</h6> 
-      <span class=" w3-tag w3-white w3-middle w3-margin-top" style="float: right; "><font style="font-color:grey; font-size:12px;" id="curMember" ></font></span>
+      <h6 style="display: inline-block; cursor: move;" id="handle">실시간 토론</h6>  
+      <div class="w3-dropdown-hover w3-right w3-small " style="margin-top:5px;"> 
+    <button class="w3-button">접속자 목록</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" id="curMember" style="max-height:300px; overflow:auto;">
+      <a href="#" class="w3-bar-item w3-button">접속자 없음</a> 
+   </div></div>
       </div>
      <div class="w3-card-4">
  <!-- 채팅 div -->
@@ -74,7 +86,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   <button class="w3-button w3-right "
   onclick="$('#content').load('<%=request.getContextPath()%>/gallery/list?memberid=${memberid }&studynum=${group }');document.getElementById('contentTitle').innerHTML='사진첩'">사진첩</button>
     <div class="w3-dropdown-hover w3-right"> 
-    <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
+    <button class="w3-button ">게시판</button>
     <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;" id="boardlistDropdown">
       <c:if test="${typeList.size()>0}">
       	    <c:forEach var="typeList" items="${typeList}">

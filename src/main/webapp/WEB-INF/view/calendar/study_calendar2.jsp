@@ -143,7 +143,7 @@ jQuery(document).ready(function(){
     		  
     		  
     	  }
-        ,eventDragStop: function(event,jsEvent) {
+         ,eventDragStop: function(event,jsEvent) {
 
             var Tochat = jQuery('#chat');
             var ofs = Tochat.offset();
@@ -157,12 +157,12 @@ jQuery(document).ready(function(){
                 jsEvent.pageY >= y1 && jsEvent.pageY <= y2) {
                
             	
-            	alert('SIII');
+            	
             	calendarToChat(event);
           
             
             }
-        }
+        } 
        , select: function(startDate, endDate) {
     	   document.getElementById('title').value='';
 	    	  document.getElementById('place').value='';
@@ -182,9 +182,9 @@ jQuery(document).ready(function(){
 
 <body class="w3-padding ui-widget-content" >
 
-<div style="width: 100%; background: rgba(241, 241, 241, 1); ">
+<div style="width: 100%; height:600px; background: rgba(241, 241, 241, 1); ">
 <!-- 달력 출력 모달 -->
-    <div class="w3-container  w3-padding w3-padding-right w3-padding-left" id="calendar" style="height:600px; width:95%; z-index: 0; position: relative;"></div>
+    <div class="w3-container  w3-padding w3-padding-right w3-padding-left" id="calendar" style="  width:95%; z-index: 0; position: relative;"></div>
     </div>
      <!-- 메시지 모달 -->
        <div id="message" class="w3-modal" >

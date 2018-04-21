@@ -28,7 +28,7 @@ margin-bottom:5px;}
 <script>
 
 ${nameHistoryJs};
-
+${nameHistoryJs2};
 var chatHistory = [
     <c:forEach var="list" items="${chatHistoryData}" varStatus="status">
             {"name":'<c:out value="${list.name}" />'
@@ -72,7 +72,7 @@ function historyView(){
 
 	 chatHistoryArea.innerHTML +="<div ><table align='left' style='width:100%;'><tr><td>"
 	 +"<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
-      +"<img src='"+historyNameMap[l0]+"' class='profileThum' >&nbsp;"+l0+"<br>"
+      +"<img src='"+historyNameMap[l0]+"' class='profileThum' >&nbsp;"+historyNameMap2[l0]+"<br>"
       +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
       +" <span class='w3-medium'><font color='white'>"+l2+"</font></span>"
     +" </div><br><span class='w3-small'>"+l1+"</span></li></ul></td></tr></table></div>"; 

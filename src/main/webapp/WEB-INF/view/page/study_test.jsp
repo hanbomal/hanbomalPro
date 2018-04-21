@@ -12,9 +12,13 @@
 <script>
 $(document).ready(function(){   
 document.getElementById('contentTitle').innerHTML='달력';
-$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${group}&name=${memberid }'); 
-$('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=${group}');
 
+$('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=${group}');
+$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${group}&name=${memberid }');  
+
+
+ 
+ 
 });
 
  $( function() {
@@ -33,20 +37,29 @@ $('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=${g
   </script>
  
 
-
- <link href="../api/fullcalendar-3.9.0/fullcalendar.css" rel="stylesheet"/> 
+<!--  
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<!--  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+ -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  
+
 <style>
  
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+pre {
+margin:0;
+padding:0;
+font-size: inherit;
+font-family: inherit;
+font-style: inherit;
+font: inherit;
+  white-space: pre-wrap;
+}
+
 
 #draggable .profileThum{
 width:30px;
@@ -59,7 +72,6 @@ margin-bottom:5px;}
   
   
 <div class="w3-section w3-row-padding">
-
 
 <div class="w3-third w3-container w3-margin-bottom"  id="draggable" >
    

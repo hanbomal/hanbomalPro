@@ -72,7 +72,7 @@ function leaveQuestion(){
   onclick="showMyInfo();">내 정보 수정</button>&nbsp;
   
 </div>
-<div class="w3-half">
+<div class="w3-half w3-padding">
 
 
 
@@ -89,7 +89,7 @@ function leaveQuestion(){
 
 </table>
 </div>
-<div class="w3-half" style="max-height: 450px; overflow:auto;">
+<div class="w3-half w3-padding" style="max-height: 450px; overflow:auto;">
 <table style="width: 90%;" class="w3-table w3-hoverable w3-bordered w3-margin-right">
 <tr><td class="w3-black" colspan="2">회원 목록&nbsp;<span class="w3-small">(총 ${memberCount}명)</span></td></tr>
 <c:forEach var="member" items="${members }"><tr><td>

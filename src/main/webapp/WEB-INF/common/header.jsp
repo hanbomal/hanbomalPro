@@ -29,7 +29,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 body, html {
 	height: 100%;
-	line-height: 1.8;
+	/* line-height: 1.8; */
 }
 /* Full height image header */
 .bgimg-1 {
@@ -52,6 +52,7 @@ body, html {
 	font-size: 17px;
 	padding-left: 10px;
 }
+
 /* style="overflow:hidden;" */
 </style>
 </head>
@@ -67,7 +68,7 @@ body, html {
 
 				<form action="../page/main" autocomplete="off" method="post">
 					<input type="text" style="outline: none; width: 300px"
-						placeholder="그룹명을 입력하세요..." name="studyName"
+						placeholder="그룹명을 입력하세요" name="studyName"
 						id="myInput">
 					<button type="submit" class="w3-button w3-black"
 						style="margin-left: -4px; padding: 8px; margin-bottom: 2px">
@@ -85,18 +86,18 @@ body, html {
 				<a href="javascript:void(0)" class="w3-bar-item w3-button"
 					onclick="document.getElementById('login').style.display='block'"><i
 					class="fa fa-user"></i> 로그인</a>
-					<a href="javascript:void(0)" class="w3-bar-item w3-button"
-					onclick=""><i
+					<a href="<%=request.getContextPath()%>/member/join2" class="w3-bar-item w3-button"
+					><i
 					class="fa fa-user"></i> 회원가입</a>
 					
 	    </c:if>
 	    <c:if test="${sessionScope.memberid!=null}">
 				<div class="w3-dropdown-hover">
 					<button class="w3-button">
-						<i class="fa fa-th"></i> ${sessionScope.memberid} 님
+						<i class="fa fa-user"></i> ${sessionScope.memberid} 님
 					</button>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
-						<a href="<%=request.getContextPath() %>/member/before_check" class="w3-bar-item w3-button">MY PAGE
+						<a href="<%=request.getContextPath() %>/member/before_check" class="w3-bar-item w3-button">나의정보
 						</a>
 						<a href="../page/RequestPage" class="w3-bar-item w3-button">신청목록
 						<c:if test="${reqcount>0 }">
@@ -113,15 +114,15 @@ body, html {
 							<a href="<%=request.getContextPath() %>/member/member_List" class="w3-bar-item w3-button">회원관리</a>
 							<a href="<%=request.getContextPath() %>/member/study_List" class="w3-bar-item w3-button">그룹관리</a>
 							</c:if>
-						<input class="w3-bar-item w3-button" value="LOGOUT" onclick="logoutPro()"/>
+						<input class="w3-bar-item w3-button" value="로그아웃" onclick="logoutPro()"/>
 						
 					</div>
 				</div>
 		
 		
 		
-			<div class="w3-dropdown-hover" >
-					<button class="w3-button" style="width: 150px;">
+			<div class="w3-dropdown-hover w3-margin-right" >
+					<button class="w3-button">
 						<span class="w3-left"><i class="fa fa-th"></i> <%=workspaceTitle2 %></span>
 					</button>
 					

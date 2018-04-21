@@ -38,7 +38,7 @@
   <div class="w3-third w3-container ">
   <div class="w3-container w3-light-gray">
       
-       <h6>FIND PASSWORD </h6>
+       <h6>비밀번호 찾기 </h6>
       </div>
     <div class="w3-card-4">
       <div class="w3-container " style="overflow:auto; background: rgba(241, 241, 241, 0.75); ">
@@ -50,7 +50,7 @@
 
 
 
-<h5 class="w3-center">비밀번호찾기</h5>
+
 
 
 

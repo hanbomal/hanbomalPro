@@ -18,11 +18,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"> -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <script type="text/javascript" src="../api/date.js"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
 <meta charset="UTF-8">
 
@@ -82,6 +81,7 @@ function resetFile(){
 </script>
 <style type="text/css">
 
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 
 
 .filebox input[type="file"] {
@@ -124,7 +124,6 @@ font: inherit;
   white-space: pre-wrap;
 }
 
-.redColor{background-color:red;}
 
 /* imaged preview */ 
 .filebox .upload-display { 
@@ -248,8 +247,7 @@ var today =new Date().toString('yyyyMMdd');
 
  var isEmpty=document.getElementById('isEmpty').value;
 
-
-
+ var memArr=new Array();
   var chatdata = [
 	    <c:forEach var="list" items="${chatdata}" varStatus="status">
 	            {"name":'<c:out value="${list.name}" />'
@@ -263,7 +261,8 @@ var today =new Date().toString('yyyyMMdd');
   
 
   ${nameJs};
-
+  ${nameJs2};
+  ${nameJs3};
 
         var textarea = document.getElementById("messageWindow");
       
@@ -303,21 +302,53 @@ var today =new Date().toString('yyyyMMdd');
       		
       		
       		
+      		document.getElementById("curMember").innerHTML ="";
       		
-      		var curmem="";
+      		//var curmem="";
       		var count=0;
       		for(var i=0; i<fromServer.length-1;i++){
       			
       			var groupAndName=fromServer[i].split("-");
-      			
+      			var memArrForList=new Array();
       			if(groupAndName[0]==<%=group%>){
       				count++;
-      				curmem+=groupAndName[1]+",";
+      				
+      				//curmem+=groupAndName[1]+",";
+      				memArr[groupAndName[1]]={
+      						nick:groupAndName[2],
+      						photo:'<%=request.getContextPath()%>'+groupAndName[3],
+      						position:groupAndName[4]
+      						
+      						
+      				};
+      				memArrForList[groupAndName[1]]={
+      						nick:groupAndName[2],
+      						photo:groupAndName[3],
+      						position:groupAndName[4]
+      						
+      						
+      				};
+      				
+      			
+      				document.getElementById("curMember").innerHTML +=
+      		      		"<a href='#' class='w3-bar-item w3-button'><img src='<%=request.getContextPath()%>"+memArrForList[groupAndName[1]].photo+"' class='profileThum' >&nbsp;"+memArrForList[groupAndName[1]].nick+"&nbsp;("+memArrForList[groupAndName[1]].position+")</a>"; 
+      			
       			}
       			
       			
+      		
+      		
       		}
-      		document.getElementById("curMember").innerHTML =curmem.substr(0,curmem.length-1)+'님이 참여 중'; 
+      		
+      		
+      		/* for(var i=1;i<=count;i++){
+      		document.getElementById("curMember").innerHTML +=
+      		"<a href='#' class='w3-bar-item w3-button'><img src='"+map[memArr[i]]+"' class='profileThum' >&nbsp;"+map2[memArr[i]]+"&nbsp;("+map3[memArr[i]]+")</a>"; 
+      		} */
+      		
+      	
+      		
+      		
       		document.getElementById("curCount").innerHTML ='현재 접속자 : '+count+'명'; 
       		 textarea.scrollTop=textarea.scrollHeight;
       		return;
@@ -339,7 +370,7 @@ var today =new Date().toString('yyyyMMdd');
     
     textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td>"
 		 +"<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
-	        +"<img src='"+map[texts[0]]+"' class='profileThum' >&nbsp;"+texts[0]+"<br>"
+	        +"<img src='"+memArr[texts[0]].photo+"' class='profileThum' >&nbsp;"+memArr[texts[0]].nick+"<br>"
 	        +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
 	        +" <span class='w3-medium'><font color='white'>"+texts[2]+"</font></span>"
 	      +" </div><br><span class='w3-small'>"+texts[1]+"</span></li></ul></td></tr></table></div>"; 
@@ -407,7 +438,7 @@ var today =new Date().toString('yyyyMMdd');
 		
 		 textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td>"
 		 +"<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
-	        +"<img src='"+map[l0]+"' class='profileThum' >&nbsp;"+l0+"<br>"
+	        +"<img src='"+map[l0]+"' class='profileThum'>&nbsp;"+map2[l0]+"<br>"
 	        +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
 	        +" <span class='w3-medium'><font color='white'>"+l2+"</font></span>"
 	      +" </div><br><span class='w3-small'>"+l1+"</span></li></ul></td></tr></table></div>"; 

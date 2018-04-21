@@ -18,7 +18,7 @@
  <div  id="content" style="height:100%;" >
      <h4 style="display: inline-block;">${boardType.boardname}</h4>
      <c:if test="${count!=0 }">	
- <span class="w3-right w3-small w3-tag w3-white w3-border w3-margin-top">제목을 채팅창에 끌어다 놓으면 다시 전송됩니다.</span>
+ <span class="w3-right w3-small w3-tag w3-white w3-border w3-margin-top">제목을 채팅창에 끌어다 놓으면 전송됩니다.</span>
  </c:if>	
 <div class="w3-container"><div class="w3-bar ">
   	<span >전체 글 : ${count }</span>

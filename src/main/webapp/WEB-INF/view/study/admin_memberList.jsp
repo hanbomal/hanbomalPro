@@ -37,7 +37,7 @@
  	  </c:if>
  	  
  	  <c:if test="${member.position!=null }">
- 	  <td class="w3-center" width="25%">${member.position }</td>
+ 	  <td class="w3-center" width="25%"><b>${member.position }</b></td>
  	  </c:if>
  	  
  	  

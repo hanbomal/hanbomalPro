@@ -27,7 +27,17 @@
  	 		 	<c:forEach items="${commentList}" var="List">
   			 	<tr>
   			 	<td>
+  			 	
+  			 	
+  			 	<c:if test="${List.profile!=null }">
   			 			<img src="../fileSave/${List.profile } "class="w3-center" style="width:25px;height:25px">
+  			 	</c:if>
+  			 	<c:if test="${List.profile==null }">
+  			 			<img src="../imgs/profile.png"class="w3-center" style="width:25px;height:25px">
+  			 	</c:if>
+  			 			
+  			 			
+  			 			
   			 		<font size="4"><b>${List.writer } </b></font> <font color="gray" size="2">${List.commentdate } </font></td>
   			 	</tr>
   			 	<tr >

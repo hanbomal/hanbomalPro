@@ -15,6 +15,7 @@
   <typeAlias type="model.BoardTypeVO" alias="Type"/>
   <typeAlias type="model.PositionVO" alias="Position"/>
   <typeAlias type="model.CommentVO" alias="Comment"/>
+  <typeAlias type="model.CheckListVO" alias="Check"/>
   
    </typeAliases> 
    <!--  -->

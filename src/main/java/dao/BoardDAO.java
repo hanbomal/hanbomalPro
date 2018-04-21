@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import model.BoardTypeVO;
 import model.BoardVO;
+import model.CheckListVO;
 import model.CommentVO;
 import dao.MybatisConnector;
 
@@ -87,7 +88,19 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 		return boardType;
 	}
-	
+	public void checkReader(String studynum, String boardid, int num, 
+			String reader, String readerposition) {
+		sqlSession = sqlSession();
+		Map map = new HashMap<String, Object>();
+		map.put("studynum", studynum);
+		map.put("boardid", boardid);
+		map.put("num", num);
+		map.put("reader", reader);
+		map.put("readerposition", readerposition);
+		sqlSession.insert(namespace + ".checkReader", map);
+		sqlSession.commit();
+		sqlSession.close();
+	}
 	public BoardTypeVO getnewBoardType(String group) {
 		sqlSession = sqlSession();
 		Map map = new HashMap<String, String>();
@@ -96,6 +109,24 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.commit();
 		sqlSession.close();
 		return boardType;
+	}
+	public String getReadername(String studynum,String boardid, int num, String memberid) {
+		sqlSession = sqlSession();
+		Map map = new HashMap<String, Object>();
+		map.put("studynum", studynum);
+		map.put("boardid", boardid);
+		map.put("num", num);
+		map.put("memberid", memberid);
+		CheckListVO readerOne = sqlSession.selectOne(namespace + ".getReadername", map);
+		String reader=null;
+		if(readerOne==null) {
+			reader="empty";
+		}else {
+			reader=readerOne.getReader();
+		}
+		sqlSession.commit();
+		sqlSession.close();
+		return reader;
 	}
 	
 	
@@ -122,7 +153,17 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 		return li;
 	}
-
+	public List ReaderList(String boardid, String studynum, int num) {
+		sqlSession = sqlSession();
+		Map map = new HashMap();
+		map.put("boardid", boardid);
+		map.put("studynum", studynum);
+		map.put("num", num);
+		List li = sqlSession.selectList(namespace + ".ReaderList", map);
+		sqlSession.close();
+		return li;
+	}
+	
 	public void insertArticle(BoardVO article) {
 		sqlSession = sqlSession();
 		Map map = new HashMap<String,String>();

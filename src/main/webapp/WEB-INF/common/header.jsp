@@ -85,18 +85,18 @@ body, html {
 				<a href="javascript:void(0)" class="w3-bar-item w3-button"
 					onclick="document.getElementById('login').style.display='block'"><i
 					class="fa fa-user"></i> 로그인</a>
-					<a href="javascript:void(0)" class="w3-bar-item w3-button"
-					onclick=""><i
+					<a href="<%=request.getContextPath()%>/member/join2" class="w3-bar-item w3-button"
+					><i
 					class="fa fa-user"></i> 회원가입</a>
 					
 	    </c:if>
 	    <c:if test="${sessionScope.memberid!=null}">
 				<div class="w3-dropdown-hover">
 					<button class="w3-button">
-						<i class="fa fa-th"></i> ${sessionScope.memberid} 님
+						<i class="fa fa-user"></i> ${sessionScope.memberid} 님
 					</button>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
-						<a href="<%=request.getContextPath() %>/member/before_check" class="w3-bar-item w3-button">MY PAGE
+						<a href="<%=request.getContextPath() %>/member/before_check" class="w3-bar-item w3-button">나의정보
 						</a>
 						<a href="../page/RequestPage" class="w3-bar-item w3-button">신청목록
 						<c:if test="${reqcount>0 }">
@@ -113,7 +113,7 @@ body, html {
 							<a href="<%=request.getContextPath() %>/member/member_List" class="w3-bar-item w3-button">회원관리</a>
 							<a href="<%=request.getContextPath() %>/member/study_List" class="w3-bar-item w3-button">그룹관리</a>
 							</c:if>
-						<input class="w3-bar-item w3-button" value="LOGOUT" onclick="logoutPro()"/>
+						<input class="w3-bar-item w3-button" value="로그아웃" onclick="logoutPro()"/>
 						
 					</div>
 				</div>

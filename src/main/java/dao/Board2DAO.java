@@ -36,7 +36,7 @@ public class Board2DAO extends MybatisConnector {
 	
 	public int getArticleCount() {
 		int x = 0;
-		// Ãß°¡
+		// ï¿½ß°ï¿½
 		sqlSession= sqlSession();
 	
 		
@@ -69,12 +69,12 @@ public class Board2DAO extends MybatisConnector {
 		number=number+1;
 		
 		
-		if(article.getNum()!=0) {	// 0ÀÌ ¾Æ´Ï¸é ´ä±Û.
+		if(article.getNum()!=0) {	//re
 			sqlSession.update(namespace + ".updateRe_step" ,article);
 			article.setRe_level(article.getRe_level() + 1);
 			article.setRe_step(article.getRe_step() + 1);
 			
-		} else { // 0ÀÌ¸é »õ±Û 
+		} else { // 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½  //new
 			article.setRef(number);
 			article.setRe_level(0);
 			article.setRe_step(0);

@@ -175,7 +175,9 @@ public class ChatController {
 		//System.out.println(groupName);
 		//System.out.println(memberList.get(0).getNickName());
 		
-		HashMap<String,String> namemap=new HashMap<String,String>();
+		HashMap<String,String> namemap=new HashMap<String,String>();		//사진
+		HashMap<String,String> namemap2=new HashMap<String,String>();			//닉네임
+		HashMap<String,String> namemap3=new HashMap<String,String>();			//역할
 		
 		
 		Iterator<RelationVO> it=memberList.iterator();
@@ -183,7 +185,18 @@ public class ChatController {
 			RelationVO member=(RelationVO)it.next();
 			
 			String username=member.getMemberId();
+			namemap2.put(username, member.getNickName());
 			
+			String position=member.getPosition();
+			if(position==null) {
+				if(member.getMemberId().equals(member.getLeader())) {
+					member.setPosition("방장");
+				}else {
+					member.setPosition("회원");
+				}
+				
+			}
+			namemap3.put(username, member.getPosition());
 			
 			if(member.getStatus().equals("2")) {
 			
@@ -209,6 +222,7 @@ public class ChatController {
 		
 		
 	        Set<String> set = namemap.keySet();
+	        
 	        Object obj[] = set.toArray();
 
 	        StringBuffer stbf = new StringBuffer();
@@ -221,11 +235,39 @@ public class ChatController {
 	        }
 	        //stbf.append("</script>");
 
+	        
+	        Set<String> set2 = namemap2.keySet();
+	        
+	        Object obj2[] = set2.toArray();
+
+	        StringBuffer stbf2 = new StringBuffer();
+	       // stbf.append("<script type='text/javascript'>");
+	        stbf2.append("var map2 = new Array();");
+	        for(int i=0; i<obj2.length; i++)
+	        {
+	            if(i!=0)stbf2.append("");
+	            stbf2.append("map2['"+obj2[i]+"'] = '"+namemap2.get(obj2[i])+"';");
+	        }
+	        //stbf.append("</script>");
 		
-	  
+	        Set<String> set3 = namemap3.keySet();
+	        
+	        Object obj3[] = set3.toArray();
+
+	        StringBuffer stbf3 = new StringBuffer();
+	       // stbf.append("<script type='text/javascript'>");
+	        stbf3.append("var map3 = new Array();");
+	        for(int i=0; i<obj3.length; i++)
+	        {
+	            if(i!=0)stbf3.append("");
+	            stbf3.append("map3['"+obj3[i]+"'] = '"+namemap3.get(obj3[i])+"';");
+	        }
+	        //stbf.append("</script>");
+		
 	   
 	    mv.addAttribute("nameJs",stbf);
-		
+	    mv.addAttribute("nameJs2",stbf2);
+	    mv.addAttribute("nameJs3",stbf3);
 		mv.addAttribute("memberList",memberList);
 		
 		
@@ -336,24 +378,34 @@ public class ChatController {
 		
 		
 		HashMap<String,String> namemap=new HashMap<String,String>();
-		
+		HashMap<String,String> namemap2=new HashMap<String,String>();
 		
 		
 		Iterator<RelationVO> it=memberList.iterator();
 		while(it.hasNext()) {
 			RelationVO member=(RelationVO)it.next();
+			
 			String username=member.getMemberId();
+			namemap2.put(username, member.getNickName());
+			
+			if(member.getStatus().equals("2")) {
+			
+					if((member.getPhoto()!="")&&(member.getPhoto()!=null)) {
+						
+						namemap.put(username,req.getContextPath()+"/fileSave/"+member.getPhoto());
+						
+					}
 					
-			if(member.getStatus().equals("2")) {			
-				if((member.getPhoto()!="")&&(member.getPhoto()!=null)) {					
-					namemap.put(username,req.getContextPath()+"/fileSave/"+member.getPhoto());				
-				}				
-				else {
-					namemap.put(username,req.getContextPath()+"/imgs/profile.png");				
-				}			
-			}else {
+					else {
+						namemap.put(username,req.getContextPath()+"/imgs/profile.png");
+						
+					}
+			
+			}
+			else {
 				namemap.put(username,req.getContextPath()+"/imgs/Xprofile.png");
 			}
+			
 		}
 		
 		
@@ -371,9 +423,23 @@ public class ChatController {
 	        //stbf.append("</script>");
 
 	        
+	        Set<String> set2 = namemap2.keySet();
+	        Object obj2[] = set2.toArray();
+
+	        StringBuffer stbf2 = new StringBuffer();
+	       // stbf.append("<script type='text/javascript'>");
+	        stbf2.append("var historyNameMap2 = new Array();");
+	        for(int i=0; i<obj2.length; i++)
+	        {
+	            if(i!=0)stbf2.append("");
+	            stbf2.append("historyNameMap2['"+obj2[i]+"'] = '"+namemap2.get(obj2[i])+"';");
+	        }
+	        //stbf.append("</script>");
+	        
 	        
 	    req.setAttribute("chatHistoryData", chatd);			
-	    mv.addAttribute("nameHistoryJs",stbf);		
+	    mv.addAttribute("nameHistoryJs",stbf);	
+	    mv.addAttribute("nameHistoryJs2",stbf2);		
 		mv.addAttribute("memberList",memberList);
 	
 		return "chat/chatHistoryView";

@@ -29,7 +29,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 body, html {
 	height: 100%;
-	line-height: 1.8;
+	/* line-height: 1.8; */
 }
 /* Full height image header */
 .bgimg-1 {
@@ -52,6 +52,7 @@ body, html {
 	font-size: 17px;
 	padding-left: 10px;
 }
+
 /* style="overflow:hidden;" */
 </style>
 </head>
@@ -67,7 +68,7 @@ body, html {
 
 				<form action="../page/main" autocomplete="off" method="post">
 					<input type="text" style="outline: none; width: 300px"
-						placeholder="그룹명을 입력하세요..." name="studyName"
+						placeholder="그룹명을 입력하세요" name="studyName"
 						id="myInput">
 					<button type="submit" class="w3-button w3-black"
 						style="margin-left: -4px; padding: 8px; margin-bottom: 2px">
@@ -120,8 +121,8 @@ body, html {
 		
 		
 		
-			<div class="w3-dropdown-hover" >
-					<button class="w3-button" style="width: 150px;">
+			<div class="w3-dropdown-hover w3-margin-right" >
+					<button class="w3-button">
 						<span class="w3-left"><i class="fa fa-th"></i> <%=workspaceTitle2 %></span>
 					</button>
 					

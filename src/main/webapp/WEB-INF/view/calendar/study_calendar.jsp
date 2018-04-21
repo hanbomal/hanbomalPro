@@ -8,21 +8,33 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 
 <style type="text/css">
-    body {
+    /* body {
         margin :40px 10px;
         padding : 0;
        
-    }
+    } */
     #calendar {
         max-width : 900px;
         margin : 0 auto;
     }
+    
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+pre {
+margin:0;
+padding:0;
+font-size: inherit;
+font-family: inherit;
+font-style: inherit;
+font: inherit;
+  white-space: pre-wrap;
+}
+    
   
     
 </style>
-<link href="../api/fullcalendar-3.9.0/fullcalendar.css" rel="stylesheet"/>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="../api/fullcalendar-3.9.0/fullcalendar.print.css" rel="stylesheet" media="print"/>
+<!-- <link href="../api/fullcalendar-3.9.0/fullcalendar.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/lib/moment.min.js"></script>
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/lib/jquery.min.js"></script>
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/fullcalendar.js"></script>

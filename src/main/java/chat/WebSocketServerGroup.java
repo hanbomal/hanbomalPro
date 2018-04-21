@@ -5,18 +5,20 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+
+import dao.RelationDAO;
+import model.RelationVO;
 
 @ServerEndpoint("/webGroup")
 public class WebSocketServerGroup {
@@ -30,9 +32,9 @@ public class WebSocketServerGroup {
     String datetext=sdf.format(date);
     String forDateTitle=sdf2.format(date);
     String checkDate=sdf3.format(date);
- 
-    
-	@OnMessage
+    RelationDAO rpro=RelationDAO.getInstance();
+   
+	@OnMessage 
 	public void onMessage(String message, Session session) throws IOException {
 		System.out.println(message);
 		synchronized (clients) {
@@ -124,10 +126,42 @@ public class WebSocketServerGroup {
 		
 		for (Session client : clients) {
 			
+			String tmpgroup=client.getRequestParameterMap().get("group").get(0);
+			String tmpname=client.getRequestParameterMap().get("name").get(0);
+			
+			RelationVO member=rpro.getMemberInfo(tmpgroup, tmpname);
+			
+			
+			String tmpnick=member.getNickName();
+			
+			
+			
+			String tmpposition=member.getPosition();
+		
+			if(tmpposition==null) {
+				if(member.getMemberId().equals(member.getLeader())) {
+					member.setPosition("방장");
+				}else {
+					member.setPosition("회원");
+				}
+				
+			}
+			
+			tmpposition=member.getPosition();
+		
+					if((member.getPhoto()!=null)) {			
+						member.setPhoto("/fileSave/"+member.getPhoto());
+						
+					}
+					else {
+						member.setPhoto("/imgs/profile.png");
+						
+					}
+					String tmpphoto=member.getPhoto();
+			
 		
 			
-			
-		nameSet.add(client.getRequestParameterMap().get("group").get(0)+"-"+client.getRequestParameterMap().get("name").get(0));
+		nameSet.add(tmpgroup+"-"+tmpname+"-"+tmpnick+"-"+tmpphoto+"-"+tmpposition);
 		
 		}
 		//System.out.println("======네임셋테스트======"+nameSet);
@@ -152,8 +186,7 @@ public class WebSocketServerGroup {
 					
 					
 				client.getBasicRemote().sendText(line);
-							
-						
+				
 
 					}
 			
@@ -173,14 +206,50 @@ public class WebSocketServerGroup {
 
 		 HashSet<String> nameSet=new HashSet<String>();
 		   
-			for (Session client : clients) {
+		 for (Session client : clients) {
 				
-			nameSet.add(client.getRequestParameterMap().get("group").get(0)+"-"+client.getRequestParameterMap().get("name").get(0));
+				String tmpgroup=client.getRequestParameterMap().get("group").get(0);
+				String tmpname=client.getRequestParameterMap().get("name").get(0);
+				
+				RelationVO member=rpro.getMemberInfo(tmpgroup, tmpname);
+				
+				
+				String tmpnick=member.getNickName();
+				
+				
+				
+				String tmpposition=member.getPosition();
+			
+				if(tmpposition==null) {
+					if(member.getMemberId().equals(member.getLeader())) {
+						member.setPosition("방장");
+					}else {
+						member.setPosition("회원");
+					}
+					
+				}
+				
+				tmpposition=member.getPosition();
+			
+						if((member.getPhoto()!=null)) {			
+							member.setPhoto("/fileSave/"+member.getPhoto());
+							
+						}
+						else {
+							member.setPhoto("/imgs/profile.png");
+							
+						}
+						String tmpphoto=member.getPhoto();
+				
+			
+				
+			nameSet.add(tmpgroup+"-"+tmpname+"-"+tmpnick+"-"+tmpphoto+"-"+tmpposition);
 			
 			}
 			//System.out.println("======네임셋테스트======"+nameSet);
 		
 			String line ="===fromServer===";
+			
 			
 			for (String name : nameSet) {
 				
@@ -189,26 +258,24 @@ public class WebSocketServerGroup {
 			//line+=nameSet.size();
 			System.out.println(line+"=============");
 			
-		
-		
-		try {
-			for (Session client : clients) {
-			
-				String cid = (String)	session.getRequestParameterMap().get("group").get(0);
-				String sid = (String)	client.getRequestParameterMap().get("group").get(0);
+			try {
+				for (Session client : clients) {
 				
-				System.out.println(sid+":"+cid);
+					String cid = (String)	session.getRequestParameterMap().get("group").get(0);
+					String sid = (String)	client.getRequestParameterMap().get("group").get(0);
 					
-					
-				client.getBasicRemote().sendText(line);
-							
+					System.out.println(sid+":"+cid);
 						
+						
+					client.getBasicRemote().sendText(line);
+					
 
-					}
+						}
+				
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
 			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
 	}
 }

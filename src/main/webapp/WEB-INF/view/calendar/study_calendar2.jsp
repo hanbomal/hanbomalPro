@@ -8,39 +8,51 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 
 <style type="text/css">
-    body {
+/*     body {
         margin :40px 10px;
         padding : 0;
         
-    }
+    } */
+    
     #calendar {
       font-family: "Raleway", sans-serif;
         margin : 0 auto;
+        
     }
+    
+    
  
-	
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 
-
-body, html {
-	height: 100%;
-	line-height: 1.8;
+pre {
+margin:0;
+padding:0;
+font-size: inherit;
+font-family: inherit;
+font-style: inherit;
+font: inherit;
+  white-space: pre-wrap;
 }
+    
 
 </style>
- <link href="../api/fullcalendar-3.9.0/fullcalendar.css" rel="stylesheet"/> 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+ <link href="../api/fullcalendar-3.9.0/fullcalendar.css" rel="stylesheet"/> 
+ <!-- 
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+ -->
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/lib/moment.min.js"></script>
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/lib/jquery.min.js"></script>
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/fullcalendar.js"></script>
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/locale-all.js"></script>
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/gcal.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/api/httpRequest.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- 
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"> -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+<!--  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 달력 출력 자바스크립트 -->
 
@@ -143,7 +155,7 @@ jQuery(document).ready(function(){
     		  
     		  
     	  }
-        ,eventDragStop: function(event,jsEvent) {
+         ,eventDragStop: function(event,jsEvent) {
 
             var Tochat = jQuery('#chat');
             var ofs = Tochat.offset();
@@ -157,12 +169,12 @@ jQuery(document).ready(function(){
                 jsEvent.pageY >= y1 && jsEvent.pageY <= y2) {
                
             	
-            	alert('SIII');
+            	
             	calendarToChat(event);
           
             
             }
-        }
+        } 
        , select: function(startDate, endDate) {
     	   document.getElementById('title').value='';
 	    	  document.getElementById('place').value='';
@@ -182,9 +194,9 @@ jQuery(document).ready(function(){
 
 <body class="w3-padding ui-widget-content" >
 
-<div style="width: 100%; background: rgba(241, 241, 241, 1); ">
+<div style="width: 100%; height:600px; background: rgba(241, 241, 241, 1); ">
 <!-- 달력 출력 모달 -->
-    <div class="w3-container  w3-padding w3-padding-right w3-padding-left" id="calendar" style="height:600px; width:95%; z-index: 0; position: relative;"></div>
+    <div class="w3-container  w3-padding w3-padding-right w3-padding-left" id="calendar" style="  width:95%; z-index: 0; position: relative;"></div>
     </div>
      <!-- 메시지 모달 -->
        <div id="message" class="w3-modal" >

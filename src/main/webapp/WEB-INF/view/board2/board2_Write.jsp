@@ -26,8 +26,7 @@
       
     
  <div class="w3-container w3-margin-top w3-padding-32">
-     <form method="post" name="board2_Write"  enctype="multipart/form-data"  action="<%=request.getContextPath()%>/board2/board2_WritePro" >
-
+      <form id="uploadform" method="post" name="writeform" enctype="multipart/form-data">
               <input type="hidden" name="writer" value="${memberid}">
              <input type="hidden" name="boardid" value="${boardid}">
              <input type="hidden" name="studynum" value="${studynum}">
@@ -75,10 +74,10 @@
             </tr>
          </table>
             <div class="w3-center w3-padding-16">
-         
-         <input type="button" value="목록보기" class="w3-black  w3-button" >
-                 <button type="submit" class=" w3-button w3-black">
+            <button type="submit" onclick="upload()" class=" w3-button w3-black">
                <i class="fa fa-check"></i>확인</button>
+         <input type="button" value="목록보기" class="w3-black  w3-button" 
+               onClick="$('#content').load('../board/study_board?boardid=${boardid}&studynum=${studynum }')">
                <input type="reset" value="다시작성"
                class=" w3-black  w3-button ">
                

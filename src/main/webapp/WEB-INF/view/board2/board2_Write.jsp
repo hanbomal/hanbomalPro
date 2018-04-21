@@ -6,10 +6,7 @@
 <head>
 <title>게시판</title>
 </head>
-<style>
- body{
- margin : 0 auto;}
-</style>
+
 <p class="w3-left"  style="padding-left:30px;"></p>
 <div class="w3-container bgimg-1" style="padding:64px 16px; " id="about;  ">
   

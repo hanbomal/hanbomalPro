@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"> -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <script type="text/javascript" src="../api/date.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <meta charset="UTF-8">
 
@@ -70,7 +71,8 @@ function sendEvent(){
 function resetFile(){
 	 document.getElementById('upload-nameBox').style.display='none';
 	 document.getElementById('upload-display').style.display='none';
-	 document.getElementById('fileUpload').value="";
+	  document.getElementById('fileUpload').value=""; 
+	 
 }
 
 
@@ -210,12 +212,9 @@ margin-bottom:5px;}
     <i class="fa fa-file-image-o" style="font-size:24px;" ></i></label> 
   <input type="file" id="fileUpload" name="uploadfile" class="upload-hidden"> 
 
-<label class="w3-button w3-padding-small">
-<i class="fa fa-file-text-o" style="font-size:24px"></i></label>
-
-<label class="w3-button w3-padding-small">
-<i class="fa fa-hashtag" style="font-size:24px"></i></label>&nbsp;&nbsp;
-
+<label for="fileUpload" class="w3-button w3-padding-small">
+<i class="fa fa-file-text-o" style="font-size:24px"></i></label>&nbsp;&nbsp;
+ 
 <label><i class="fa fa-search w3-margin-left" style="font-size:20px"></i></label>&nbsp;
 <input type="text" class="w3-input  w3-hover-light-grey" 
 style="display: inline-block; width: 140px; " id="searchText" placeholder="검색어 입력" value="">
@@ -501,7 +500,7 @@ var today =new Date().toString('yyyyMMdd');
         
       
         	
-       if( document.getElementById('fileUpload').value!=""){
+       if( document.getElementById('fileUpload').value!=""&&(fileType!='notImage')){
     	   
     	   var form = $('#form')[0];
     	    var formData = new FormData(form);
@@ -510,7 +509,7 @@ var today =new Date().toString('yyyyMMdd');
 			var filename=document.getElementById('upload-name').value;
 			
 			formData.append("content", inputMessage.value);
-			
+			formData.append("isImage","true")
     	   
 		
     	    $.ajax({
@@ -525,7 +524,7 @@ var today =new Date().toString('yyyyMMdd');
     	        success: function (data) {
     	      
        	   rename=data;
-       	  inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+rename+"><br>"+inputMessage.value;
+       	  inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+rename+" style='margin-top:10px' onclick=popupResize(this)><p/>"+inputMessage.value;
        	    
        	 textarea.innerHTML +="<div height=300px><table  align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
 			  +"<li class='w3-large' style='border:none;' align='right'>"
@@ -545,14 +544,15 @@ var today =new Date().toString('yyyyMMdd');
        	}
        	
        	
-       	inputMessage.focus();
-	   
+       	
+        inputMessage.focus();
+		   
 	    webSocket.send(inputMessage.value.trim());
  			  
        inputMessage.value = "";
        
        textarea.scrollTop=textarea.scrollHeight;
-
+       fileType='';
        
     	        },
     	        error: function (e) {
@@ -561,9 +561,79 @@ var today =new Date().toString('yyyyMMdd');
     	      
     	    });
     	 
+    	
     	    
-           
-    	    
+       }else if(document.getElementById('fileUpload').value!=""&&(fileType=='notImage')){
+    	   
+    	   
+    	   
+    	   var form = $('#form')[0];
+   	    var formData = new FormData(form);
+   	    
+   	   
+			var filename=document.getElementById('upload-name').value;
+			
+			formData.append("content", inputMessage.value);
+			formData.append("isImage","false")
+			
+   	   
+		
+   	    $.ajax({
+   	        type: "POST",
+   	        enctype: 'multipart/form-data',
+   	        url: "../chatcontroller/fileUpload",
+   	        data: formData,
+   	        processData: false,
+   	        contentType: false,
+   	        cache: false,
+   	        timeout: 600000,
+   	        success: function (data) {
+   	       //alert($('.filebox .upload-hidden')[0].files[0].size);
+      	   rename=data;
+      	  
+      	  
+      	  var filesize=$('.filebox .upload-hidden')[0].files[0].size;
+      	  if(filesize<1000){
+      		  filesize=filesize+" B";
+      	  }
+      	  else if(filesize<1000000){
+      		filesize=Math.floor(filesize/1000)+" KB";
+      	  }else{
+      		  filesize=Math.floor(filesize/1000000)+" MB";
+      		  
+      	  }
+      	  
+      	inputMessage.value="<%=name%>님이 파일을 보내셨습니다.<p/>"
+      	+"<b>파일이름: </b><a href=<%=request.getContextPath()%>/fileSave/"+rename+" download>"+$('.filebox .upload-hidden')[0].files[0].name+"</a>"
+      	  +"<br><b>파일크기: </b>"+filesize+"<p/>"+inputMessage.value;
+      	    
+      	 textarea.innerHTML +="<div><table  align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+			  +"<li class='w3-large' style='border:none;' align='right'>"
+		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
+		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
+		          +"<span class='w3-medium' style='text-align: left;'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table></div>";
+		          
+		        
+		          
+		    	  document.getElementById('fileUpload').value=""; 
+		    	  document.getElementById('upload-nameBox').style.display='none';
+	    	    webSocket.send(inputMessage.value.trim());
+			  
+	    	   	 inputMessage.value = "";
+	    	  	inputMessage.focus();
+	    	      textarea.scrollTop=textarea.scrollHeight;
+	    	    	  fileType='';
+      
+   	        },
+   	        error: function (e) {
+   	            console.log("ERROR : ", e);
+   	        }
+   	      
+   	    });
+   	 
+
+    	   
+    	   
        }else{
     	   
     	   textarea.innerHTML +="<div><table  align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
@@ -627,7 +697,12 @@ var today =new Date().toString('yyyyMMdd');
     
     
     
-    
+    function checkFileType(){
+    	
+    	if (!$('.filebox .upload-hidden')[0].files[0].type.match(/image\//)) {
+
+    		return false;}
+    }
     
 
 function checkKey(e){
@@ -654,7 +729,7 @@ function checkKey(e){
 	
 
 //preview image 
-
+var fileType='';
 var imgTarget = $('.preview-image .upload-hidden'); 
 imgTarget.on('change', function(){
 var parent = $(this).parent();
@@ -662,8 +737,10 @@ var parent = $(this).parent();
 parent.children('.upload-display').remove();
 if(window.FileReader){ 
 //image 파일만
-if (!$(this)[0].files[0].type.match(/image\//)) 
-	return;
+if (!$(this)[0].files[0].type.match(/image\//)) {
+	fileType='notImage';
+
+	return;}
 
 var reader = new FileReader(); 
 reader.onload = function(e){
@@ -688,7 +765,23 @@ reader.readAsDataURL($(this)[0].files[0]);
 
 });
 
+function popupResize(imgUrl){
 
+    var popSource = "";
+    var obj = document.createElement("img");
+    obj.src=imgUrl.src;
+    obj.id = 'newImg';
+    
+    var p = window.open("","","toolbar=no");
+    document.body.appendChild(obj);
+    
+    setTimeout(function(){
+     popSource = "<script> window.resizeTo( "+(obj.width+25)+", "+(obj.height+70)+" )<\/script>";
+     obj.style.display = "none";
+     popSource += "<body style='margin:auto;'> <img src='"+imgUrl.src+"' onclick='self.close()'>";
+     p.document.write(popSource);
+    });
+  }
 
 
 

@@ -281,6 +281,43 @@ public class ChatController {
 			Model model) throws Exception {
 
 		MultipartFile multi = request.getFile("uploadfile");
+		String isImage=request.getParameter("isImage");
+		
+		String filename = multi.getOriginalFilename();
+		System.out.println("filename:[" + filename + "]");
+		if (filename != null && !filename.equals("")) {
+			String uploadPath = request.getRealPath("/") + "fileSave";
+			System.out.println(uploadPath);
+
+			String fileType = filename.substring(filename.lastIndexOf('.'), filename.length());
+			String rename = name + "_" + System.currentTimeMillis() + fileType;
+			FileCopyUtils.copy(multi.getInputStream(), new FileOutputStream(uploadPath + "/" + rename));
+			
+			if(isImage.equals("true")) {
+			gallery.setFilename(rename);
+			gallery.setFilesize((int) multi.getSize());}
+			model.addAttribute("filename", rename);
+		} else {
+			if(isImage.equals("true")) {
+			gallery.setFilename("");
+			gallery.setFilesize(0);}
+		}
+		
+		if(isImage.equals("true")) {
+		gallery.setTitle(gallery.getName() + "님이 올린 사진");
+
+		System.out.println(gallery);
+
+		gPro.addGallery(gallery);}
+
+		return "chat/uploadComp";
+	}
+	
+	@RequestMapping(value = "/fileUpload2", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	public String fileUpload2(MultipartHttpServletRequest request, String studynum, String name,
+			Model model) throws Exception {
+
+		MultipartFile multi = request.getFile("uploadfile2");
 
 		String filename = multi.getOriginalFilename();
 		System.out.println("filename:[" + filename + "]");
@@ -289,25 +326,13 @@ public class ChatController {
 			System.out.println(uploadPath);
 
 			String fileType = filename.substring(filename.lastIndexOf('.'), filename.length());
-			String rename = gallery.getName() + "_" + System.currentTimeMillis() + fileType;
+			String rename = name + "_" + System.currentTimeMillis() + fileType;
 			FileCopyUtils.copy(multi.getInputStream(), new FileOutputStream(uploadPath + "/" + rename));
 
-			gallery.setFilename(rename);
-			gallery.setFilesize((int) multi.getSize());
+		
 			model.addAttribute("filename", rename);
-		} else {
-
-			gallery.setFilename("");
-			gallery.setFilesize(0);
-		}
-		// 나중에수정할부분들
-
-		gallery.setTitle(gallery.getName() + "님이 올린 사진");
-
-		System.out.println(gallery);
-
-		gPro.addGallery(gallery);
-
+		} 
+		
 		return "chat/uploadComp";
 	}
 	

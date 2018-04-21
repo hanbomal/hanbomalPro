@@ -219,6 +219,9 @@ public class RController {
 	            if(content.contains("<img src=")) {
 	            	continue;
 	            }
+	            if(content.contains("<a href=")) {
+	            	continue;
+	            }
 	            
 	            String[] tmp=content.split("\\] \\[");
 	            content=tmp[0].substring(1, tmp[0].length());

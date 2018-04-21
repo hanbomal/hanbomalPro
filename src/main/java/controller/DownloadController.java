@@ -2,6 +2,8 @@ package controller;
 
 import java.io.File;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -27,6 +29,7 @@ public class DownloadController implements ApplicationContextAware{
         return new ModelAndView("download", "downloadFile", file);
     }
  
+  
     
     public void setApplicationContext(ApplicationContext arg0)
             throws BeansException {

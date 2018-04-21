@@ -28,28 +28,41 @@
  	  <select class="w3-select w3-center" name="positionSelect" style="width:500px">
  	  
  	  	<c:if test="${groupposition=='default' }">
- 	  	<option selected="selected" disabled="disabled" ><font color="gray">역할명을 추가하세요.</font></option>
+ 	  		<c:if test="${AllPosition.size()==0 }">
+		 	  	<option selected="selected" disabled="disabled" ><font color="gray">역할명을 추가하세요.</font></option>
+ 	  		</c:if>
+ 	  		<c:if test="${AllPosition.size()>0 }">
+ 	  				<c:if test="${memberid==leader }">
+		 			  	<option selected="selected" disabled="disabled" ><font color="gray">방장</font></option>
+ 	  				</c:if>
+ 	  				<c:if test="${memberid!=leader }">
+		 			  	<option selected="selected" disabled="disabled" ><font color="gray">회원</font></option>
+ 	  					</c:if>
+	 	  		<c:forEach items="${AllPosition}" var="List">
+	 	  	 	<option value="${List.groupposition}">${List.groupposition}</option>
+	 	  		</c:forEach>
+ 	  		</c:if>
+ 	  	
+ 	  	
  	  	</c:if>
- 	  	<c:if test="${groupposition!=null && groupposition!='default' }">
- 	  	<option value="${groupposition}" selected="selected" disabled="disabled">${groupposition}</option>
- 	  	</c:if>
- 	  
- 	  
- 	  	<c:forEach items="${AllPosition}" var="List">
- 	  	 	<option value="${List.groupposition}">${List.groupposition}</option>
- 	  	</c:forEach>
- 	  </select>
  	  	<c:if test="${groupposition!='default' }">
- 	  <button class="w3-button" type="submit" onclick="grantPosition()">저장</button>
+ 	  	<option value="${groupposition}" selected="selected" disabled="disabled">${groupposition}</option>
+ 	  		<c:forEach items="${AllPosition}" var="List">
+ 	  	 	<option value="${List.groupposition}">${List.groupposition}</option>
+ 	  		</c:forEach>
  	  	</c:if>
+ 	  
+ 	  
+ 	  </select>
+ 	  <button class="w3-button" type="submit" onclick="grantPosition()">저장</button>
  	  	  </div>
       </div>
       </div>
         <c:if test="${memberid!=leader}">
       <div class="w3-container w3-padding-24 w3-center">
-       	<input type="submit" onclick="changeLeader()" 
+       	<input type="button" onclick="changeLeader('${memberid}',${studynum })" 
         class=" w3-teal w3-center  w3-padding  w3-button" value="방장위임">
-       	<input type="submit" onclick="banishMember()" 
+       	<input type="button" onclick="banishMember('${memberid}',${studynum })" 
         class=" w3-red w3-center w3-padding  w3-button" value="추방하기">
         </div>
         </c:if>
@@ -83,23 +96,32 @@
 			 document.getElementById('clickMember').style.display='none';
 			 
 		}
-		function changeLeader(){
-			event.preventDefault();
-		
-			var form=$('#memberForm')[0];
-			var formData= new FormData(form);
-			 $.ajax({
-                         type: 'POST',
-              			 url: '../page/changeLeader',
-              		     data: formData,
-              		     processData: false,
-                         contentType: false,
-                         success: function(data){
-                            $('#content').html(data);
-                         }
-                 });
-			 document.getElementById('clearName').value=""; 
-			 document.getElementById('clickMember').style.display='none';
+		function changeLeader(id,studynum){
+			var memberid=id;
+			var num=studynum;
+			  if(confirm("방장을 넘기시겠습니까?")==true){
+				 $.ajax({
+						type: 'POST',
+	              		url: '../page/changeLeader',
+						async:false,
+						data: {  
+									"memberid":memberid,
+									"studynum":num
+				        },
+						contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+						success: function(data) {
+						       $('#content').html(data);
+						},
+						error: function(request, status, error) {
+							alert(error);
+						}
+	                 });
+				 document.getElementById('clickMember').style.display='none';
+			  }else{
+				  return;
+			  }
+			
+			
 			 
 		}
 		

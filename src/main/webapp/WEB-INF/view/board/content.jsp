@@ -55,17 +55,19 @@ $(document).ready(function(){
 					 <div class="w3-dropdown-click w3-left">
    				 <button onclick="myFunction()" class="w3-button" style="padding:2px">
    				
-   				 <img src="../imgs/sight.jpg"
-									class="w3-center w3-border"
-									style="width:70px;height:70px;">
-   			<!-- 	 <i class="fa fa-list" style="font-size:2px"></i> -->
-   				 
+   				<!-- checkList -->
+   				 <img src="../imgs/sight.png"
+									class="w3-center"
+									style="width:50px;height:50px;">
    				 
    				 </button>
    					 <div id="Demo" class="w3-dropdown-content w3-border" style="z-index:99">
-					      <div class="w3-container">Link 1</div>
-					      <div class="w3-container">Link 2</div>
-					      <div class="w3-container">Link 3</div>
+   					    <div class="w3-container w3-black w3-padding-small">읽은 사람(총:${readerList.size()}명)</div>
+   					  <c:forEach var="List" items="${readerList}">
+					      <div class="w3-container w3-padding-small">
+					      <i class="fa fa-check"></i>${List.reader }(${List.readerposition })
+					      </div>
+   					  </c:forEach>
    					 </div>
  				 </div>
 								<img
@@ -85,14 +87,36 @@ $(document).ready(function(){
 			<%-- <tr>
 				<td width="100%" class="w3-left w3-black" colspan="4" style="height:230px; overflow: auto;"><pre style="width: 100%;">${article.content}</pre></td>
 			</tr> --%>
->>>>>>> branch 'master' of https://github.com/hanbomal/hanbomalPro.git
 			
 			</c:if>
 			
 			
 			<c:if test="${article.filename==null }">
 			 <tr>
-				<td width="100%"  class="w3-left" colspan="4" style="height:350px; overflow: auto;"></td> 
+				<td width="100%"  class="w3-left" colspan="4" style="height:350px; overflow: auto;">
+				<div class="w3-dropdown-click w3-left">
+   				 <button onclick="myFunction()" class="w3-button" style="padding:2px">
+   				
+   				<!-- checkList -->
+   				 <img src="../imgs/sight.png"
+									class="w3-center"
+									style="width:50px;height:50px;">
+   				 
+   				 </button>
+   					 <div id="Demo" class="w3-dropdown-content w3-border" style="z-index:99">
+   					    <div class="w3-container w3-black w3-padding-small">읽은 사람(총:${readerList.size()}명)</div>
+   					  <c:forEach var="List" items="${readerList}">
+					      <div class="w3-container w3-padding-small">
+					      <i class="fa fa-check"></i>${List.reader }(${List.readerposition })
+					      </div>
+   					  </c:forEach>
+   					 </div>
+ 				 </div>
+					
+				
+				<pre>${article.content}</pre>
+				
+				</td> 
 			</tr> 
 			
 			
@@ -129,8 +153,8 @@ $(document).ready(function(){
    </div>
       </div>
 	 <!-- 
-		쓸수있는 el: boardType// article, num , pageNum, commentList
-  		 	 article은 BoardVO 
+		쓸수있는 el: boardType// article, num , pageNum, commentList, readerList 
+  		 	 article은 BoardVO  
   		BoardVO에서 쓸수있는 변수 num, studynum, boardid, writer, subject, ref, re_step,
   		 	 re_level, reg_date, readcount, content, 등등
   		 	  

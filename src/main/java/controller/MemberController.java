@@ -53,6 +53,8 @@ PageController page=new PageController();
 		member.setPasswdq(request.getParameter("passwdq"));
 		member.setPasswdkey(request.getParameter("passwdkey"));
 		dbpro.insertMember(member);
+		
+		
 
 		response.sendRedirect(request.getContextPath() + "/page/main");
 
@@ -225,7 +227,7 @@ PageController page=new PageController();
     return "redirect:member_update";
 }
  
- @RequestMapping("/findPasswd")  
+ @RequestMapping("/findPasswd")    
  public String bfindPasswd(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 
  return "member/findPasswd";
@@ -327,7 +329,7 @@ PageController page=new PageController();
  
 
  
- return "member/member_deletead";
+ return "redirect:/member/member_List";
 }
 
  
@@ -379,7 +381,7 @@ PageController page=new PageController();
  
  
  
- return "member/study_List";
+ return "/member/study_List";
 
 
 }
@@ -399,7 +401,26 @@ PageController page=new PageController();
 		req.setAttribute("chk", chk);
 
  
- return "member/study_delete";
+ return "redirect:member/studyList";
 }
+
+ @RequestMapping("/checkId") 
+ public String checkId(HttpServletRequest req,HttpServletResponse res)  throws Throwable { 
+  String memberid = req.getParameter("memberid"); 
+
+  
+  MemberDAO dbPro=MemberDAO.getInstance();
+  boolean result = dbPro.confirmId(memberid);
+
+
+  System.out.println(memberid +"사용자가 검색하려는 아이디"); 
+    req.setAttribute("result", result);
+    req.setAttribute("memberid", memberid);
+    
+    return  "/check/checkId"; 
+ }
+ 
+ 
+ 
  
 }

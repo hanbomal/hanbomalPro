@@ -361,13 +361,15 @@ public class PageController {
 	}
 	
 	@RequestMapping("/updatePosition")
-	public String updatePosition(String groupposition,String id, String studynum) throws Throwable {
+	public String updatePosition(String groupposition,String id, String studynum,HttpServletRequest req) throws Throwable {
 		boardDB.updatePosition(id,groupposition,studynum);
+		relationDB.updateMemberPosition(studynum,groupposition,getSessionId(req));
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/deletePosition")
-	public String deletePosition(String id,String studynum) throws Throwable {
+	public String deletePosition(String id,String studynum,HttpServletRequest req) throws Throwable {
 		boardDB.deletePosition(id,studynum);
+		relationDB.defaultPostion(studynum,getSessionId(req));
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/admin_memberList")
@@ -605,24 +607,19 @@ public class PageController {
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/changeLeader")
-	public String changeLeader(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
-		/*String id=req.getParameter("positionid");
-		String groupposition=req.getParameter("groupposition");
-		String studynum=req.getParameter("studynum");
-		mv.addAttribute("id",id);
-		mv.addAttribute("groupposition",groupposition);
-		mv.addAttribute("studynum",studynum);*/
-		return "study/viewPositionInfo";
+	public String changeLeader(String memberid,String studynum) throws Throwable {
+		relationDB.changeLeader(studynum, memberid);
+		studyDB.changeLeader(studynum, memberid);
+		return "../page/study_test";
 	}
 	@RequestMapping("/banishMember")
 	public String banishMember(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
-		/*String id=req.getParameter("positionid");
-		String groupposition=req.getParameter("groupposition");
-		String studynum=req.getParameter("studynum");
-		mv.addAttribute("id",id);
-		mv.addAttribute("groupposition",groupposition);
-		mv.addAttribute("studynum",studynum);*/
-		return "study/viewPositionInfo";
+		
+		return "redirect:/page/study_admin";
 	}
-
+	@RequestMapping("/deleteStudyGroup")
+	public String deleteStudyGroup(String studynum) throws Throwable {
+		studyDB.deleteStudyByNum(studynum);
+		return "page/main";
+	}
 }

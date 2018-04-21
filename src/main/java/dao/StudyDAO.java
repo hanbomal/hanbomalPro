@@ -64,7 +64,6 @@ public class StudyDAO extends MybatisConnector{
 				StudyDAO studyDB = StudyDAO.getInstance();
 				RelationVO info=studyDB.getRelation(groupInfo.getStudyName(), memberid);
 				int count =studyDB.getPeopleCount(groupInfo.getNum());
-				System.out.println("count="+count);
 				groupInfo.setRelation(info);
 				groupInfo.setCount(count);
 				groupli.add(groupInfo);				
@@ -124,6 +123,15 @@ public class StudyDAO extends MybatisConnector{
 		int id=sqlSession.selectOne(namespace+".getNextID",position);
 		position.setId(id+1);
 		sqlSession.insert(namespace+".addPosition",position);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	public void changeLeader(String studynum, String memberid) {
+		sqlSession=sqlSession();
+		Map map=new HashMap();
+		map.put("studynum", studynum);
+		map.put("memberid", memberid);
+		sqlSession.update(namespace+".changeLeader",map);
 		sqlSession.commit();
 		sqlSession.close();
 	}

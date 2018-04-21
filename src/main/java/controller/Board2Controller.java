@@ -195,6 +195,7 @@ public class Board2Controller {
 	}
 		
 	
+	
 	@RequestMapping(value = "/board2_deletePro")
 	public ModelAndView board2_deletePro(int num) throws Exception {
 		ModelAndView mv = new ModelAndView();

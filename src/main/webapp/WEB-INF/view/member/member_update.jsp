@@ -72,7 +72,7 @@
 <div class="w3-row w3-section">
  
     <div class="w3-rest">
-    ID
+    아이디
    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="memberid" type="text" readonly="readonly" value="${member.memberid}" style="margin-left: 2%;">
     </div>
 </div>
@@ -82,7 +82,7 @@
 <div class="w3-row w3-section ">
 
     <div class="w3-rest">
-NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="nickname" type="text"  value="${member.nickname}" required>
+닉네임  <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="nickname" type="text"  value="${member.nickname}" required>
     </div>
 </div>
 
@@ -90,7 +90,7 @@ NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px
 <div class="w3-row w3-section">
   
     <div class="w3-rest">
-  PASSWORD    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwd" type="password" value="${member.passwd}" required>
+ 비밀번호   <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwd" type="password" value="${member.passwd}" required>
     </div>
 </div>
 
@@ -100,7 +100,7 @@ NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px
 <div class="w3-row w3-section">
   
     <div class="w3-rest">
- PASSWORD CHECK     <input class="w3-input w3-border w3-light-grey"  name="passchk" type="password" placeholder="Password Check*" style="width:300px; display: inline-block,center;"required>
+ 비밀번호 확인     <input class="w3-input w3-border w3-light-grey"  name="passchk" type="password" placeholder="Password Check*" style="width:300px; display: inline-block,center;"required>
     </div>
 </div>
 
@@ -108,12 +108,12 @@ NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px
 <div class="w3-row w3-section">
  
     <div class="w3-rest">
-     JOIN DATE <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="memberid" type="text" readonly="readonly" value="${member.joindate}" style="margin-left: 2%;">
+     가입일 <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="memberid" type="text" readonly="readonly" value="${member.joindate}" style="margin-left: 2%;">
     </div>
 </div>
 
  
-QUESITION 
+비밀번호 찾기 질문
 <!-- 비밀번호찾기 문항   -->
 <div class="w3-row w3-section">
  
@@ -121,7 +121,7 @@ QUESITION
    <select class="w3-select w3-border  w3-light-grey" name="passwdq" style="width:300px; display: inline-block,center;" value="${member.passwdq}"required>
    
 
-    <option value="" >비밀번호 힌트를 선택하세요.</option>
+    <option value="" >비밀번호 힌트를 선택하세요!</option>
       <c:if test="${member.passwdq==1}">
     <option value="1" selected>당신이 졸업한 초등학교는?</option>
     </c:if><c:if test="${member.passwdq!=1}">
@@ -160,13 +160,13 @@ QUESITION
 
 <p class="w3-center">
 
-<input type="reset" value="RETRY" class="w3-button w3-gray" >  
-<input type="submit" value="SEND" class="w3-button w3-black" >
+<input type="reset" value="다시작성" class="w3-button w3-gray" >  
+<input type="submit" value="수정하기" class="w3-button w3-black" >
 
-<input type="button" value="Back" class="w3-button w3-gray" OnClick="window.location='../page/main'">  
+<input type="button" value="메인화면" class="w3-button w3-gray" OnClick="window.location='../page/main'">  
 </p>
 <p class="w3-right">
-<input type="button" value="LEAVE" class="w3-button w3-dark-gray" OnClick="window.location='../member/member_delete'">  
+<input type="button" value="회원탈퇴" class="w3-button w3-dark-gray" OnClick="window.location='../member/member_delete'">  
 </p>
 </form>
 

@@ -30,7 +30,7 @@
   <div class="w3-third w3-container ">
   <div class="w3-container w3-light-gray">
       
-       <h6>MY PAGE</h6>
+       <h6>개인정보수정</h6>
       </div>
     <div class="w3-card-4">
       <div class="w3-container " style="overflow:auto; background: rgba(241, 241, 241, 0.75); ">

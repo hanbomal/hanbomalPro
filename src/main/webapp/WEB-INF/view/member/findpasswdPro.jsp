@@ -42,7 +42,7 @@
   
  
 
-
+<p class="w3-center">
 <div class="w3-row w3-section">
   
     <div class="w3-rest ">
@@ -50,7 +50,8 @@
     </div>
 </div>
 
-
+</div>
+</p>
 
 
 <p class="w3-center">

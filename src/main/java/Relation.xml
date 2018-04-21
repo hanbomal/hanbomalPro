@@ -73,6 +73,16 @@
 		where memberId=#{memberId} and studynum=#{studynum}
 	</update>
 	
+	<update id="updateMemberPosition" parameterType="hashmap">
+		update studyrelation set position=#{position}
+		where memberId=#{memberId} and studynum=#{studynum}
+	</update>
+	
+	<update id="defaultPostion" parameterType="hashmap">
+		update studyrelation set position=null
+		where memberId=#{memberId} and studynum=#{studynum}
+	</update>
+	
 	<update id="leaveStudy" parameterType="hashmap">
 		update studyrelation set status=3 where memberid=#{memberid} and studynum=#{studynum}
 	</update>

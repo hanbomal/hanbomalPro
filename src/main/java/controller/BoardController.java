@@ -3,6 +3,7 @@ package controller;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ import dao.BoardDAO;
 import dao.RelationDAO;
 import model.BoardTypeVO;
 import model.BoardVO;
+import model.CheckListVO;
 import model.CommentVO;
 import model.RelationVO;
 
@@ -104,6 +106,21 @@ public class BoardController {
 		if(article!=null) {
 		BoardTypeVO boardType=boardDB.getBoardType(boardid,studynum);
 		RelationVO memberInfo=relationDB.getMemberInfo(studynum, getSessionId(req));
+		String reader=boardDB.getReadername(studynum,boardid,num,getSessionId(req));
+		if(reader.equals("empty")) {
+			String position=memberInfo.getPosition();
+			if(position==null) {
+				if(getSessionId(req).equals(memberInfo.getLeader())) {
+					position="방장";
+				}else {
+					position="회원";
+				}
+			}
+			boardDB.checkReader(studynum,boardid,num,getSessionId(req),position);
+		}
+		List<CheckListVO> readerList = boardDB.ReaderList(studynum,boardid,num);
+		
+		mv.addAttribute("readerList", readerList);
 		mv.addAttribute("memberInfo", memberInfo);
 		mv.addAttribute("article", article);
 		
@@ -290,6 +307,22 @@ public class BoardController {
 	  map.put("boardid",article.getBoardid());
 	   
 	 return map;    
+	} 
+	@ResponseBody
+	@RequestMapping(value = "addDropdownList", method = RequestMethod.GET, produces="application/json")
+	public Map< String, Object> ajax_receiveJSON_boardtypeList(HttpServletRequest req) {
+		
+		String studynum=req.getParameter("studynum");
+		BoardTypeVO type=boardDB.getnewBoardType(studynum);
+		
+		
+		Map< String, Object> map = new HashMap< String, Object>();
+		
+		map.put("boardname", type.getBoardname());
+		map.put("studynum", type.getStudynum());
+		map.put("boardid", type.getBoardid());
+		
+		return map;    
 	} 
 	
 	

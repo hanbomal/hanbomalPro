@@ -30,8 +30,15 @@
      
 <div class="w3-container  w3-margin-top">
     <table class="w3-table  w3-centered" style="width: 100%; border:black;">
+    <c:if test="${sessionScope.memberid eq 'admin'}">
     <button class="w3-button w3-padding-small w3-right w3-black w3-margin-bottom" 
   title="글쓰기" onclick="document.location.href='<%=request.getContextPath()%>/board2/board2_Write'">+</button>
+    </c:if>
+    
+     <c:if test="${sessionScope.memberid ne 'admin'}">
+    <div class="w3-padding-top " />
+  
+    </c:if>
     
     <tr class="w3-black">
       <th class="w3-center" width="50">번 호</th>

@@ -30,6 +30,12 @@
       insert into boardtype(studynum, boardid, boardname, createdate)
       values(#{studynum},#{boardid},#{boardname},sysdate)
    </insert>
+   
+	<insert id="checkReader" parameterType="hashmap">
+      insert into checklist(studynum, num, boardid, reader, readerposition, readdate)
+      values(#{studynum},#{num},#{boardid},#{reader},#{readerposition},sysdate)
+   </insert>
+   
 	<insert id="addComment" parameterType="Comment">
       insert into studycomment(studynum, num, boardid, content, writer, profile ,commentdate)
       values(#{studynum},#{num}, #{boardid},#{content},#{writer},#{profile},sysdate)
@@ -90,10 +96,17 @@
 	<select id="getTypeList" resultType="Type" parameterType="hashmap">	
 	select * from boardtype where studynum = #{group} order by createdate desc
 	</select> 
+	
+	<select id="getReadername" resultType="Check" parameterType="hashmap">	
+	select * from checklist where  studynum = #{studynum} and boardid=#{boardid} and num=${num} and reader=#{memberid}
+	</select> 
 					
 	
 	<select id="getCommentList" resultType="Comment" parameterType="hashmap">	
 	select * from studycomment where studynum = #{studynum} and boardid=#{boardid} and num=${num} order by commentdate
+	</select> 				
+	<select id="ReaderList" resultType="Check" parameterType="hashmap">	
+	select * from checklist where studynum = #{studynum} and boardid=#{boardid} and num=${num} order by readdate
 	</select> 				
 					
 		

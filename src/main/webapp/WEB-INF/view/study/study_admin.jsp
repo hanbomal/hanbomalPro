@@ -67,7 +67,10 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
 </div>
 
 <div>
-<button class="w3-button w3-red w3-right w3-margin">스터디 삭제</button>
+<button class="w3-button w3-red w3-right w3-margin"
+onclick="deleteStudyGroup(${group})">스터디 삭제</button>
+<%-- <button class="w3-button w3-black w3-right w3-margin"
+onclick="deleteStudyGroup(${group})">배경변경</button> --%>
 </div>
 
 
@@ -99,6 +102,11 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
     </div>
   </div>
 
+<!--  쓸수있는 el
+
+typeList newBoardType positionList study memberCount memberid group
+-->
+
 	<script type="text/javascript">
 		function addboard(){
 			event.preventDefault();
@@ -112,9 +120,9 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
               		     processData: false,
                          contentType: false,
                          success: function(data){
-         $('#content').html(data);
-       /*    document.getElementById('boardlistDropdown').innerHTML+="<a href='#'>${newBoardType.boardname }</a>";
-        */                     
+       							  $('#content').html(data);
+      							  addDropdownList();
+      	   	
                          }
                  });
 			 document.getElementById('clearName').value=""; 
@@ -123,7 +131,45 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
 			 
 			 
 		}
-	
+
+		function deleteStudyGroup(studynum){
+			var num=studynum;
+			
+			  if(confirm("그룹 삭제하시겠습니까?")==true){
+				  window.location.href="../page/deleteStudyGroup?studynum="+num;
+								alert('한보말 시전완료ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ잘살아');
+			  }else{
+				  return;
+			  }
+		}		
+		function addDropdownList(){
+		     var type;
+		  
+		     $.ajax({
+		    	 url : "../board/addDropdownList", 
+		    	 method : "GET",  
+		    	 dataType:"JSON",
+		    	 data:{
+		    			"studynum":<c:out value="${group}"/>
+		    			}, 
+		    	 success : function(json) {
+		    		 type=JSON.parse(JSON.stringify(json));
+		    		 var path="$('#content').load('../board/study_board?studynum="+type.studynum+"&boardid="+type.boardid+"')";
+					 document.getElementById('boardlistDropdown').innerHTML+="<a href='#' class='w3-bar-item w3-button' onclick="+path+">"+type.boardname+"</a>";
+		    	 
+		    	 },
+		    	 error : function(XHR, textStatus, errorThrown) {
+		    	        
+		    	     alert("Error: " + textStatus);      
+		    	     alert("Error: " + errorThrown);
+		    	 
+		    	 }
+		    	});
+		
+		}
+		
+		
+
 		
 		
 		function boardInfo(boardid,studynum,boardname){

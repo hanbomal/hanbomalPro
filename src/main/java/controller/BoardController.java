@@ -118,7 +118,7 @@ public class BoardController {
 			}
 			boardDB.checkReader(studynum,boardid,num,getSessionId(req),position);
 		}
-		List<CheckListVO> readerList = boardDB.ReaderList(studynum,boardid,num);
+		List<CheckListVO> readerList = boardDB.ReaderList(boardid,Integer.parseInt(studynum),num);
 		
 		mv.addAttribute("readerList", readerList);
 		mv.addAttribute("memberInfo", memberInfo);

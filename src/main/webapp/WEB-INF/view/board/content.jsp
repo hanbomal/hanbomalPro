@@ -56,9 +56,7 @@ $(document).ready(function(){
    				 <button onclick="myFunction()" class="w3-button" style="padding:2px">
    				
    				<!-- checkList -->
-   				 <img src="../imgs/sight.png"
-									class="w3-center"
-									style="width:50px;height:50px;">
+   				<i class="fa fa-eye" style="font-size:32px"></i>
    				 
    				 </button>
    					 <div id="Demo" class="w3-dropdown-content w3-border" style="z-index:99">
@@ -98,9 +96,8 @@ $(document).ready(function(){
    				 <button onclick="myFunction()" class="w3-button" style="padding:2px">
    				
    				<!-- checkList -->
-   				 <img src="../imgs/sight.png"
-									class="w3-center"
-									style="width:50px;height:50px;">
+   				<i class="fa fa-eye" style="font-size:32px"></i>
+   				 
    				 
    				 </button>
    					 <div id="Demo" class="w3-dropdown-content w3-border" style="z-index:99">

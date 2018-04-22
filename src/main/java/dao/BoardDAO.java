@@ -153,7 +153,7 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 		return li;
 	}
-	public List ReaderList(String boardid, String studynum, int num) {
+	public List ReaderList(String boardid, int studynum, int num) {
 		sqlSession = sqlSession();
 		Map map = new HashMap();
 		map.put("boardid", boardid);

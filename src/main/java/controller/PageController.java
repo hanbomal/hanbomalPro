@@ -610,11 +610,12 @@ public class PageController {
 	public String changeLeader(String memberid,String studynum) throws Throwable {
 		relationDB.changeLeader(studynum, memberid);
 		studyDB.changeLeader(studynum, memberid);
-		return "../page/study_test";
+		return "redirect:/page/main";
 	}
 	@RequestMapping("/banishMember")
-	public String banishMember(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
-		
+	public String banishMember(String memberid,String studynum) throws Throwable {
+		relationDB.banishStudy(studynum, memberid);
+		studyDB.banishMember(studynum);
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/deleteStudyGroup")

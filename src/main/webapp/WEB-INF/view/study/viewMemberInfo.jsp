@@ -110,7 +110,7 @@
 				        },
 						contentType:"application/x-www-form-urlencoded; charset=UTF-8",
 						success: function(data) {
-						       $('#content').html(data);
+							location.href = "../page/test?group="+num;
 						},
 						error: function(request, status, error) {
 							alert(error);
@@ -125,21 +125,26 @@
 			 
 		}
 		
-		function banishMember(){
-			event.preventDefault();
-			
-			var form=$('#memberForm')[0];
-			var formData= new FormData(form);
-			 $.ajax({
-                         type: 'POST',
-              			 url: '../page/banishMember',
-              		     data: formData,
-              		     processData: false,
-                         contentType: false,
-                         success: function(data){
-                            $('#content').html(data);
-                         }
-                 });
+		function banishMember(id,studynum){
+			var memberid=id;
+			var num=studynum;
+                 $.ajax({
+						type: 'POST',
+	              		url: '../page/banishMember',
+						async:false,
+						data: {  
+									"memberid":memberid,
+									"studynum":num
+				        },
+						contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+						success: function(data) {
+							 $('#content').html(data);
+						},
+						error: function(request, status, error) {
+							alert(error);
+						}
+	                 }); 
+                 
 			 document.getElementById('clearName').value=""; 
 			 document.getElementById('clickMember').style.display='none';
 			 

@@ -17,6 +17,7 @@
       <form id="positionForm" method="post">
    <input type="hidden" name="id" value="${id }" >
    <input type="hidden" name="studynum" value="${studynum }" >
+  
       <div class="w3-container">
       <div style="margin-top:10px">
       <font size=3>⦁ 역할명</font>

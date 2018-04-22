@@ -126,6 +126,14 @@ public class StudyDAO extends MybatisConnector{
 		sqlSession.commit();
 		sqlSession.close();
 	}
+	public void banishMember(String num) {
+		sqlSession=sqlSession();
+		Map map=new HashMap();
+		map.put("num", num);
+		sqlSession.update(namespace+".banishMember",map);
+		sqlSession.commit();
+		sqlSession.close();
+	}
 	public void changeLeader(String studynum, String memberid) {
 		sqlSession=sqlSession();
 		Map map=new HashMap();

@@ -207,6 +207,18 @@ public class RelationDAO extends MybatisConnector{
 		sqlSession.close();
 		
 	}
+	public void banishStudy(String studynum,String memberid) {
+		
+		sqlSession=sqlSession();
+		Map map=new HashMap();
+		map.put("studynum", studynum);
+		map.put("memberid", memberid);
+		
+		sqlSession.update(namespace+".banishStudy",map);
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
 	
 	public void changeLeader(String studynum,String leader) {
 		sqlSession=sqlSession();

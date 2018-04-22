@@ -79,7 +79,11 @@
    </select>
    
     <update id="deleteStudy" parameterType="map">
-      delete from studygroup where studyName=#{studyName} 
+      update from studygroup where studyName=#{studyName} 
+	 </update>
+	 
+    <update id="banishMember" parameterType="hashmap">
+     	update studygroup set peoplecount=peoplecount-1 where num=#{num}
 	 </update>
 	 
 	 <delete id="deleteStudyByNum" parameterType="hashmap">

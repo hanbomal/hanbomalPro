@@ -30,6 +30,8 @@ import model.Board2VO;
 @RequestMapping("/board2")
 public class Board2Controller {
 	
+
+	
 	public String getSessionId(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		String writer = (String) session.getAttribute("memberid");
@@ -153,7 +155,7 @@ public class Board2Controller {
 	@RequestMapping("/board2_content")
 	public String content (int num, Model model) throws Exception {
 		
-		Board2VO article = dbPro.getArticle(num);
+		Board2VO article = dbPro.getArticle(num,"board2_content");
 		
 	
 		
@@ -171,7 +173,7 @@ public class Board2Controller {
 		
 		
 			
-		Board2VO article = dbPro.getArticle(num);
+		Board2VO article = dbPro.getArticle(num,"board2_update");
 		
 		
 		model.addAttribute("article", article);
@@ -196,17 +198,17 @@ public class Board2Controller {
 		
 	
 	
-	@RequestMapping(value = "/board2_deletePro")
-	public ModelAndView board2_deletePro(int num) throws Exception {
+	@RequestMapping("/board2_deletePro")
+	public String board2_deletePro(int num) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("num", num);
 	
 		int check = dbPro.deleteArticle(num);
 		mv.addObject("check", check);
 		mv.addObject("pageNum",pageNum);
-		mv.setViewName("board2/board2_deletePro");
 		
-		return mv;
+		
+		return "redirect:board2_List";
 	}
 		
 		

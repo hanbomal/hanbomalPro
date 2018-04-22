@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.MemberDAO;
+import dao.RelationDAO;
 import dao.StudyDAO;
 import model.MemberVO;
 import model.StudyVO;
@@ -80,7 +81,7 @@ PageController page=new PageController();
 			req.setAttribute("pwcheck", pwcheck);
 			return "member/loginPro";
 		}
-		return null;
+		return "/page/main";
 	}
 	
 	@RequestMapping("/logoutPro")   
@@ -321,6 +322,7 @@ PageController page=new PageController();
 		String passwd = req.getParameter("passwd");
 		
 		MemberDAO dbPro=MemberDAO.getInstance();
+		
 		int chk=dbPro.deleteMember(memberid, passwd);
 		
 		
@@ -399,9 +401,9 @@ PageController page=new PageController();
 		req.setAttribute("studyName",studyName);
 		
 		req.setAttribute("chk", chk);
-
+		
  
- return "redirect:member/studyList";
+ return "redirect:/member/study_List";
 }
 
  @RequestMapping("/checkId") 

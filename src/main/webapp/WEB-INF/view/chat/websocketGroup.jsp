@@ -367,6 +367,24 @@ var today =new Date().toString('yyyyMMdd');
     +" </div></li></ul></td></tr></table>";  */
     
     
+    
+    
+    
+     if((lastday!=today)||(isEmpty=='true')){
+     	
+    	 var todaytext=new Date().toString('yyyy³â MM¿ù ddÀÏ');
+   
+
+    	 
+    	 textarea.innerHTML +="<div class='w3-margin-top dateTitle' style='width:100%;' align='center'>"
+ 			+"<span class='w3-tag w3-white w3-border w3-margin-top'>"+todaytext+"</span></div><br>";
+    	 
+     	lastday=today;
+     	isEmpty='false';
+     }
+    
+    
+    
     textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td>"
 		 +"<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
 	        +"<img src='"+memArr[texts[0]].photo+"' class='profileThum' >&nbsp;"+memArr[texts[0]].nick+"<br>"
@@ -524,7 +542,7 @@ var today =new Date().toString('yyyyMMdd');
     	        success: function (data) {
     	      
        	   rename=data;
-       	  inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+rename+" style='margin-top:10px' onclick=popupResize(this)><p/>"+inputMessage.value;
+       	  inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+rename+" style=cursor:pointer;margin-top:10px onclick=popupResize(this)><p/>"+inputMessage.value;
        	    
        	 textarea.innerHTML +="<div height=300px><table  align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
 			  +"<li class='w3-large' style='border:none;' align='right'>"

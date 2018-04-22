@@ -29,19 +29,16 @@
 <input  type="hidden"   name="re_level" value="${re_level}">
 <input  type="hidden"   name="re_step" value="${re_step}">
 <input  type="hidden"   name="pageNum" value="${pageNum}">
-<input  type="hidden"   name="writer" value="${sessionScope.memberid}">
+
 
       
     
  <div class="w3-container w3-margin-top w3-padding-32">
-      <form id="uploadform" method="post" name="writeform" enctype="multipart/form-data">
+      <form id="uploadform" method="post" name="writeform" enctype="multipart/form-data" action="<%=request.getContextPath()%>/board2/board2_WritePro">
               <input type="hidden" name="writer" value="${memberid}">
-             <input type="hidden" name="boardid" value="${boardid}">
-             <input type="hidden" name="studynum" value="${studynum}">
-             <input type="hidden" name="ref" value="${ref}">
-            <input type="hidden" name="re_level" value="${re_level}">
-            <input type="hidden" name="num" value="${num}">
-            <input type="hidden" name="re_step" value="${re_step}">
+             
+       
+           
       <table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 80%;margin-left:10% ">
          <tr>
                <c:if test="${num==0 }">
@@ -82,10 +79,12 @@
             </tr>
          </table>
             <div class="w3-center w3-padding-16">
-            <button type="submit" onclick="upload()" class=" w3-button w3-black">
-               <i class="fa fa-check"></i>확인</button>
+            
          <input type="button" value="목록보기" class="w3-black  w3-button" 
-               onClick="$('#content').load('../board/study_board?boardid=${boardid}&studynum=${studynum }')">
+               onclick="document.location.href='board2_List?pageNum=${pageNum}'">
+               <button type="submit" onclick="upload()" class=" w3-button w3-black">
+               <i class="fa fa-check"></i>확인</button>
+               
                <input type="reset" value="다시작성"
                class=" w3-black  w3-button ">
                

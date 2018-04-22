@@ -19,13 +19,8 @@ select * from (select rownum rnum, a.* from (select num, writer, subject, regdat
 	
 	select board2ser.nextval from dual
 	</select>
+  
 
-	
-	<update id="updateRe_step" parameterType="board2">
-	update board2 set re_step=re_step+1 "
- where ref=#{ref} and re_step> #{re_step} 
-	
-	</update>
 	
 	<insert id="insertArticle"  parameterType="board2">
 	insert into board2(num, writer, subject, regdate, ref, re_step, re_level, content, filename, filesize)
@@ -34,9 +29,9 @@ select * from (select rownum rnum, a.* from (select num, writer, subject, regdat
 	
 	<update id="addReadCount"  parameterType="hashmap">
 	
-	update board2 set readcount=readcount+1
-	where num=#{num} 
+	update board2 set readcount=readcount+1 where num=#{num} 
 	</update>
+	
 	<select id="getArticle" parameterType="hashmap" resultType="board2">
 	
 	select * from board2 where num =#{num} 

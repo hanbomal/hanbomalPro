@@ -13,7 +13,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-	<meta http-equiv="Refresh" content="0; url=study_List?pageNum=${pageNum}">
+	
 	<script type="text/javascript">
 		alert("${studyName} 이(가) 삭제되었습니다");
 	</script>

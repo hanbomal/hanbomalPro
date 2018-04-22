@@ -88,13 +88,17 @@ public class Board2DAO extends MybatisConnector {
 		sqlSession.commit(); 
 		sqlSession.close();
 	}
-	public Board2VO getArticle(int num) {
+	public Board2VO getArticle(int num,String chk) {
 		
 		sqlSession= sqlSession();
 		Map map = new HashMap();
 		map.put("num", num);
 		
-		sqlSession.update(namespace+".addReadCount",map);
+		if(chk.equals("content")) {
+			sqlSession.update(namespace+".addReadCount", map);
+		}
+		
+	  
 	
 		
 		Board2VO article = sqlSession.selectOne(namespace + ".getArticle" ,map);

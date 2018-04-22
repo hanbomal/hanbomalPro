@@ -13,12 +13,12 @@
   
   
 <div class="w3-section w3-row-padding">
-	<div class="w3-quarter">&nbsp;</div>
+   <div class="w3-quarter">&nbsp;</div>
 
   <div class="w3-half w3-container ">
   <div class="w3-container w3-white">
 
-	
+   
       
        <h6>공지사항  (총 : ${count })개</h6>
        
@@ -45,73 +45,78 @@
       <th class="w3-center" width="250">제 목</th>
       <th class="w3-center" width="100">작성자</th>
       <th class="w3-center" width="150">작성일</th>
-      <th class="w3-center" width="50">조 회</th>
+    <%--- -->  <th class="w3-center" width="50">조 회</th>--%>
     </tr>
     
  
-  	
-  	
-  	<c:forEach var="board2" items="${board2List}">
+     
+     
+     <c:forEach var="board2" items="${board2List}">
      <tr id="board2_List" class="w3-hover-white">
-      <td class="w3-center" width="50">${board2.num}</td>
-      <td> <a href="<%=request.getContextPath()%>/board2/board2_content?num=${board2.num}&pageNum=${currentPage}">
+      <td class="w3-center" width="50">${number}</td>
+         <c:set var="number" value="${number-1}"/>
+      <td> <a href="<%=request.getContextPath()%>/board2/board2_content?num=${board2.num}&pageNum=${currentPage}" style="text-decoration:none">
       ${board2.subject}</a></td>
         <c:if test="board2.readconut>=20">
-                	<img src="../img/hot.gif" border="0" height="16">
+                   <img src="../img/hot.gif" border="0" height="16">
                 </c:if></td>
       <td>${board2.writer}</td>
        <td>${board2.regdate}</td>
-        <td>${board2.readcount}</td>
+    <%---     <td>${board2.readcount}</td>----%>
       
          
   
      
      
     </tr>
-    </c:forEach>	
-  	
+    </c:forEach>   
+     
   </table>
   <p class="w3-right w3-padding-right-large">
-		
-		
+      
+      
 </div>
 
 
   <!-- Pagination -->
- <div class="w3-center">
-		<c:if test="${count>0 }">
-			<c:if test="${startPage>bottomLine }">
-				<a href="board2_List?pageNum=${startPage-bottomLine}">[이전]</a>				
-				
-			</c:if>
-			
-			<c:forEach var="i" begin="${startPage }" end="${endPage }">
-		
-					<a href="board2_List?pageNum=${i}">
-					<!-- pageNum넘김 -->
-					<c:if test="${i!=currentPage }">
-							[${i}]
-					</c:if>
-					<c:if test="${i==currentPage }">
-						<font color='black'>[${i}]</font>						
-					</c:if>
-					</a>			
-			</c:forEach>
-				
-				<c:if test="${endPage<pageCount}">
-			
-					<a href="board2_List?pageNum=${startPage+bottomLine}">[다음]</a>	
-				</c:if>
 
-	
-			</c:if>
-			
+      <c:if test="${count>0 }">
+       <div class="w3-center w3-padding-16">
+    <div class="w3-bar">
+         <c:if test="${startPage>bottomLine }">
+            <a href="board2_List?pageNum=${startPage-bottomLine}" class="w3-bar-item w3-button w3-hover-black">«</a>            
+            
+         </c:if>
+         
+         <c:forEach var="i" begin="${startPage }" end="${endPage }">
+      
+               
+               <!-- pageNum넘김 -->
+               <c:if test="${i!=currentPage }">
+                    <a href="board2_List?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>
+               </c:if>
+               <c:if test="${i==currentPage }">
+                  <a href="board2_List?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>                
+               </c:if>
+               </a>         
+         </c:forEach>
+            
+            <c:if test="${endPage<pageCount}">
+         
+               <a href="board2_List?pageNum=${startPage+bottomLine}"class="w3-bar-item w3-button w3-hover-black">»</a> 
+            </c:if>
+
+   </div>
+   </div>
+         </c:if>
+         
 </div>
       </div>
     </div>
-  </div>
-  
-  
-</div>
-</div>
+ </div></div>
+
 </html>
+
+
+<!-- ----- -->
+

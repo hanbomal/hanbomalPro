@@ -40,14 +40,14 @@ function button_event(){
 <div class="w3-container">
   <table class="w3-table  ">
     <tr>
-    <th>NUMBER</th>
-      <th>NAME</th>
-      <th>INFO</th>
-      <th>LEADER</th>
-      <th>OPEN DATE</th>
+    <th>그룹번호</th>
+      <th>그룹이름</th>
+      <th>그룹소개</th>
+      <th>그룹장</th>
+      <th>개설일</th>
 
     
-     <th>DELETE</th>
+     <th>삭제</th>
       
     </tr>
     
@@ -73,7 +73,7 @@ function button_event(){
                      <input type="hidden" name="studyName" value="${study.studyName}">
 					
 							
-                  <input type="submit" class="w3-button w3-w3-pale-red w3-hover-black" value="삭제" onclick="return button_event(this.form);">
+                  <input type="submit" class="w3-button w3-center w3-black w3-hover-gray" value="삭제" onclick="return button_event(this.form);">
                       
          </form>
          </td>
@@ -89,40 +89,41 @@ function button_event(){
 
 
   <!-- Pagination -->
- <div class="w3-center">
-		<c:if test="${count>0 }">
-			<c:if test="${startPage>bottomLine }">
-				<a href="study_List?pageNum=${startPage-bottomLine}">[이전]</a>				
-				
-			</c:if>
-			
-			<c:forEach var="i" begin="${startPage }" end="${endPage }">
-		
-					<a href="study_List?pageNum=${i}">
-					<!-- pageNum넘김 -->
-					<c:if test="${i!=currentPage }">
-							[${i}]
-					</c:if>
-					<c:if test="${i==currentPage }">
-						<font color='black'>[${i}]</font>						
-					</c:if>
-					</a>			
-			</c:forEach>
-				
-				<c:if test="${endPage<pageCount}">
-			
-					<a href="study_List?pageNum=${startPage+bottomLine}">[다음]</a>	
-				</c:if>
 
-	
-			</c:if>
-			
+      <c:if test="${count>0 }">
+       <div class="w3-center w3-padding-16">
+    <div class="w3-bar">
+         <c:if test="${startPage>bottomLine }">
+            <a href="study_List?pageNum=${startPage-bottomLine}" class="w3-bar-item w3-button w3-hover-black">«</a>            
+            
+         </c:if>
+         
+         <c:forEach var="i" begin="${startPage }" end="${endPage }">
+      
+               
+               <!-- pageNum넘김 -->
+               <c:if test="${i!=currentPage }">
+                    <a href="study_List?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>
+               </c:if>
+               <c:if test="${i==currentPage }">
+                  <a href="study_List?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>                
+               </c:if>
+               </a>         
+         </c:forEach>
+            
+            <c:if test="${endPage<pageCount}">
+         
+               <a href="study_List?pageNum=${startPage+bottomLine}"class="w3-bar-item w3-button w3-hover-black">»</a> 
+            </c:if>
+
+   </div>
+   </div>
+         </c:if>
+         
 </div>
       </div>
     </div>
-  </div>
-  
-  
-</div>
-</div>
+ </div></div>
+
 </html>
+

@@ -35,30 +35,34 @@
     <form name="memberpasswd" class="w3-container w3-card-4 w3-white w3-text-black w3-margin w3-animate-bottom w3-round" >
 
 
-
+ <p class="w3-center">
 <h5 class="w3-center">${memberid} 님의 비밀번호는 ..</h5>
-
+</p>
 <div class="w3-row w3-section">
   
  
 
-<p class="w3-center">
+
 <div class="w3-row w3-section">
   
-    <div class="w3-rest ">
-  PASSWORD    <input class="w3-input w3-border w3-light-grey " style="width:300px; display: inline-block,center;" name="passwd"  readonly="readonly" type="text" value="${member.passwd }"  >
+    <div class="w3-rest w3-center">
+    <p class="w3-center">
+    <h5 class="w3-center">"  ${member.passwd}   "  입니다.</h5>
+   
+   </p>
+   
     </div>
 </div>
 
 </div>
-</p>
+
 
 
 <p class="w3-center">
 
 
 
-<input type="button" value="MAIN" class="w3-button w3-gray" OnClick="window.location='../page/main'">  
+<input type="button" value="메인화면" class="w3-button w3-black w3-hover-gray" OnClick="window.location='../page/main'">  
 </p>
 
 </form>

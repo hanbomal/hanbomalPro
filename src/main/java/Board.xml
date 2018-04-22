@@ -62,7 +62,7 @@
 	
 	
 	<select id="getnewBoardType" resultType="Type" parameterType="hashmap">
-			select * from boardtype where studynum =#{studynum} and boardid=(select max(boardid) from BOARDTYPE)
+			select * from boardtype where studynum =#{studynum} and boardid=(select max(boardid) from BOARDTYPE where studynum=#{studynum})
 	</select>		
 	
 					

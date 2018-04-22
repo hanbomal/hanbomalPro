@@ -37,7 +37,7 @@ $('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${grou
   </script>
  
 
-<!--  
+<!--  	
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -45,10 +45,20 @@ $('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${grou
  -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<c:if test="${study.study_back!=null }">
+<style>
+.bgimg-1 {
+	background-position: center;
+	background-size: cover;
+	background-image: url("../fileSave/${study.study_back}");
+	min-height: 100%;
+}
+</style>
+</c:if>
 <style>
  
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
 
 pre {
 margin:0;

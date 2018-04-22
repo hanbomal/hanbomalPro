@@ -14,7 +14,6 @@
 <div class="w3-container " style="height:600px; width:100%; overflow:auto;  ">
      <input type="hidden" value="${memberid }" id="memberidChk">
 <div class="w3-container " style="width: 100%;">
- <!--  <div class="w3-card-2" style="margin-top:10px" > -->
  <div  id="content" style="height:100%;" >
      <h4 style="display: inline-block;">${boardType.boardname}</h4>
      <c:if test="${count!=0 }">	

@@ -313,8 +313,9 @@ public class BoardController {
 	public Map< String, Object> ajax_receiveJSON_boardtypeList(HttpServletRequest req) {
 		
 		String studynum=req.getParameter("studynum");
+		System.out.println("123123123123"+studynum);
 		BoardTypeVO type=boardDB.getnewBoardType(studynum);
-		
+		System.out.println("type==="+type);
 		
 		Map< String, Object> map = new HashMap< String, Object>();
 		

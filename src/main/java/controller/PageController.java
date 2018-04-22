@@ -293,7 +293,7 @@ public class PageController {
 		StudyVO study= studyDB.getOneStudy(group);
 		mv.addAttribute("study", study);
 		mv.addAttribute("group",group);
-		
+	
 		workspaceTitle=study.getStudyName();
 		mv.addAttribute("workspaceTitle",workspaceTitle);
 		

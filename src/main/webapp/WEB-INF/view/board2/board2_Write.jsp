@@ -1,19 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <html>
 <head>
 <title>게시판</title>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 
 <p class="w3-left"  style="padding-left:30px;"></p>
-<div class="w3-container bgimg-1" style="padding:64px 16px; " id="about;  ">
-  
-<div class="w3-section w3-row-padding; overflow:auto;">
 	<div class="w3-quarter">&nbsp;</div>
 
 
@@ -24,18 +19,18 @@
 
     <div  id="content" style="height:80%; margin: 0% 15%;" >
                  
-      <input  type="hidden"   name="num" value="${num}">
-<input  type="hidden"   name="ref" value="${ref}">
-<input  type="hidden"   name="re_level" value="${re_level}">
-<input  type="hidden"   name="re_step" value="${re_step}">
-<input  type="hidden"   name="pageNum" value="${pageNum}">
-
+  
 
       
     
  <div class="w3-container w3-margin-top w3-padding-32">
       <form id="uploadform" method="post" name="writeform" enctype="multipart/form-data" action="<%=request.getContextPath()%>/board2/board2_WritePro">
               <input type="hidden" name="writer" value="${memberid}">
+                 <input  type="hidden"   name="num" value="${num}">
+<input  type="hidden"   name="ref" value="${ref}">
+<input  type="hidden"   name="re_level" value="${re_level}">
+<input  type="hidden"   name="re_step" value="${re_step}">
+<input  type="hidden"   name="pageNum" value="${pageNum}">
              
        
            

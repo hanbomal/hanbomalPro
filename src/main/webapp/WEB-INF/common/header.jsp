@@ -80,7 +80,9 @@ body, html {
 
 			<!-- Right-sided navbar links -->
 			<div class="w3-right w3-hide-small">
-				<a href="<%=request.getContextPath() %>/board2/board2_List" class="w3-bar-item w3-button">공지사항</a>
+				<a href="<%=request.getContextPath() %>/board2/board2_List" class="w3-bar-item w3-button">
+				<i class="fa fa-check-square " style="font-size:24"></i>
+				공지사항</a>
 
 		<c:if test="${sessionScope.memberid==null}">
 				<a href="javascript:void(0)" class="w3-bar-item w3-button"

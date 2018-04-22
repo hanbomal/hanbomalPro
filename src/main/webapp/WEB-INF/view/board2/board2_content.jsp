@@ -51,7 +51,7 @@
    			
  				 </div>
 								<img
-									src="../fileSave2/${article.filename}"
+									src="../fileSave/${article.filename}"
 									class="w3-border w3-center"
 									style="max-height:400px;">
  				 	</div>

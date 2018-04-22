@@ -121,7 +121,7 @@ $(document).ready(function(){
 		</table>  
 			<c:if test="${article.filename!=null }">
 			<div class="w3-left w3-card-2 w3-white w3-margin-bottom"  style="height:350px;width:100%; overflow: auto;">
-			<pre>${article.content}</pre>
+			<pre class="w3-left w3-padding">${article.content}</pre>
 			</div>
 			</c:if>
 			

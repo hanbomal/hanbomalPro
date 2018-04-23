@@ -11,7 +11,7 @@
 
 </div>
 
-<img class="w3-card-4" id="img01" src="<%=request.getContextPath() %>/fileSave/${gallery.filename}" style="max-width:100%; max-height:500px;">
+<img class="w3-card-4" id="img01" src="<%=request.getContextPath() %>/fileSave/${gallery.filename}" style="max-width:100%; max-height:500px; cursor:pointer;" onclick=popupResize(this)>
 
 <p/>
 

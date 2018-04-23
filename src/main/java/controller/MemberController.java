@@ -192,6 +192,10 @@ PageController page=new PageController();
 		MemberDAO dbPro=MemberDAO.getInstance();
 		int chk=dbPro.deleteMember(memberid, passwd);
 		
+		
+		RelationDAO dbPro2=RelationDAO.getInstance();
+		dbPro2.deleteRelation(memberid);
+		
 		req.setAttribute("chk", chk);
 		
 		return "member/member_deletePro";
@@ -325,6 +329,9 @@ PageController page=new PageController();
 		
 		int chk=dbPro.deleteMember(memberid, passwd);
 		
+		RelationDAO dbPro2=RelationDAO.getInstance();
+		dbPro2.deleteRelation(memberid);
+		
 		
 		req.setAttribute("memberid",memberid);
 		req.setAttribute("chk", chk);
@@ -396,6 +403,7 @@ PageController page=new PageController();
 		
 		StudyDAO dbPro=StudyDAO.getInstance();
 		int chk=dbPro.deleteStudy(studyName);
+		dbPro.deteRelation(studyName);
 		
 		   
 		req.setAttribute("studyName",studyName);

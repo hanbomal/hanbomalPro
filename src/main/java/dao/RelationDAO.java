@@ -232,4 +232,16 @@ public class RelationDAO extends MybatisConnector{
 	}
 	
 	
+	public void deleteRelation(String memberid) {
+		sqlSession=sqlSession();
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("memberid", memberid);
+	
+		sqlSession.delete(namespace+".deleteRelation",map);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
+	
+	
 }

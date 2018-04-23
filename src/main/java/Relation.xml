@@ -98,4 +98,8 @@
 	SELECT * FROM studyrelation WHERE studynum=#{studynum} and (status=2 or status=3 or status=4 )
 	</select>
 	
+	<delete id="deleteRelation" parameterType="hashmap">
+	delete from studyrelation where memberid =#{memberid}
+	</delete>
+	
 </mapper>

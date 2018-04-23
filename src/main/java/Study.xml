@@ -78,9 +78,13 @@
       SELECT nvl(count(*),0) FROM studygroup
    </select>
    
-    <update id="deleteStudy" parameterType="map">
-      update from studygroup where studyName=#{studyName} 
-	 </update>
+    <delete id="deleteStudy" parameterType="map">
+      delete from studygroup where studyName=#{studyName} 
+	 </delete>
+	 
+    <delete id="deteRelation" parameterType="map">
+      delete from studyrelation where studyName=#{studyName} 
+	 </delete>
 	 
     <update id="banishMember" parameterType="hashmap">
      	update studygroup set peoplecount=peoplecount-1 where num=#{num}

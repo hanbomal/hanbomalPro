@@ -191,6 +191,18 @@ public int deleteStudy(String studyName) {
 	return chk;
 	
 }
+public int deteRelation(String studyName) {
+	
+	sqlSession= sqlSession();
+	Map map = new HashMap();
+	map.put("studyName", studyName);
+	int chk = sqlSession.delete(namespace+".deteRelation", map);
+	sqlSession.commit();
+	sqlSession.close();
+	
+	return chk;
+	
+}
 public int getPeopleCount(int studyNum) {
 	sqlSession= sqlSession();
 	Map map = new HashMap();

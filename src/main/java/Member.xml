@@ -26,12 +26,12 @@
    </update>  
    
    
-  <update id="deleteMember" parameterType="map">
+  <delete id="deleteMember" parameterType="map">
       delete from member where memberid=#{memberid} 
 				 and passwd =#{passwd}
 	
   
-  </update>
+  </delete>
   
   <select id="findPasswd" parameterType="hashmap" resultType="String">
   

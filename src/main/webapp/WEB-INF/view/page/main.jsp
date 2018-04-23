@@ -77,6 +77,7 @@
 									<input type="hidden" name="reqNum" value="1" /> 
 									<input type="hidden" name="correctName" value="${room.studyName}" />
 									<input type="hidden" name="studyName" value="${studyName}" />
+									<input type="hidden" name="studynum" value="${room.num}" />
 									<input type="hidden" name="leader" value="${room.leader}" /> 
 									<input type="hidden" name="chk" value="${chk}" /> 
 									<input class="w3-button w3-red"	

@@ -266,13 +266,13 @@ var today =new Date().toString('yyyyMMdd');
         var textarea = document.getElementById("messageWindow");
       
       
-     <%--   var webSocket = new WebSocket(
+        var webSocket = new WebSocket(
    'ws://211.238.142.34:8080<%=request.getContextPath()%>/webGroup?name='
-   		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>')); --%>
+   		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
     		
-		 var webSocket = new WebSocket(
+		 <%-- var webSocket = new WebSocket(
 				    'ws://localhost:8080<%=request.getContextPath()%>/webGroup?name='
-				    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
+				    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>')); --%>
     		 
     		 
         var inputMessage = document.getElementById('inputMessage');

@@ -106,13 +106,13 @@ public class PageController {
 
 	@RequestMapping("/requestJoin")
 	public String requestJoin(String reqNum,String correctName,
-			HttpServletRequest req,String studyName,String leader,String chk) throws Throwable {
+			HttpServletRequest req,String studyName,String leader,String chk,String studynum) throws Throwable {
 		RelationDAO dbPro = RelationDAO.getInstance();
 		if (reqNum == null) {
 			reqNum = "";
 		}
 		if (reqNum.equals("1")) {
-			dbPro.requestJoin(getSessionId(req),group,correctName, getSessionNick(req), leader);
+			dbPro.requestJoin(getSessionId(req),studynum,correctName, getSessionNick(req), leader);
 			studyName = URLEncoder.encode(studyName, "UTF-8");
 			return "redirect:/page/main?&studyName="+ studyName+"&chk="+chk;
 		}

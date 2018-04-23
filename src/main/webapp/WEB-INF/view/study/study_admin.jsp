@@ -137,7 +137,7 @@ typeList newBoardType positionList study memberCount memberid group
 			
 			  if(confirm("그룹 삭제하시겠습니까?")==true){
 				  window.location.href="../page/deleteStudyGroup?studynum="+num;
-								alert('한보말 시전완료ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ잘살아');
+								/* alert('한보말 시전완료ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ잘살아'); */
 			  }else{
 				  return;
 			  }

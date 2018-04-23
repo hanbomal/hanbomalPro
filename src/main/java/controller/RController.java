@@ -118,6 +118,9 @@ public class RController {
 	            if(content.contains("<img src=")) {
 	            	continue;
 	            }
+	            if(content.contains("<a href=")) {
+	            	continue;
+	            }
 	            
 	            if(content.contains("다시 보내기를 하셨습니다.")) {
 	            	continue;
@@ -149,6 +152,7 @@ public class RController {
 	            content=content.replace(".", " ");
 	            content=content.replace("-", "");
 	            content=content.replace("\t", "");
+	            content=content.replace("?", " ");
 	            content=content.replace("을", " ");
 	            content=content.replace("까지", " ");
 	            content=content.replace("가", " ");

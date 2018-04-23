@@ -99,6 +99,9 @@ public class PageController {
 		String memberid = getSessionId(req);
 		List<StudyVO> group = studyDB.resultList(studyName, memberid, chk);
 		mv.addAttribute("group", group);
+		/*if(group==null) {
+			mv.addAttribute("groupcount","0");
+		}*/
 		mv.addAttribute("studyName", studyName);
 		mv.addAttribute("chk",chk);
 		return "page/main";

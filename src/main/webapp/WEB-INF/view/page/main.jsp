@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,6 +15,10 @@
 		<div class="w3-quarter"> &nbsp;</div>
 		
 		<div class="w3-container w3-half "  >
+	<%-- 	<c:if test="${groupcount==0}">
+		<div class="w3-margin-top w3-center w3-card-4" style="background: rgba(241, 241, 241, 0.75); ">
+		<span class="w3-tag w3-border w3-white " style="margin:300px 0;">개설된 스터디가 없습니다.</span></div>
+		</c:if> --%>
 			<c:if test="${group.size()!=null}">
 				<div class="w3-card-4 w3-white w3-padding">
 					<font>&nbsp;검색결과: ${group.size()} 건</font>
@@ -29,10 +34,10 @@
   			  <option value="byDate">최신순</option>
 			</select>
 				</div>
-			</c:if>
+			
 			<c:forEach var="room" items="${group}">
 				<div class="w3-card-4 w3-light-grey" >
-					<div class="w3-cell-row">
+					<div class="w3-cell-row w3-padding">
 						<div class="w3-cell w3-cell-middle w3-center w3-hide-small"
 							style="width: 80px; height: 65px">
 							<!--그룹 프로필  -->
@@ -51,21 +56,21 @@
 						</div>
 						<div class="w3-cell w3-padding " style="height:70px;padding:5px;padding-left:10px">
 						<c:if test="${room.relation.status!=2}">
-							<div >⦁그룹명: <font size="4"><Strong>${room.studyName}</Strong></font>
+							<div >⦁ 그룹명: <font size="4"><Strong>${room.studyName}</Strong></font>
 					    	</div>	
 						</c:if>	
 						<c:if test="${room.relation.status==2}">
-							<div >⦁그룹명: <a href="../page/test?group=${room.num}">
+							<div >⦁ 그룹명: <a href="../page/test?group=${room.num}">
 							<font size="4"><Strong>${room.studyName}</Strong></font></a>
 					    	</div>	
 					    	
 						</c:if>
 						<div class="w3-row">
-							<div class="w3-third">⦁방 장: ${room.leader}</div>	
-							<div class="w3-third">⦁멤버수: ${room.peopleCount}</div>
-							<div class="w3-third">⦁개설일: ${room.openDate}</div>
+							<div class="w3-third">⦁ 방 장: ${room.leader}</div>	
+							<div class="w3-third">⦁ 멤버수: ${room.peopleCount}</div>
+							<div class="w3-third">⦁ 개설일: ${room.openDate}</div>
 						</div> 
-						<div >⦁소 개: ${room.study_intro}
+						<div >⦁ 소 개: ${room.study_intro}
 						</div>
 						
 
@@ -108,10 +113,17 @@
 									<div style="margin-top:20px">
 									<i class="fa fa-check"></i>회원</div>
 									</div> -->
+									
+									<c:if test="${room.relation.leader==memberid }">
+									<button class="w3-button w3-teal"	
+									type="button" disabled="disabled" value="가입" style="height:70px" >
+									방장</button>
+									</c:if>
+									<c:if test="${room.relation.leader!=memberid }">
 									<button class="w3-button w3-teal"	
 									type="button" disabled="disabled" value="가입" style="height:70px" >
 									회원</button>
-									
+									</c:if>
 							
 								</c:if>
 						</div>
@@ -120,6 +132,7 @@
 
 				</div>
 			</c:forEach>
+			</c:if>
 		</div>
 	</div>
 

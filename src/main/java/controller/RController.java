@@ -155,7 +155,7 @@ public class RController {
 	            content=content.replace("?", " ");
 	            content=content.replace("을", " ");
 	            content=content.replace("까지", " ");
-	            content=content.replace("가", " ");
+	          
 	            content=content.replace("저는", " ");
 	            String arg[]=content.split("\\s+");
 	            
@@ -232,6 +232,7 @@ public class RController {
 	            
 	           
 	            System.out.println(content);
+	            
 	            content=content.replace("<", "");
 	            content=content.replace(">", "");
 	            content=content.replace("(", " ");

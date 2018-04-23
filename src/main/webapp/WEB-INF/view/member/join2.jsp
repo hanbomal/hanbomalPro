@@ -145,9 +145,9 @@ onsubmit="return checkValue()" >
 <div class="w3-row w3-section">
  
     <div class="w3-rest">
-    ID
-   <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="memberid" type="text"  style="margin-left: 2%;" required>
-   
+    ID<br>
+   <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block;" name="memberid" type="text"  style="margin-left: 2%;" required>
+
     <input class="w3-button w3-border w3-small w3-black"  type="button" value="중복확인" onclick="checkid(this.form)" style="font-size: 8pt; display: inline-block; onkeydown="inputIdChk()" >      
         <input type="hidden" name="idDuplication" value="idUncheck"> 
   

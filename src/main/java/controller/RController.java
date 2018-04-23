@@ -92,7 +92,7 @@ public class RController {
 	               if((key.length()%2)!=0){
 	            	   key=key+" ";
 	               }
-	               
+	               	key=key+" ";
 	               ps.print(key+","+et.getValue()+"\r\n");
 	            }ps.flush();
 	            ps.close();
